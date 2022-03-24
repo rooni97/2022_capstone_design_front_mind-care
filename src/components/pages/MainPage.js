@@ -24,12 +24,12 @@ export default MainPage;
 const PageContainer = styled.div`
   width: 100%;
   height: 3000px;
-  padding-top: 160px;
+  padding-top: 120px;
   background-color: black;
   .slick {
-    margin-left: 35px;
-    margin-bottom: 100px;
-    width: 97%;
+    margin: auto;
+    width: 95%;
+    height: 90vh;
   }
 `
 
