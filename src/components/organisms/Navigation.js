@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 function Navigation(props) {
     let navigate = useNavigate();
-    const [display, setDisplay] = useState('');
+    const [display, setDisplay] = useState(1);
 
     const handleClick = (e) => {
         const route = e.target.value;
@@ -39,13 +39,13 @@ function Navigation(props) {
             <BtnContainer>
                 <Btn onClick={handleClick} value={'Home'}>Home</Btn>
                 <Btn onClick={handleClick} value={'Diary'}>Diary</Btn>
-                <Btn onMouseOver={() => setDisplay(0)} onMouseOut={() => setDisplay('')}>
+                <Recom onMouseOver={() => setDisplay(0)} onMouseOut={() => setDisplay('')}>
                     <Btn>Recommandation</Btn>
-                    <DropDownContainer display={display === 0}>
+                    <DropDownContainer display={display === 0 ? 'block' : 'none'}>
                         <Btn onClick={handleClick} value={'Music'}>Music & Behavior</Btn>
                         <Btn onClick={handleClick} value={'Restaurant'}>Restaurant</Btn>
                     </DropDownContainer>
-                </Btn>
+                </Recom>
                 <Btn onClick={handleClick} value={'Community'}>Community</Btn>
             </BtnContainer>
             <BtnContainer>
@@ -90,9 +90,6 @@ const BtnContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-self: center;
-  & .manage {
-    width: 100%;
-  }
   & > button {
     box-sizing: border-box;
     margin: 0 10px;
@@ -120,5 +117,16 @@ const Logo = styled.h1`
 `;
 
 const DropDownContainer = styled.div`
-  display: ${props => (props.display ? 'block' : 'none')};
+  display: ${props => props.display};
+`;
+
+const Recom = styled.div`
+  width: 100%;
+  height: 70px;
+  box-sizing: border-box;
+  background-color: #000000;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  color: #fff;
 `;
