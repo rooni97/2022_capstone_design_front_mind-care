@@ -28,7 +28,7 @@ const PageContainer = styled.div`
   background-color: black;
   .slick {
     margin: auto;
-    width: 95%;
+    width: 80%;
     height: 90vh;
   }
 `
