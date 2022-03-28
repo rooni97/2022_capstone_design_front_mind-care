@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 function CommunityPage(props) {
     return (
-        <div>
+        <div id="0">
             <Navigation />
             <PageContainer>
                 <div style={{height: '20%'}}>

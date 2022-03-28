@@ -15,7 +15,7 @@ function DiaryPage(props) {
     }
 
     return (
-        <div>
+        <div id="0">
             <Navigation />
             <PageContainer>
                 <h1 style={{color: 'white', marginLeft: 80, fontSize: 50}}>오늘의 일기 쓰기</h1>

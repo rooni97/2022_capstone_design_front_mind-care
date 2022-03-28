@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 function MusicBehaviorPage(props) {
     return (
-        <div>
+        <div id="0">
             <Navigation />
             <PageContainer>
                 <h1 style={{color: 'white', marginLeft: 80, fontSize: 50}}>~할땐 이런 노래 어떠세요?</h1>
