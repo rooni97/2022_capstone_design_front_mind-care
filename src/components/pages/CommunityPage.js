@@ -15,7 +15,6 @@ function CommunityPage(props) {
                 <div style={{height: '100%'}}>
                     <h1 style={{color: 'white', marginLeft: 80}}>커뮤니티 위치하는 곳</h1>
                 </div>
-
             </PageContainer>
         </div>
     );

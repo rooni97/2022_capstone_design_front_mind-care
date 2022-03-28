@@ -11,8 +11,11 @@ function MainPage(props) {
                 <div className={'slick'}>
                     <Slick />
                 </div>
-                <div style={{backgroundColor: 'white', height: '100%'}}>
-                    <h1>영상? 공지사항? 커뮤니티?</h1>
+                <div id="1" className={'main'} style={{backgroundColor: 'white', height: '100vh'}}>
+                    <h1>오늘 이 노래 어떠세요?</h1>
+                </div>
+                <div id="2" className={'main'} style={{backgroundColor: 'white', height: '100vh'}}>
+                    <h1>이번 주 인기 음악</h1>
                 </div>
             </PageContainer>
         </div>
@@ -29,7 +32,10 @@ const PageContainer = styled.div`
   .slick {
     margin: auto;
     width: 80%;
-    height: 90vh;
+    height: 95vh;
+  }
+  .main {
+    padding-top: 120px;
   }
 `
 

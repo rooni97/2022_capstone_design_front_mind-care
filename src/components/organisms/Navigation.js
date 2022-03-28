@@ -35,7 +35,7 @@ function Navigation(props) {
 
     return (
         <Container>
-            <Logo>WebName</Logo>
+            <Logo>MindCare</Logo>
             <BtnContainer>
                 <Btn onClick={handleClick} value={'Home'}>Home</Btn>
                 <Btn onClick={handleClick} value={'Diary'}>Diary</Btn>
