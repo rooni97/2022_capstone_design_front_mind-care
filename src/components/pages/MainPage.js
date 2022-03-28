@@ -39,21 +39,29 @@ function MainPage(props) {
                 <div className={'slick'}>
                     <Slick />
                 </div>
-                <div id="1" className={'main'} style={{backgroundColor: 'white', height: '100vh'}}>
-                    <h1>오늘 이 노래 어떠세요?</h1>
+                <div id="1" className={'main'} style={{height: '100vh', fontSize: '1.5vw'}}>
+                    <h1 style={{color: 'white', textAlign: 'center'}}>오늘 이 노래 어떠세요?</h1>
                     <MusicThumbnail src={musicArr} handleClick={handleClick}/>
                     {selected !== null ?
-                            <iframe width="100%" height="55%" src={`https://www.youtube.com/embed/${selected}`}
-                                                  title="YouTube video player" frameBorder="0"
-                                                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                                  allowFullScreen></iframe>
+                        <iframe width="100%" height="55%" src={`https://www.youtube.com/embed/${selected}`}
+                                title="YouTube video player" frameBorder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen></iframe>
                         :
-                        <h1>노래를 선택해주세요.</h1>
+                        <h1 style={{color: 'white', textAlign: 'center'}}>노래를 선택해주세요.</h1>
                     }
-
                 </div>
-                <div id="2" className={'main'} style={{backgroundColor: 'white', height: '100vh'}}>
-                    <h1>이번 주 인기 음악</h1>
+                <div id="2" className={'main'} style={{height: '100vh', fontSize: '1.5vw'}}>
+                    <h1 style={{color: 'white', textAlign: 'center'}}>이번 주 인기 음악</h1>
+                    <MusicThumbnail src={musicArr} handleClick={handleClick}/>
+                    {selected !== null ?
+                        <iframe width="100%" height="55%" src={`https://www.youtube.com/embed/${selected}`}
+                                title="YouTube video player" frameBorder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen></iframe>
+                        :
+                        <h1 style={{color: 'white', textAlign: 'center'}}>노래를 선택해주세요.</h1>
+                    }
                 </div>
             </PageContainer>
         </div>
@@ -73,7 +81,7 @@ const PageContainer = styled.div`
     height: 95vh;
   }
   .main {
-    padding-top: 120px;
+    padding-top: 80px;
   }
 `
 

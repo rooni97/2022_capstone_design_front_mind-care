@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from "styled-components";
 
 function MusicThumbnail(props) {
 
@@ -8,7 +9,7 @@ function MusicThumbnail(props) {
                 const addr = link.thumbnails.default.url;
                 const id = link.resourceId.videoId;
                 return (
-                        <img onClick={props.handleClick} id={id} key={index} src={addr} style={{width: '10%'}}/>
+                        <ImgButton onClick={props.handleClick} id={id} key={index} src={addr} style={{width: '10%'}}/>
                    )
             })}
         </div>
@@ -16,3 +17,11 @@ function MusicThumbnail(props) {
 }
 
 export default MusicThumbnail;
+
+const ImgButton = styled.img`
+  width: 10%;  
+  cursor: pointer;
+  &:hover {
+    transform: scale(1.05);
+  }
+`;
