@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import CustomButton from "../atoms/CustomButton";
+import {Link} from "react-scroll";
 
 function Navigation(props) {
     let navigate = useNavigate();
@@ -36,19 +38,19 @@ function Navigation(props) {
     return (
         <Container>
             <Logo>MindCare</Logo>
-            <BtnContainer>
+            <BtnContainer to="0" spy={true} smooth={true}>
                 <Btn onClick={handleClick} value={'Home'}>Home</Btn>
                 <Btn onClick={handleClick} value={'Diary'}>Diary</Btn>
                 <Recom onMouseOver={() => setDisplay(0)} onMouseOut={() => setDisplay('')}>
                     <Btn>Recommandation</Btn>
-                    <DropDownContainer display={display === 0 ? 'block' : 'none'}>
+                    <DropDownContainer to="0" spy={true} smooth={true} display={display === 0 ? 'block' : 'none'}>
                         <Btn onClick={handleClick} value={'Music'}>Music & Behavior</Btn>
                         <Btn onClick={handleClick} value={'Restaurant'}>Restaurant</Btn>
                     </DropDownContainer>
                 </Recom>
                 <Btn onClick={handleClick} value={'Community'}>Community</Btn>
             </BtnContainer>
-            <BtnContainer>
+            <BtnContainer to="0" spy={true} smooth={true}>
                 <Btn onClick={handleClick} value={'Login'}>Login</Btn>
                 <Btn onClick={handleClick} value={'My Page'}>My Page</Btn>
             </BtnContainer>
@@ -86,7 +88,7 @@ const Container = styled.div`
   }
 `;
 
-const BtnContainer = styled.div`
+const BtnContainer = styled(Link)`
   display: flex;
   flex-direction: row;
   align-self: center;
@@ -116,7 +118,7 @@ const Logo = styled.h1`
   margin-left: 5rem;
 `;
 
-const DropDownContainer = styled.div`
+const DropDownContainer = styled(Link)`
   display: ${props => props.display};
 `;
 

@@ -3,7 +3,7 @@ import Navigation from "../organisms/Navigation";
 
 function MyPage(props) {
     return (
-        <div>
+        <div id="0">
             <Navigation />
         </div>
     );
