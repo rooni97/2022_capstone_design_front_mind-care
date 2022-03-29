@@ -89,7 +89,7 @@ function MainPage(props) {
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                     allowFullScreen></iframe>
                             :
-                            <h1 style={{width:"60%", color: 'white', textAlign: 'center'}}>Player</h1>
+                            <h1 style={{width:"60%", height: '100%', color: 'white', textAlign: 'center'}}>재생 버튼을 눌러주세요.</h1>
                         }
                     </div>
                 </div>
@@ -110,7 +110,7 @@ function MainPage(props) {
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                     allowFullScreen></iframe>
                             :
-                            <h1 style={{width:"60%", color: 'white', textAlign: 'center'}}>Player</h1>
+                            <h1 style={{width:"60%", color: 'white', textAlign: 'center'}}>재생 버튼을 눌러주세요.</h1>
                         }
                     </div>
 
