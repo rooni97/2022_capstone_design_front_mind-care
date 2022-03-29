@@ -12,7 +12,7 @@ function FamousMusicSlick(props) {
         <SlickContainer>
             <h1>이번 주 인기 음악</h1>
             <h4 style={{width: '40%', color: '#AE946A'}}>POPULAR MUSIC OF THE WEEK</h4>
-            <h5 style={{width: '26%'}}>이번 주 10명 중 4명이 ~한 감정을 느끼고 이런 노래들을 감상했어요.</h5>
+            <h5 style={{width: '26%'}}>어떤 노래를 들어야 할지 모르겠다면? 이번 주 최신 인기 음악을 추천드릴게요.</h5>
             <div>
                 <Link to="2" spy={true} smooth={true}>
                     <CustomButton>Play Now</CustomButton>
