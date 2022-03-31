@@ -45,7 +45,7 @@ const PageContainer = styled.div`
 
 const DiaryInput = styled.textarea`
   width: 90%;
-  min-height: 500px;
+  height: 50vh;
   border-radius: 10px;
   background-color: #1e1f21;
   color: #d9d9d9;

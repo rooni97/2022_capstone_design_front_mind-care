@@ -5,6 +5,7 @@ import Slick from "../molcules/Slick";
 import axios from "axios";
 import MusicThumbnail from "../atoms/MusicThumbnail";
 import CustomButton from "../atoms/CustomButton";
+import getLocation from "../atoms/GetLocation";
 
 function MainPage(props) {
     const [musicArr, setMusicArr] = useState([]);
