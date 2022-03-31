@@ -2,6 +2,7 @@ function GetLocationOk(position) {
     const lat = position.coords.latitude;
     const lon = position.coords.longitude;
     console.log(lat, lon);
+    return lat;
 }
       
 function GetLocationError() {
@@ -9,7 +10,9 @@ function GetLocationError() {
 }
 
 function GetLocation() {
-    return navigator.geolocation.getCurrentPosition(GetLocationOk, GetLocationError);
+    return new Promise((res, rej) => {
+        navigator.geolocation.getCurrentPosition(res, rej);
+    });
 }
 
 export default GetLocation;

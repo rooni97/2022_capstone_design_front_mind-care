@@ -1,6 +1,9 @@
 import React from 'react';
 import Navigation from "../organisms/Navigation";
 import styled from "styled-components";
+import GetWeather from "../atoms/GetWeather";
+import GetUserTime from "../atoms/GetUserTime";
+import GetLocation from "../atoms/GetLocation";
 
 function CommunityPage(props) {
     return (
