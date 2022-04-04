@@ -3,7 +3,6 @@ import getLocation from "./GetLocation";
 import {CircularProgress} from "@mui/material";
 
 function Map(props) {
-    const { kakao } = window;
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -22,7 +21,8 @@ function Map(props) {
                 center: new kakao.maps.LatLng(lat, lon), //지도의 중심좌표.
                 level: 3 //지도의 레벨(확대, 축소 정도)
             };
-            const map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+            const map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴\
+
             setLoading(false);
         })
     }, []);
