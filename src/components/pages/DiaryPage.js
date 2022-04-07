@@ -65,6 +65,6 @@ const DiarySave = styled.button`
   border-radius: 30px;
   float: right;
   margin-top: 40px;
-  margin-right: 124px;
+  margin-right: 5%;
   cursor: pointer;
 `

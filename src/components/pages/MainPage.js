@@ -71,7 +71,7 @@ function MainPage(props) {
             <Navigation />
             <PageContainer>
                 <div className={'slick'}>
-                    <Slick />
+                    <Slick src={thisMusic} />
                 </div>
                 <div id="1" className={'main'} style={{height: '100vh', fontSize: '1.5vw'}}>
                     <h1 style={{color: 'white', marginLeft: '3rem'}}>오늘 이 노래 어떠세요?</h1>
