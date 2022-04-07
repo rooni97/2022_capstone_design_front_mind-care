@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import getLocation from "./GetLocation";
 import {CircularProgress} from "@mui/material";
+import { Link } from 'react-router-dom';
 
 const { kakao } = window
 
@@ -47,10 +48,15 @@ function CreateMap(props) {
                     })
 
                     // 마커에 클릭이벤트를 등록합니다
-                    kakao.maps.event.addListener(marker, 'click', function () {
+                    kakao.maps.event.addListener(marker, 'mouseover', function () {
                         // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
                         infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>')
                         infowindow.open(map, marker)
+                    })
+                    kakao.maps.event.addListener(marker, 'click', function () {
+                        // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
+                        console.log(place.place_url);
+                        window.open(place.place_url, '_blank');
                     })
                 }
 
