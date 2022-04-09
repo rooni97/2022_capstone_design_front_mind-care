@@ -12,7 +12,7 @@ const CustomButton = styled.button`
   border-radius: 30px;
   float: left;
   margin-top: 10px;
-  margin-right: 124px;
+  //margin-right: 5%;
   cursor: pointer;
   display: block;
 `;

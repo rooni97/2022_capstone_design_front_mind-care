@@ -5,6 +5,7 @@ import GetWeather from "../atoms/GetWeather";
 import GetUserTime from "../atoms/GetUserTime";
 import GetLocation from "../atoms/GetLocation";
 import Post from "../atoms/Post";
+import CustomButton from "../atoms/CustomButton";
 
 function CommunityPage(props) {
     return (
@@ -20,7 +21,7 @@ function CommunityPage(props) {
                     <h1 style={{color: 'white', marginLeft: 80, borderBottom: '4px solid red', height: '40%'}}>최신</h1>
                     <h1 style={{color: 'white', marginLeft: 80}}>인기</h1>
                     <div style={{width: '68.5%', display: "flex", justifyContent: 'right', alignItems: 'center'}}>
-                        <button style={{ width: '10%',height: '30%'}}>게시글 작성</button>
+                        <CustomButton style={{ width: '20%',height: '30%'}}>게시글 작성</CustomButton>
                     </div>
                 </div>
                 <div style={{height: '100%', width: '100%'}}>
