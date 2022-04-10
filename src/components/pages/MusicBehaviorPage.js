@@ -7,7 +7,7 @@ import music3 from "../../media/music3.png"
 import music4 from "../../media/music4.png"
 import smile1 from "../../media/smile1.png"
 import sad from "../../media/sad.png"
-import Fade from "react-reveal/Fade";
+import { Fade } from "react-awesome-reveal";
 
 function MusicBehaviorPage(props) {
     return (
@@ -16,8 +16,8 @@ function MusicBehaviorPage(props) {
             <PageContainer>
                 <div style={{ marginBottom: '20%'}}>
                         <div style={{width: '100%'}}>
-                            <Fade bottom cascade>
-                                <h1 style={{color: 'white', marginLeft: 80, fontSize: '6vw'}}>기분 좋을 때,</h1>
+                            <Fade direction={"up"} cascade={false}>
+                                <h1 style={{color: 'white', marginLeft: 80, fontSize: '5vw'}}>기분 좋을 때,</h1>
                                 <div style={{display: 'flex', justifyContent: 'center'}}>
                                     <img style={{width: '30%'}} src={smile1}/>
                                     <img style={{width: '30%'}} src={smile1}/>
@@ -31,15 +31,19 @@ function MusicBehaviorPage(props) {
 
                 <div style={{display: 'flex'}}>
                     <div style={{ marginLeft: '5%', marginTop: '2%', color: 'white', backgroundColor: 'black', width: '50%'}}>
-                        <Fade top>
-                            <img style={{width: '40%'}} src={music1}/>
-                            <img style={{width: '40%'}} src={music2}/>
-                            <img style={{width: '40%'}} src={music3}/>
-                            <img style={{width: '40%'}} src={music4}/>
+                        <Fade direction={"down"} cascade={true}>
+                            <div style={{display: 'flex'}}>
+                                <img style={{width: '40%'}} src={music1}/>
+                                <img style={{width: '40%'}} src={music2}/>
+                            </div>
+                            <div style={{display: 'flex'}}>
+                                <img style={{width: '40%'}} src={music3}/>
+                                <img style={{width: '40%'}} src={music4}/>
+                            </div>
                         </Fade>
                     </div>
                     <div style={{width: '40%', marginTop: '5%'}}>
-                        <Fade bottom cascade>
+                        <Fade direction={"up"} cascade={true}>
                             <h1 style={{color: 'white', marginLeft: 80, fontSize: 50}}>혹은 운동과 함께</h1>
                             <h1 style={{color: 'white', marginLeft: 80, fontSize: 50}}>음악들을 감상해보세요.</h1>
                         </Fade>
