@@ -19,8 +19,8 @@ function CommunityPage(props) {
                 </div>
                 <div style={{width: '100%', height: '6%', display: 'flex', fontSize: '2rem'}}>
                     <h1 style={{color: 'white', marginLeft: 80, borderBottom: '4px solid red', height: '40%'}}>최신</h1>
-                    <h1 style={{color: 'white', marginLeft: 80}}>인기</h1>
-                    <div style={{width: '68.5%', display: "flex", justifyContent: 'right', alignItems: 'center'}}>
+                    {/*<h1 style={{color: 'white', marginLeft: 80}}>인기</h1>*/}
+                    <div style={{width: '80%', display: "flex", justifyContent: 'right', alignItems: 'center'}}>
                         <CustomButton style={{ width: '20%',height: '30%'}}>게시글 작성</CustomButton>
                     </div>
                 </div>
