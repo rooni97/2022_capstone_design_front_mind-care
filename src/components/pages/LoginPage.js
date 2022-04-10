@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Navigation from "../organisms/Navigation";
 import styled from "styled-components";
 import LoginImg from "../../media/LoginPageImg.png"
+import DisplayWeatherTime from "../molcules/DisplayWeatherTime";
 
 function LoginPage(props) {
     const [userId, setUserId] = useState('');
@@ -49,6 +50,8 @@ function LoginPage(props) {
                                 placeholder='비밀번호'
                             />
                             <LoginButton type={'submit'} disabled={!userId || !userPwd}>로그인</LoginButton>
+                            
+                            <DisplayWeatherTime />
                         </LoginForm>
                     </Cont>
                 </Wrapping>
