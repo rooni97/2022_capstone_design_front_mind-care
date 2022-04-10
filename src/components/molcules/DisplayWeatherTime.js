@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from "styled-components";
 import GetWeather from "../atoms/GetWeather";
 import GetKorTime from "../atoms/GetKorTime";
@@ -11,9 +11,12 @@ import {
     WiFog,
     WiCloudy
 } from "react-icons/wi";
+import {CircularProgress} from "@mui/material";
 
 function DisplayWeatherTime(props) {
-    let CurrentWeather = GetWeather();
+    const [loading, setLoading] = useState(true);
+
+    let CurrentWeather = GetWeather(setLoading);
     let CurrentUserTime = GetKorTime();
     const CurrentWeatherId = CurrentWeather[0]; // 800 = sunny ...
     
@@ -40,7 +43,7 @@ function DisplayWeatherTime(props) {
 
     return (
         <WeatherWrap>
-            {selectIcon()}
+            {loading ? <CircularProgress size={30} sx={{margin: '0 10px'}} /> : selectIcon()}
             <p style={{fontSize: 25, fontWeight: 'bold', color: 'E5E5E5'}}>{CurrentUserTime}</p>
         </WeatherWrap>
     );

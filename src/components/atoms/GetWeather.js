@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import getLocation from "./GetLocation";
 
-function GetWeather(props) {
+function GetWeather(setLoading) {
     const [weatherStatus, setWeatherStatus] = useState('');
 
     useEffect(() => {
         let lat, lon;
+        setLoading(true);
         getLocation().then(res => {
             lat = res.coords.latitude;
             lon = res.coords.longitude;
@@ -19,6 +20,7 @@ function GetWeather(props) {
                     id: data.weather[0].id,
                     main: data.weather[0].main,
                 });
+                setLoading(false);
             });
         })
     }, []);
