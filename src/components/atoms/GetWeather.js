@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import getLocation from "./GetLocation";
 
-function GetWeather() {
+function GetWeather(props) {
     const [weatherStatus, setWeatherStatus] = useState('');
 
     useEffect(() => {
@@ -15,13 +15,16 @@ function GetWeather() {
         fetch(WEATHER_API_URL)
             .then(response => response.json())
             .then((data) => {
-                setWeatherStatus(data.weather[0].main);
+                setWeatherStatus({
+                    id: data.weather[0].id,
+                    main: data.weather[0].main,
+                });
             });
         })
     }, []);
-    return (
-        <div>{weatherStatus}</div>
-    )
+    
+    const WeatherData = [weatherStatus.id, weatherStatus.main];
+    return WeatherData
 }
 
 export default GetWeather;
