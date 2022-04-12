@@ -19,10 +19,11 @@ function DisplayWeatherTime(props) {
     let CurrentWeather = GetWeather(setLoading);
     let CurrentUserTime = GetKorTime();
     const CurrentWeatherId = CurrentWeather[0]; // 800 = sunny ...
-    
+    let iconId =
+          CurrentWeatherId === 800 ? '0' : (parseInt(CurrentWeatherId) / 100).toFixed(0);
+
     const selectIcon = () => {
-        let iconId =
-          CurrentWeatherId === 800 ? 0 : (parseInt(CurrentWeatherId) / 100).toFixed(0);
+
         switch (iconId) {
           case '0':
             return <WiDaySunny size="50px" color="red" />;
