@@ -1,9 +1,12 @@
 import React, {useState} from 'react';
 import Navigation from "../organisms/Navigation";
 import styled from "styled-components";
+import {useNavigate} from "react-router-dom";
 
 function DiaryPage(props) {
     const [text, setText] = useState('');
+
+    let navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -14,6 +17,10 @@ function DiaryPage(props) {
         setText(e.target.value)
     }
 
+
+    const handleClick = () => {
+        navigate('/music');
+    }
     return (
         <div id="0">
             <Navigation />
@@ -23,7 +30,7 @@ function DiaryPage(props) {
                     <DiaryInput required onChange={handleChange} placeholder={'오늘의 일기를 써주세요~'}>
                     </DiaryInput>
 
-                    <DiarySave type={'submit'}>
+                    <DiarySave type={'submit'} onClick={handleClick}>
                         저장하기
                     </DiarySave>
 
