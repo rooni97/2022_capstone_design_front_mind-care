@@ -5,9 +5,16 @@ import Map from "../atoms/Map";
 import CreateMap from "../atoms/CreateMap";
 import { CircularProgress } from "@mui/material";
 import { Fade } from "react-awesome-reveal";
-import smile1 from "../../media/smile1.png"
-import sad from "../../media/sad.png"
-import hamburger from "../../media/hamburger.png"
+import smile1 from "../../media/smile1.png";
+import sad from "../../media/sad.png";
+import hamburger from "../../media/hamburger.png";
+import coffee from '../../media/coffee.png';
+import sushi from '../../media/sushi.png';
+import {
+    GiSushis,
+    GiCoffeeCup,
+    GiHamburger
+} from "react-icons/gi";
 
 function RestaurantPage(props) {
     const [InputText, setInputText] = useState('')
@@ -26,7 +33,8 @@ function RestaurantPage(props) {
     }
 
     const handleClick = (e) => {
-        setFood(e.target.id);
+        //setFood(e.target.id); icons에 onClick event를 걸었을 때 DOM의 형태가 다르기 때문에 아래와 같은 e.currentTarget.id를 사용하였음
+        setFood(e.currentTarget.id);
     }
 
     return (
@@ -41,12 +49,12 @@ function RestaurantPage(props) {
 
                         <div style={{ display: 'flex', alignItems: 'center' }}>
                             <h1 style={{ color: 'white', marginLeft: 80, marginRight: 100, fontSize: '4vw' }}>기분 <br />좋을 때도,</h1>
-                            <img style={{ width: '30%' }} src={smile1} />
+                            <img style={{ width: '30%' }} src={smile1} alt='smile' />
                         </div>
 
                         <div style={{ display: 'flex', alignItems: 'center' }}>
                             <h1 style={{ color: 'white', marginLeft: 80, marginRight: 100, fontSize: '4vw' }}>기분 <br />나쁠 때도,</h1>
-                            <img style={{ width: '30%' }} src={sad} />
+                            <img style={{ width: '30%' }} src={sad} alt='sad' />
                         </div>
                         <div>
                             <h1 style={{ color: 'white', marginLeft: 80, fontSize: '4vw' }}>우리, <br />먹고는 살아야죠.</h1>
@@ -69,14 +77,22 @@ function RestaurantPage(props) {
                     <div style={{ display: 'flex' }}>
                         <Fade direction={"up"} cascade={false}>
                             <div style={{ display: 'flex', flexDirection: 'column' }}>
-                                {/* <img style={{ width: '100%' }} src={hamburger} onClick={handleClick} id={'햄버거'} />
-                                    햄버거 */}
-                                <button style={{ width: '70px', height: '70px' }} onClick={handleClick} id={'햄버거'}>햄버거</button> 
+                                <FoodIcons onClick={handleClick} id='햄버거'>
+                                    <GiHamburger size='8vw'  />
+                                </FoodIcons>
+                                <FoodIcons onClick={handleClick} id='카페'>
+                                    <GiCoffeeCup size='8vw' />
+                                </FoodIcons>
+                                <FoodIcons onClick={handleClick} id='스시'>
+                                    <GiSushis size='8vw' />
+                                </FoodIcons>
+
+                                {/* <button style={{ width: '70px', height: '70px', marginBottom: '20px' }} onClick={handleClick} id={'햄버거'}>햄버거</button>
                                 <button style={{ width: '70px', height: '70px' }} onClick={handleClick} id={'카페'}>카페</button>
-                                <button style={{ width: '70px', height: '70px' }} onClick={handleClick} id={'스시'}>스시</button>
+                                <button style={{ width: '70px', height: '70px' }} onClick={handleClick} id={'스시'}>스시</button> */}
                             </div>
 
-                            <div style={{ marginLeft: 80, width: '60vw', height: '60vh', backgroundColor: 'white' }}>
+                            <div style={{ marginLeft: '4vw', width: '60vw', height: '60vh', backgroundColor: 'white' }}>
                                 <CreateMap food={food} />
                             </div>
                         </Fade>
@@ -94,4 +110,10 @@ const PageContainer = styled.div`
   height: 3300px;
   padding-top: 120px;
   background-color: black;
+`
+
+const FoodIcons = styled.a`
+    cursor: pointer;
+    margin-bottom: 3vh;
+    color: white;
 `
