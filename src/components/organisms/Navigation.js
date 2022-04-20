@@ -6,6 +6,7 @@ import {Link} from "react-scroll";
 import { BiLogIn } from "react-icons/bi";
 import { FiUser } from "react-icons/fi";
 import { FaHeartbeat } from "react-icons/fa";
+import TemporaryDrawer from "../molcules/TemporaryDrawer";
 
 
 
@@ -44,7 +45,10 @@ function Navigation(props) {
 
     return (
         <Container>
-            <Logo><FaHeartbeat /> MINDCARE</Logo>
+            <Logo><div><FaHeartbeat /></div> <div>MINDCARE</div></Logo>
+            <Menu>
+                <TemporaryDrawer />
+            </Menu>
             <BtnContainer to="0" spy={true} smooth={true}>
                 <Btn onClick={handleClick} id={'Home'}>Home</Btn>
                 <Btn onClick={handleClick} id={'Diary'}>Diary</Btn>
@@ -73,7 +77,7 @@ function Navigation(props) {
 
 export default Navigation;
 
-const Container = styled.div`
+const Container = styled.nav`
   display: grid;
   position: fixed;
   top: 0;
@@ -102,6 +106,10 @@ const BtnContainer = styled(Link)`
   .my_page {
     color: white;
     font-size: 2rem;
+  }
+
+  @media screen and (max-width: 700px) {
+    display: none;
   }
 `;
 
@@ -143,6 +151,13 @@ const Logo = styled.div`
   color: #fff;
   margin-left: 3rem;
   font-size: 1.6rem;
+  display: flex;
+  div {
+    margin-right: 0.3rem;
+  }
+  @media screen and (max-width: 700px) {
+    margin-left: 15%;
+  }
 `;
 
 const DropDownContainer = styled.div`
@@ -165,4 +180,13 @@ const Recom = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
+
+const Menu = styled.div`
+  display: none;
+  @media screen and (max-width: 700px) {
+    display: flex;
+    justify-content: right;
+    width: 50vw;
+  }
 `;

@@ -43,11 +43,14 @@ export default class Slick extends Component {
 const StyledSlider = styled(Slider)`
   .slick-slide div{
     width: 100%;
-    height: 70vh;
+    height: 60vh;
     //background-color: #282c34;
     position: relative;
     background-color: black;
     display: block;
+    @media screen and (max-width: 700px) {
+      height: 30vh;
+    }
   }
   .slick-arrow.slick-next{
     background-color: black;

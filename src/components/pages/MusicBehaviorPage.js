@@ -24,11 +24,10 @@ function MusicBehaviorPage(props) {
                                     <img style={{width: '30%'}} src={smile1}/>
                                 </div>
                                 <h1 style={{color: 'white', marginLeft: 80, fontSize: '5vw'}}>산책과 함께</h1>
-                                <h1 style={{color: 'white', marginLeft: 80, fontSize: '5vw'}}>이런 노래 어떠세요?</h1>
+                                <h1 style={{color: 'white', marginLeft: 80, fontSize: '5vw', marginBottom: '30%'}}>이런 노래 어떠세요?</h1>
                             </Fade>
                         </div>
                 </div>
-
                 <div style={{display: 'flex'}}>
                     <div style={{ marginLeft: '5%', marginTop: '2%', marginBottom: '10%', color: 'white', backgroundColor: 'black', width: '50%'}}>
                         <Fade direction={"down"} cascade={true}>

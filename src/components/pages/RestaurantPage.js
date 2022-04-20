@@ -42,7 +42,7 @@ function RestaurantPage(props) {
             <Navigation />
             <PageContainer>
                 <div style={{ width: '100%', marginBottom: '20%' }}>
-                    <Fade direction={"up"} cascade={false}>
+                    <Fade direction={"up"} cascade={true}>
                         <div>
                             <h1 style={{ color: 'white', marginLeft: 80, fontSize: '4vw' }}>오늘 뭐 먹지?</h1>
                         </div>

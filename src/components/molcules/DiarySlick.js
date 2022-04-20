@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from "styled-components";
-import CustomButton from "../atoms/CustomButton";
 import smile1 from "../../media/smile1.png";
 import sad from "../../media/sad.png";
 import {useNavigate} from "react-router-dom";
@@ -31,6 +30,9 @@ const SlickContainer = styled.div`
   padding-left: 40px;
   padding-top: 30px;
   font-size: 2vw;
+  @media screen and (max-width: 700px) {
+    padding: 3%;
+  }
 `;
 
 const ImageLeft = styled.img`
@@ -47,4 +49,20 @@ const ImageRight = styled.img`
   right: 10%;
   bottom: 20%;
   position: absolute;
+`;
+
+const CustomButton = styled.button`
+  width: 20%;
+  height: 10%;
+  font-size: 70%;
+  border: none;
+  background-color: #1e1f21;
+  color: white;
+  font-weight: bold;
+  border-radius: 30px;
+  float: left;
+  margin-top: 10px;
+  //margin-right: 5%;
+  cursor: pointer;
+  display: block;
 `;

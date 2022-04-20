@@ -30,6 +30,11 @@ function CommunityPage(props) {
                     <Post/>
                     <Post/>
                     <Post/>
+                    <Post/>
+                    <Post/>
+                    <Post/>
+                    <Post/>
+                    <Post/>
                 </div>
             </PageContainer>
         </div>

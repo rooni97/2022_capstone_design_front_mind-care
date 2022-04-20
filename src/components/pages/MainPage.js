@@ -4,8 +4,6 @@ import styled from "styled-components";
 import Slick from "../molcules/Slick";
 import axios from "axios";
 import MusicThumbnail from "../atoms/MusicThumbnail";
-import CustomButton from "../atoms/CustomButton";
-import getLocation from "../atoms/GetLocation";
 
 function MainPage(props) {
     const [musicArr, setMusicArr] = useState([]);
@@ -73,7 +71,7 @@ function MainPage(props) {
                 <div className={'slick'}>
                     <Slick src={thisMusic} />
                 </div>
-                <div id="1" className={'main'} style={{height: '100vh', fontSize: '1.5vw'}}>
+                <Div id="1" className={'main'}>
                     <h1 style={{color: 'white', marginLeft: '3rem'}}>오늘 이 노래 어떠세요?</h1>
                     <MusicThumbnail src={thisMusic} handleClick={handleClickThis}/>
                     <div style={{ height: '55%', display: 'flex', justifyContent: 'center'}}>
@@ -93,8 +91,8 @@ function MainPage(props) {
                             <h1 style={{width:"60%", height: '100%', color: 'white', textAlign: 'center'}}>재생 버튼을 눌러주세요.</h1>
                         }
                     </div>
-                </div>
-                <div id="2" className={'main'} style={{height: '100vh', fontSize: '1.5vw'}}>
+                </Div>
+                <Div id="2" className={'main'}>
                     <h1 style={{color: 'white', marginLeft: '3rem'}}>이번 주 인기 음악</h1>
                     <MusicThumbnail src={musicArr} handleClick={handleClick}/>
                     <div style={{ height: '55%', display: 'flex', justifyContent: 'center'}}>
@@ -115,7 +113,7 @@ function MainPage(props) {
                         }
                     </div>
 
-                </div>
+                </Div>
             </PageContainer>
         </div>
     );
@@ -131,9 +129,35 @@ const PageContainer = styled.div`
     margin: auto;
     width: 80%;
     height: 95vh;
+    @media screen and (max-width: 700px) {
+      height: 40vh;
+    }
   }
   .main {
     padding-top: 80px;
   }
 `
 
+const Div = styled.div`
+  height: 100vh;
+  font-size: 1.5vw;
+  @media screen and (max-width: 700px) {
+    height: 70vh;
+  }
+`;
+
+const CustomButton = styled.button`
+  width: 60%;
+  height: 10%;
+  font-size: 70%;
+  border: none;
+  background-color: #1e1f21;
+  color: white;
+  font-weight: bold;
+  border-radius: 30px;
+  float: left;
+  margin-top: 10px;
+  //margin-right: 5%;
+  cursor: pointer;
+  display: block;
+`;

@@ -10,7 +10,7 @@ function MusicThumbnail(props) {
                 console.log(link.thumbnails)
                 const id = link.resourceId.videoId;
                 return (
-                        <ImgButton alt={link.title} onClick={props.handleClick} id={id} key={index} src={addr} style={{width: '10%'}}/>
+                        <ImgButton alt={link.title} onClick={props.handleClick} id={id} key={index} src={addr} />
                    )
             })}
         </div>
@@ -24,5 +24,8 @@ const ImgButton = styled.img`
   cursor: pointer;
   &:hover {
     transform: scale(1.05);
+  }
+  @media screen and (max-width: 700px) {
+    width: 20%;
   }
 `;
