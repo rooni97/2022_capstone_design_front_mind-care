@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from "styled-components";
-import CustomButton from "../atoms/CustomButton";
 import music1 from "../../media/music1.png"
 import music2 from "../../media/music2.png"
 import music3 from "../../media/music3.png"
@@ -33,32 +32,52 @@ const SlickContainer = styled.div`
   padding-left: 40px;
   padding-top: 30px;
   font-size: 2vw;
+  height: 100%;
+  @media screen and (max-width: 700px) {
+    padding: 3%;
+  }
 `;
 
 const Image1 = styled.img`
-  height: 35%;
-  right: 34%;
+  height: 30%;
+  right: 33%;
   bottom: 45%;
   position: absolute;
 `;
 
 const Image2 = styled.img`
-  height: 35%;
-  right: 16%;
+  height: 30%;
+  right: 15%;
   bottom: 45%;
   position: absolute;
 `;
 
 const Image3 = styled.img`
-  height: 35%;
-  right: 34%;
+  height: 30%;
+  right: 33%;
   bottom: 10%;
   position: absolute;
 `;
 
 const Image4 = styled.img`
-  height: 35%;
-  right: 16%;
+  height: 30%;
+  right: 15%;
   bottom: 10%;
   position: absolute;
+`;
+
+const CustomButton = styled.button`
+  width: 20%;
+  height: 10%;
+  font-size: 70%;
+  border: none;
+  background-color: #1e1f21;
+  color: white;
+  font-weight: bold;
+  border-radius: 30px;
+  float: left;
+  margin-top: 10px;
+  //margin-right: 5%;
+  cursor: pointer;
+  display: block;
 `;
