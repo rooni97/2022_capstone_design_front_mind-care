@@ -3,6 +3,7 @@ import Navigation from "../organisms/Navigation";
 import styled from "styled-components";
 import LoginImg from "../../media/LoginPageImg.png"
 import DisplayWeatherTime from "../molcules/DisplayWeatherTime";
+import axios from 'axios';
 
 function LoginPage(props) {
     const [userId, setUserId] = useState('');
