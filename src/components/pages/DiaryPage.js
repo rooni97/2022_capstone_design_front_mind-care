@@ -25,7 +25,7 @@ function DiaryPage(props) {
         <div id="0">
             <Navigation />
             <PageContainer>
-                <h1 style={{color: 'white', marginLeft: 80, fontSize: 50}}>오늘의 일기 쓰기</h1>
+                <h1 style={{color: 'white', marginLeft: '5%', fontSize: '7vw'}}>오늘의 일기 쓰기</h1>
                 <form id={'diary_text'} onSubmit={handleSubmit}>
                     <DiaryInput required onChange={handleChange} placeholder={'오늘의 일기를 써주세요~'}>
                     </DiaryInput>
@@ -62,8 +62,8 @@ const DiaryInput = styled.textarea`
 `
 
 const DiarySave = styled.button`
-  width: 200px;
-  height: 50px;
+  width: 40%;
+  height: 5vh;
   font-size: 20px;
   border: none;
   background-color: #1e1f21;

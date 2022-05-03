@@ -43,6 +43,10 @@ const Image1 = styled.img`
   right: 33%;
   bottom: 45%;
   position: absolute;
+  @media screen and (max-width: 700px) {
+    height: 30%;
+    bottom: 60%;
+  }
 `;
 
 const Image2 = styled.img`
@@ -50,6 +54,10 @@ const Image2 = styled.img`
   right: 15%;
   bottom: 45%;
   position: absolute;
+  @media screen and (max-width: 700px) {
+    height: 30%;
+    bottom: 55%;
+  }
 `;
 
 const Image3 = styled.img`
@@ -57,6 +65,10 @@ const Image3 = styled.img`
   right: 33%;
   bottom: 10%;
   position: absolute;
+  @media screen and (max-width: 700px) {
+    height: 30%;
+    bottom: 35%;
+  }
 `;
 
 const Image4 = styled.img`
@@ -64,6 +76,10 @@ const Image4 = styled.img`
   right: 15%;
   bottom: 10%;
   position: absolute;
+  @media screen and (max-width: 700px) {
+    height: 30%;
+    bottom: 30%;
+  }
 `;
 
 const CustomButton = styled.button`
