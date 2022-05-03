@@ -5,7 +5,6 @@ import GetWeather from "../atoms/GetWeather";
 import GetUserTime from "../atoms/GetUserTime";
 import GetLocation from "../atoms/GetLocation";
 import Post from "../atoms/Post";
-import CustomButton from "../atoms/CustomButton";
 
 function CommunityPage(props) {
     return (
@@ -13,15 +12,15 @@ function CommunityPage(props) {
             <Navigation/>
             <PageContainer>
                 <div style={{height: '10%'}}>
-                    <h1 style={{color: 'white', marginLeft: 80, fontSize: 50}}>사용자 커뮤니티</h1>
-                    <h2 style={{color: '#AE946A', marginLeft: 80,}}>SHARE YOUR OPINION WITH OTHERS</h2>
-                    <h2 style={{color: '#E5E5E5', marginLeft: 80}}>여러분의 감정 관리법을 다른 사람들과 공유하고 의견을 나눠보세요.</h2>
+                    <h1>사용자 커뮤니티</h1>
+                    <h2 style={{color: '#AE946A'}}>SHARE YOUR OPINION WITH OTHERS</h2>
+                    <h2 style={{color: '#E5E5E5'}}>여러분의 감정 관리법을 다른 사람들과 공유하고 의견을 나눠보세요.</h2>
                 </div>
-                <div style={{width: '100%', height: '6%', display: 'flex', fontSize: '2rem'}}>
-                    <h1 style={{color: 'white', marginLeft: 80, borderBottom: '4px solid red', height: '40%'}}>최신</h1>
+                <div style={{width: '100%', height: '5%', display: 'flex', fontSize: '2rem'}}>
+                    <h1 className={'recent'}>최신</h1>
                     {/*<h1 style={{color: 'white', marginLeft: 80}}>인기</h1>*/}
-                    <div style={{width: '80%', display: "flex", justifyContent: 'right', alignItems: 'center'}}>
-                        <CustomButton style={{ width: '20%',height: '30%'}}>게시글 작성</CustomButton>
+                    <div style={{width: '81%', display: "flex", justifyContent: 'right', alignItems: 'center', marginRight: '5%'}}>
+                        <CustomButton>게시글 작성</CustomButton>
                     </div>
                 </div>
                 <div style={{height: '100%', width: '100%'}}>
@@ -48,9 +47,54 @@ const PageContainer = styled.div`
   height: 3000px;
   padding-top: 120px;
   background-color: black;
-  .slick {
-    margin: auto;
-    width: 95%;
-    height: 90vh;
+  h1 {
+    color: white;
+    margin-left: 5%;
+    font-size: 5vw;
+    width: 50%;
+    @media screen and (max-width: 700px) {
+      font-size: 6vh;
+      width: 100%;
+    }
   }
-`
+  .recent {
+    color: white;
+    margin-left: 5%;
+    font-size: 5vw;
+    height: 55%;
+    width: 9%;
+    border-bottom: 4px solid red;
+    @media screen and (max-width: 700px) {
+      font-size: 5vh;
+      height: 40%;
+      width: 24%;
+      border-bottom: 3px solid red;
+    }
+  }
+  h2 {
+    font-size: 2vw;
+    margin-left: 5%;
+    @media screen and (max-width: 700px) {
+      font-size: 1.5vh;
+    }
+  }
+`;
+
+const CustomButton = styled.button`
+  width: 20%;
+  height: 40%;
+  font-size: 20px;
+  border: none;
+  background-color: #1e1f21;
+  color: white;
+  font-weight: bold;
+  border-radius: 30px;
+  float: left;
+  margin-top: 10px;
+  //margin-right: 5%;
+  cursor: pointer;
+  display: block;
+  @media screen and (max-width: 700px) {
+    width: 60%;
+  }
+`;

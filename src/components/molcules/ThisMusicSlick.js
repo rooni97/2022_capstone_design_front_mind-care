@@ -42,6 +42,10 @@ const ImageLeft = styled.img`
   right: 30%;
   bottom: 20%;
   position: absolute;
+  @media screen and (max-width: 700px) {
+    height: 45%;
+    bottom: 30%;
+  }
 `;
 
 const ImageRight = styled.img`
@@ -50,6 +54,10 @@ const ImageRight = styled.img`
   right: 10%;
   bottom: 15%;
   position: absolute;
+  @media screen and (max-width: 700px) {
+    height: 45%;
+    bottom: 20%;
+  }
 `;
 
 const CustomButton = styled.button`

@@ -3,11 +3,37 @@ import Navigation from "../organisms/Navigation";
 import styled from "styled-components";
 import LoginImg from "../../media/LoginPageImg.png"
 import DisplayWeatherTime from "../molcules/DisplayWeatherTime";
-import axios from 'axios';
+import {Modal} from "@mui/material";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import axios from "axios";
+
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: '50%',
+    height: '75%',
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+    overflowY: true,
+};
 
 function LoginPage(props) {
     const [userId, setUserId] = useState('');
     const [userPwd, setUserPwd] = useState('');
+
+    const [signUpRequest, setSignUpRequest] = useState({});
+
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = (e) => {
+        e.preventDefault();
+        setOpen(false);
+    }
 
     const handleUserId = (e) => {
         setUserId(e.target.value);
@@ -21,6 +47,47 @@ function LoginPage(props) {
         e.preventDefault();
         console.log(userId, userPwd, 'Login Success');
     }
+
+    const handleRequest = (e) => {
+        const name = e.target.name;
+        const value = e.target.value;
+        switch (name) {
+            case 'name':
+                setSignUpRequest({...signUpRequest, name: value});
+                break;
+            case 'id':
+                setSignUpRequest({...signUpRequest, id: value});
+                break;
+            case 'password':
+                setSignUpRequest({...signUpRequest, password: value});
+                break;
+            case 'password2':
+                setSignUpRequest({...signUpRequest, password2: value});
+                break;
+        }
+    }
+
+    const requestSignUp = () => {
+        axios.post("http://3.35.70.211/signup", signUpRequest)
+            .then((res) => {
+                console.log(signUpRequest);
+                console.log(res.data);
+                alert('로그인 성공');
+            })
+            .catch((err) => {
+                console.log(err);
+                alert('로그인 실패');
+            })
+    }
+
+    const handleSignUp = (e) => {
+        e.preventDefault();
+        if (signUpRequest.password !== signUpRequest.password2) {
+            alert('비밀번호가 일치하지 않습니다.')
+            return;
+        }
+        requestSignUp();
+    };
 
     return (
         <div>
@@ -51,9 +118,55 @@ function LoginPage(props) {
                                 placeholder='비밀번호'
                             />
                             <LoginButton type={'submit'} disabled={!userId || !userPwd}>로그인</LoginButton>
-                            
                             <DisplayWeatherTime />
                         </LoginForm>
+                        <LoginButton onClick={handleOpen}>회원가입</LoginButton>
+                        <Modal
+                            open={open}
+                            aria-labelledby="modal-modal-title"
+                            aria-describedby="modal-modal-description"
+                        >
+                            <Box sx={style}>
+                                <form onSubmit={handleSignUp}>
+                                    <div style={{marginBottom: '5%'}}>
+                                        <p>닉네임</p>
+                                        <Input
+                                            onChange={handleRequest}
+                                            name='name'
+                                            value={signUpRequest.name || ''}
+                                            placeholder='닉네임을 입력해주세요.'
+                                        />
+                                        <p>아이디</p>
+                                        <Input
+                                            onChange={handleRequest}
+                                            name='id'
+                                            value={signUpRequest.id || ''}
+                                            placeholder='아이디(이메일)를 입력해주세요.'
+                                        />
+                                        <p>비밀번호</p>
+                                        <Input
+                                            onChange={handleRequest}
+                                            name='password'
+                                            value={signUpRequest.password || ''}
+                                            placeholder='비밀번호를 입력해주세요.'
+                                            type='password'
+                                        />
+                                        <p>비밀번호 확인</p>
+                                        <Input
+                                            onChange={handleRequest}
+                                            name='password2'
+                                            value={signUpRequest.password2 || ''}
+                                            placeholder='비밀번호 확인'
+                                            type='password'
+                                        />
+                                    </div>
+                                    <LoginButton type={'submit'}
+                                                 disabled={!signUpRequest.name || !signUpRequest.id ||
+                                                     !signUpRequest.password || !signUpRequest.password2}>회원가입</LoginButton>
+                                    <LoginButton onClick={handleClose}>취소</LoginButton>
+                                </form>
+                            </Box>
+                        </Modal>
                     </Cont>
                 </Wrapping>
             </PageContainer>

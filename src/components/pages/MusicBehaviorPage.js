@@ -5,6 +5,7 @@ import music1 from "../../media/music1.png"
 import music2 from "../../media/music2.png"
 import music3 from "../../media/music3.png"
 import music4 from "../../media/music4.png"
+import music5 from "../../media/this1.png"
 import smile1 from "../../media/smile1.png"
 import sad from "../../media/sad.png"
 import { Fade } from "react-awesome-reveal";
@@ -14,40 +15,39 @@ function MusicBehaviorPage(props) {
         <div id="0">
             <Navigation />
             <PageContainer>
-                <div style={{ marginBottom: '20%'}}>
-                        <div style={{width: '100%'}}>
-                            <Fade direction={"up"} cascade>
-                                <h1 style={{color: 'white', marginLeft: 80, fontSize: '5vw'}}>기분 좋을 때,</h1>
-                                <div style={{display: 'flex', justifyContent: 'center'}}>
-                                    <img style={{width: '30%'}} src={smile1}/>
-                                    <img style={{width: '30%'}} src={smile1}/>
-                                    <img style={{width: '30%'}} src={smile1}/>
-                                </div>
-                                <h1 style={{color: 'white', marginLeft: 80, fontSize: '5vw'}}>산책과 함께</h1>
-                                <h1 style={{color: 'white', marginLeft: 80, fontSize: '5vw', marginBottom: '30%'}}>이런 노래 어떠세요?</h1>
-                            </Fade>
-                        </div>
-                </div>
-                <div style={{display: 'flex'}}>
+                <RecomContainer>
+                    <div style={{width: '100%', marginBottom: '20%'}}>
+                        <Fade direction={"up"} cascade>
+                            <h1>기분 좋을 때,</h1>
+                            <div style={{display: 'flex', justifyContent: 'center'}}>
+                                <img style={{width: '30%'}} src={smile1}/>
+                                <img style={{width: '30%'}} src={smile1}/>
+                                <img style={{width: '30%'}} src={smile1}/>
+                            </div>
+                            <h1>산책과 함께</h1>
+                            <h1>이런 노래 어떠세요?</h1>
+                        </Fade>
+                    </div>
+                </RecomContainer>
+                <FlexContainer>
                     <div style={{ marginLeft: '5%', marginTop: '2%', marginBottom: '10%', color: 'white', backgroundColor: 'black', width: '50%'}}>
-                        <Fade direction={"down"} cascade={true}>
+                        <Fade direction={"up"} cascade={true}>
                             <div style={{display: 'flex'}}>
-                                <img style={{width: '30%'}} src={music1}/>
-                                <img style={{width: '30%'}} src={music2}/>
-                            </div>
-                            <div style={{display: 'flex'}}>
-                                <img style={{width: '30%'}} src={music3}/>
-                                <img style={{width: '30%'}} src={music4}/>
+                                <img style={{width: '36%'}} src={music1}/>
+                                <img style={{width: '36%'}} src={music2}/>
+                                <img style={{width: '36%'}} src={music3}/>
+                                <img style={{width: '36%'}} src={music4}/>
+                                <img style={{width: '36%'}} src={music5}/>
                             </div>
                         </Fade>
                     </div>
-                    <div style={{width: '40%', marginTop: '5%'}}>
+                    <div style={{width: '100%'}}>
                         <Fade direction={"down"} cascade={true}>
-                            <h1 style={{color: 'white', marginLeft: 80, fontSize: 50}}>혹은 운동과 함께</h1>
-                            <h1 style={{color: 'white', marginLeft: 80, fontSize: 50}}>음악들을 감상해보세요.</h1>
+                            <h1>혹은 운동과 함께</h1>
+                            <h1>음악들을 감상해보세요.</h1>
                         </Fade>
                     </div>
-                </div>
+                </FlexContainer>
             </PageContainer>
         </div>
     );
@@ -57,12 +57,31 @@ export default MusicBehaviorPage;
 
 const PageContainer = styled.div`
   width: 100%;
-  //height: 3000px;
   padding-top: 120px;
   background-color: black;
-  .slick {
-    margin: auto;
-    width: 95%;
-    height: 90vh;
+`;
+
+const RecomContainer = styled.div`
+  height: 80vh;
+  margin-bottom: 30%;
+  h1 {
+    color: white;
+    margin-left: 5%;
+    font-size: 5vw;
+    @media screen and (max-width: 700px) {
+      font-size: 5vh;
+    }
   }
-`
+`;
+
+const FlexContainer = styled.div`
+  height: 100vh;
+  h1 {
+    color: white;
+    margin-left: 5%;
+    font-size: 4vw;
+    @media screen and (max-width: 700px) {
+      font-size: 4vh;
+    }
+  }
+`;
