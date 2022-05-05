@@ -21,6 +21,7 @@ function DiaryPage(props) {
     const handleClick = () => {
         navigate('/music');
     }
+    
     return (
         <div id="0">
             <Navigation />
