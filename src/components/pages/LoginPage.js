@@ -15,6 +15,7 @@ import {
     Link,
     Avatar
 } from "@mui/material";
+
 import { FaHeartbeat } from "react-icons/fa";
 
 const style = {
