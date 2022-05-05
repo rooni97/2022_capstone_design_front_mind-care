@@ -18,10 +18,10 @@ function DiaryPage(props) {
         setText(e.target.value)
     }
 
-
     const handleClick = () => {
         navigate('/music');
     }
+    
     return (
         <div id="0">
             <Navigation />
@@ -67,7 +67,7 @@ const PageContainer = styled.div`
         font-size: 7vw;
     }
     height: 100%;
-    min-height: 100vh;
+    min-height: calc(100vh - 100px);
 `
 
 const DiaryInput = styled.textarea`
