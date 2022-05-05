@@ -18,7 +18,6 @@ function DiaryPage(props) {
         setText(e.target.value)
     }
 
-
     const handleClick = () => {
         navigate('/music');
     }
