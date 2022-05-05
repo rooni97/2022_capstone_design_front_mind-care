@@ -3,10 +3,20 @@ import Navigation from "../organisms/Navigation";
 import styled from "styled-components";
 import LoginImg from "../../media/LoginPageImg.png"
 import DisplayWeatherTime from "../molcules/DisplayWeatherTime";
-import {Modal} from "@mui/material";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 import axios from "axios";
+import {
+    Modal,
+    Box,
+    Typography,
+    CssBaseline,
+    TextField,
+    Paper,
+    Grid,
+    Link,
+    Avatar
+} from "@mui/material";
+
+import { FaHeartbeat } from "react-icons/fa";
 
 const style = {
     position: 'absolute',
@@ -20,7 +30,35 @@ const style = {
     boxShadow: 24,
     p: 4,
     overflowY: true,
+    '@media screen and (max-width: 700px)': {
+        width: '80%', // 700px 이하에서 회원가입 모달 창 크기 증가
+        height: '85%'
+    }
 };
+
+const BackImgStyle = {
+    backgroundImage: `url(${LoginImg})`,
+    backgroundSize: 'cover',
+    '@media screen and (max-width: 700px)': {
+        display: "none",
+        width: '0%',
+        height: '0%',
+    }
+}
+
+const MobileLoginSize = {
+    '@media screen and (max-width: 700px)': {
+        height: '100vh',
+        minHeight: '100vh'
+    }
+}
+
+const AlignWeatherAndSignup = { // 700px 이하에서 날씨랑 시간 없애기
+    marginRight: '35%',
+    '@media screen and (max-width: 700px)': {
+        display: 'none',
+    }
+}
 
 function LoginPage(props) {
     const [userId, setUserId] = useState('');
@@ -53,16 +91,16 @@ function LoginPage(props) {
         const value = e.target.value;
         switch (name) {
             case 'name':
-                setSignUpRequest({...signUpRequest, name: value});
+                setSignUpRequest({ ...signUpRequest, name: value });
                 break;
             case 'id':
-                setSignUpRequest({...signUpRequest, id: value});
+                setSignUpRequest({ ...signUpRequest, id: value });
                 break;
             case 'password':
-                setSignUpRequest({...signUpRequest, password: value});
+                setSignUpRequest({ ...signUpRequest, password: value });
                 break;
             case 'password2':
-                setSignUpRequest({...signUpRequest, password2: value});
+                setSignUpRequest({ ...signUpRequest, password2: value });
                 break;
         }
     }
@@ -90,123 +128,124 @@ function LoginPage(props) {
     };
 
     return (
-        <div>
-            <Navigation />
-            <PageContainer>
-                <Wrapping>
-                    <Cont>
-                        <Logo src={LoginImg} />
-                    </Cont>
-                    <Cont>
-                        <LoginForm onSubmit={handleLoginClick}>
-                            <h3>환영합니다.</h3>
-                            <h2>로그인 후 이용하실 수 있습니다.</h2>
-                            
-                            <p>Email</p>
-                            <Input
-                                onChange={handleUserId}
-                                name='id'
-                                value={userId}
-                                placeholder='아이디(이메일)'
-                            /> 
-                            <p>Password</p>
-                            <Input
-                                onChange={handleUserPwd}
-                                name='password'
-                                value={userPwd}
-                                type='password'
-                                placeholder='비밀번호'
-                            />
-                            <LoginButton type={'submit'} disabled={!userId || !userPwd}>로그인</LoginButton>
+        <Grid container style={{ height: '100vh' }} >
+            <CssBaseline />
+            <Grid item sx={BackImgStyle} md={6} />
+            <Grid item sx={MobileLoginSize} xs={12} md={6} component={Paper} elevation={12} square>
+                <Cont >
+                    <Link href='/' >
+                        <Avatar sx={{ bgcolor: 'red', width: 56, height: 56, margin: '24px' }} >
+                            <FaHeartbeat style={{ width: 56, height: 30 }} />
+                        </Avatar>
+                    </Link>
+                    <Typography variant="h5" >
+                        로그인 후 이용하실 수 있습니다
+                    </Typography>
+                    <LoginForm onSubmit={handleLoginClick}>
+                        <TextField
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            fullWidth
+                            name="id"
+                            value={userId}
+                            label="아이디(이메일)"
+                            onChange={handleUserId}
+                        />
+                        <TextField
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            fullWidth
+                            name='password'
+                            value={userPwd}
+                            type='password'
+                            label="비밀번호"
+                            onChange={handleUserPwd}
+                        />
+                        <LoginButton type={'submit'} disabled={!userId || !userPwd}>
+                            로그인
+                        </LoginButton>
+                    </LoginForm>
+
+                    <Grid container justifyContent="center" >
+                        <Grid item sx={AlignWeatherAndSignup} >
                             <DisplayWeatherTime />
-                        </LoginForm>
-                        <LoginButton onClick={handleOpen}>회원가입</LoginButton>
-                        <Modal
-                            open={open}
-                            aria-labelledby="modal-modal-title"
-                            aria-describedby="modal-modal-description"
-                        >
-                            <Box sx={style}>
-                                <form onSubmit={handleSignUp}>
-                                    <div style={{marginBottom: '5%'}}>
-                                        <p>닉네임</p>
-                                        <Input
-                                            onChange={handleRequest}
-                                            name='name'
-                                            value={signUpRequest.name || ''}
-                                            placeholder='닉네임을 입력해주세요.'
-                                        />
-                                        <p>아이디</p>
-                                        <Input
-                                            onChange={handleRequest}
-                                            name='id'
-                                            value={signUpRequest.id || ''}
-                                            placeholder='아이디(이메일)를 입력해주세요.'
-                                        />
-                                        <p>비밀번호</p>
-                                        <Input
-                                            onChange={handleRequest}
-                                            name='password'
-                                            value={signUpRequest.password || ''}
-                                            placeholder='비밀번호를 입력해주세요.'
-                                            type='password'
-                                        />
-                                        <p>비밀번호 확인</p>
-                                        <Input
-                                            onChange={handleRequest}
-                                            name='password2'
-                                            value={signUpRequest.password2 || ''}
-                                            placeholder='비밀번호 확인'
-                                            type='password'
-                                        />
-                                    </div>
-                                    <LoginButton type={'submit'}
-                                                 disabled={!signUpRequest.name || !signUpRequest.id ||
-                                                     !signUpRequest.password || !signUpRequest.password2}>회원가입</LoginButton>
-                                    <LoginButton onClick={handleClose}>취소</LoginButton>
-                                </form>
-                            </Box>
-                        </Modal>
-                    </Cont>
-                </Wrapping>
-            </PageContainer>
-        </div>
+                        </Grid>
+                        <Grid item>
+                            <SignUpButton onClick={handleOpen}>회원가입</SignUpButton>
+                        </Grid>
+                    </Grid>
+
+                    <Modal
+                        open={open}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                    >
+                        <Box sx={style}>
+                            <form onSubmit={handleSignUp}>
+                                <div style={{ marginBottom: '5%' }}>
+                                    <p>닉네임</p>
+                                    <Input
+                                        onChange={handleRequest}
+                                        name='name'
+                                        value={signUpRequest.name || ''}
+                                        placeholder='닉네임을 입력해주세요.'
+                                    />
+                                    <p>아이디</p>
+                                    <Input
+                                        onChange={handleRequest}
+                                        name='id'
+                                        value={signUpRequest.id || ''}
+                                        placeholder='아이디(이메일)를 입력해주세요.'
+                                    />
+                                    <p>비밀번호</p>
+                                    <Input
+                                        onChange={handleRequest}
+                                        name='password'
+                                        value={signUpRequest.password || ''}
+                                        placeholder='비밀번호를 입력해주세요.'
+                                        type='password'
+                                    />
+                                    <p>비밀번호 확인</p>
+                                    <Input
+                                        onChange={handleRequest}
+                                        name='password2'
+                                        value={signUpRequest.password2 || ''}
+                                        placeholder='비밀번호 확인'
+                                        type='password'
+                                    />
+                                </div>
+                                <LoginButton type={'submit'}
+                                    disabled={!signUpRequest.name || !signUpRequest.id ||
+                                        !signUpRequest.password || !signUpRequest.password2}>회원가입</LoginButton>
+                                <LoginButton onClick={handleClose}>취소</LoginButton>
+                            </form>
+                        </Box>
+                    </Modal>
+                </Cont>
+            </Grid>
+        </Grid >
     );
 }
 
 export default LoginPage;
 
-const PageContainer = styled.div`
-  width: 100%;
-  height: 60vh;
-  padding-top: 120px;
-  background-color: white;
-  margin-top:100px;
-`
-
-const Wrapping = styled.div`
-    display: flex;
-    height: 100%;
-    width:85vw;
-    margin:auto;
-    flex-direction : row;
-    align-items: center;
-    justify-content: space-between;
-`
-
 const Cont = styled.div`
-    width:40%
+    @media screen and (max-width: 700px) {
+        justify-items: center;
+        align-items: center;
+        margin: 30% 2%;
+    }
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 200px 32px 0px;
 `
 
 const LoginForm = styled.form`
-    width: 70%;
-`
-
-const Logo = styled.img`
-    max-width: 100%;
-    object-position: left;
-    object-fit: contain;
-    overflow: auto;
+    width: 60%;
+    margin-top: 8px;
 `
 
 const Input = styled.input`
@@ -236,8 +275,23 @@ const LoginButton = styled.button`
   border-radius: 0;
   background-color: #1e1f21;
   ${({ disabled }) =>
-    disabled &&
-    `
+        disabled &&
+        `
     background-color: #efefef;
   `}
+`
+
+const SignUpButton = styled.button`
+    font-size: 18px;
+    line-height: 49px;
+    display: block;
+    width: 100%;
+    height: 49px;
+    margin: 16px 0 7px;
+    cursor: pointer;
+    text-align: center;
+    color: #505050;
+    border: none;
+    border-radius: 0;
+    background-color: #fff;
 `;
