@@ -41,27 +41,29 @@ function RestaurantPage(props) {
         <div id="0">
             <Navigation />
             <PageContainer>
-                <div style={{ width: '100%', marginBottom: '4vh' }}>
-                    <Fade direction={"up"} cascade={true}>
-                        <h1 style={{ color: 'white', fontSize: '4vw', marginLeft: 80 }}>오늘 뭐 먹지?</h1>
+                <RecomContainer>
+                    <div style={{ width: '100%', marginBottom: '4vh' }}>
+                        <Fade direction={"up"} cascade={true}>
+                            <h1>오늘 뭐 먹지?</h1>
 
-                        <div style={{ display: 'flex', alignItems: 'center', marginLeft: 80 }}>
-                            <h1 style={{ color: 'white', fontSize: '4vw', marginRight: 100 }}>기분 <br />좋을 때도,</h1>
-                            <img style={{ width: '20%' }} src={smile1} alt='smile' />
-                        </div>
+                            <div style={{ display: 'flex', alignItems: 'center' }}>
+                                <h1>기분 <br />좋을 때도,</h1>
+                                <img style={{ width: '20%' }} src={smile1} alt='smile' />
+                            </div>
 
-                        <div style={{ display: 'flex', alignItems: 'center', marginLeft: 80 }}>
-                            <h1 style={{ color: 'white', marginRight: 100, fontSize: '4vw' }}>기분 <br />나쁠 때도,</h1>
-                            <img style={{ width: '20%' }} src={sad} alt='sad' />
-                        </div>
+                            <div style={{ display: 'flex', alignItems: 'center' }}>
+                                <h1>기분 <br />나쁠 때도,</h1>
+                                <img style={{ width: '20%' }} src={sad} alt='sad' />
+                            </div>
 
-                        <h1 style={{ color: 'white', fontSize: '4vw', marginBottom: '10%', marginLeft: 80 }}>우리, <br />먹고는 살아야죠.</h1>
-                        <h1 style={{ color: 'white', fontSize: '4vw', marginLeft: 80 }}>여러분의 감정에 맞는 <br />맛있는 음식을 추천해드릴게요.</h1>
-                        <h1 style={{ color: 'white', fontSize: '4vw', marginLeft: 80 }}>지금 바로 주변 맛집을 확인해보세요.</h1>
-                    </Fade>
-                </div>
+                            <h1 style={{ marginBottom: '5%' }}>우리, <br />먹고는 살아야죠.</h1>
+                            <h1>여러분의 감정에 맞는 <br />맛있는 음식을 추천해드릴게요.</h1>
+                            <h1>지금 바로 주변 맛집을 확인해보세요.</h1>
+                        </Fade>
+                    </div>
+                </RecomContainer>
 
-                <div style={{ display: 'flex', marginLeft: 80 }}>
+                <div style={{ display: 'flex', marginLeft: '5%' }}>
                     <Fade direction={"up"} cascade={false}>
                         <div style={{ display: 'flex', flexDirection: 'column' }}>
                             <FoodIcons onClick={handleClick} id='햄버거'>
@@ -77,9 +79,9 @@ function RestaurantPage(props) {
                                 <button style={{ width: '70px', height: '70px' }} onClick={handleClick} id={'카페'}>카페</button>
                                 <button style={{ width: '70px', height: '70px' }} onClick={handleClick} id={'스시'}>스시</button> */}
                         </div>
-                        <div style={{ marginLeft: '4vw', width: '60vw', height: '60vh', backgroundColor: 'white' }}>
+                        <MapCont>
                             <CreateMap food={food} />
-                        </div>
+                        </MapCont>
                     </Fade>
                 </div>
             </PageContainer>
@@ -91,7 +93,7 @@ export default RestaurantPage;
 
 const PageContainer = styled.div`
   width: 100%;
-  height: 3000px;
+  height: 2500px;
   padding-top: 120px;
   background-color: black;
 `
@@ -100,4 +102,33 @@ const FoodIcons = styled.a`
     cursor: pointer;
     margin-bottom: 3vh;
     color: white;
+    
+    @media screen and (max-width: 700px) {
+        size: 4vw;
+    }
+`
+
+const RecomContainer = styled.div`
+  h1 {
+    color: white;
+    margin-left: 5%;
+    font-size: 5vw;
+    
+    @media screen and (max-width: 700px) {
+      font-size: 5vh;
+      margin-bottom: 20%;
+    }
+  }
+`
+
+const MapCont = styled.div`
+  margin-left: 4vw;
+  width: 60vw;
+  height: 60vh; 
+  background-color: white;
+
+  @media screen and (max-width: 700px) {
+    width: 70vw;
+    height: 40vh;
+  }
 `

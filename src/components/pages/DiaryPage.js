@@ -68,6 +68,7 @@ const PageContainer = styled.div`
     }
     height: 100%;
     min-height: calc(100vh - 100px);
+  }
 `
 
 const DiaryInput = styled.textarea`
