@@ -106,7 +106,7 @@ function LoginPage(props) {
     }
 
     const requestSignUp = () => {
-        axios.post("http://3.35.70.211/signup", signUpRequest)
+        axios.post("http://3.34.8.240/signup", signUpRequest)
             .then((res) => {
                 console.log(signUpRequest);
                 console.log(res.data);
