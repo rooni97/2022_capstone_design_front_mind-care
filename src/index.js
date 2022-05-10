@@ -4,12 +4,17 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from "react-router-dom";
+import ScrollToTop from "./components/scroll/ScrollToTop";
+import {RecoilRoot} from "recoil";
 
 ReactDOM.render(
   <React.StrictMode>
-      <BrowserRouter>
-          <App />
-      </BrowserRouter>
+      <RecoilRoot>
+          <BrowserRouter>
+              <ScrollToTop />
+              <App />
+          </BrowserRouter>
+      </RecoilRoot>
   </React.StrictMode>,
   document.getElementById('root')
 );

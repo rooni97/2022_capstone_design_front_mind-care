@@ -2,24 +2,31 @@ import React, {useState} from 'react';
 import Navigation from "../organisms/Navigation";
 import styled from "styled-components";
 import {useNavigate} from "react-router-dom";
+import axios from "axios";
 
 function DiaryPage(props) {
-    const [text, setText] = useState('');
+    const [diaryRequest, setDiaryRequest] = useState({});
 
     let navigate = useNavigate();
 
+    const handleDiary = () => {
+        axios.get("http://3.34.8.240/diary", diaryRequest)
+            .then((res) => console.log(res.data))
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(text)
+        console.log(diaryRequest)
+        handleDiary();
     }
 
     const handleChange = (e) => {
-        setText(e.target.value)
+        setDiaryRequest({...diaryRequest, content: e.target.value})
     }
 
 
     const handleClick = () => {
-        navigate('/music');
+        // navigate('/music');
     }
     return (
         <div id="0">

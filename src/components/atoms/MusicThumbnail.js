@@ -7,7 +7,6 @@ function MusicThumbnail(props) {
         <div>
             {props.src.map((link, index) => {
                 const addr = link.thumbnails.high.url;
-                console.log(link.thumbnails)
                 const id = link.resourceId.videoId;
                 return (
                         <ImgButton alt={link.title} onClick={props.handleClick} id={id} key={index} src={addr} />
