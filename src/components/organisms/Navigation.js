@@ -1,18 +1,20 @@
 import React, {useState} from 'react';
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import CustomButton from "../atoms/CustomButton";
 import {Link} from "react-scroll";
-import { BiLogIn } from "react-icons/bi";
+import { BiLogIn, BiLogOut } from "react-icons/bi";
 import { FiUser } from "react-icons/fi";
 import { FaHeartbeat } from "react-icons/fa";
 import TemporaryDrawer from "../molcules/TemporaryDrawer";
+import {useRecoilValue} from "recoil";
+import {loginState} from "../../store/LoginInfo";
 
 
 
 
 function Navigation(props) {
     let navigate = useNavigate();
+    const isLoggedIn = useRecoilValue(loginState);
     const [display, setDisplay] = useState(1);
 
     const handleClick = (e) => {
@@ -30,6 +32,10 @@ function Navigation(props) {
                 break;
             case 'Login':
                 navigate('/login');
+                break;
+            case 'Logout':
+                localStorage.clear();
+                window.location.reload();
                 break;
             case 'My Page':
                 navigate('/mypage');
@@ -63,8 +69,16 @@ function Navigation(props) {
             </BtnContainer>
             <BtnContainer to="0" spy={true} smooth={true}>
                 <Btn onClick={handleClick} id={'Login'}>
-                    <BiLogIn id={'Login'} className={'login'} />
-                    <div id={'Login'} >Login</div>
+                    {isLoggedIn===true ?
+                        <>
+                            <BiLogOut id={'Logout'} className={'logout'}/>
+                            <div id={'Logout'} >Logout</div>
+                        </>
+                        :
+                        <>
+                            <BiLogIn id={'Login'} className={'login'}/>
+                            <div id={'Login'} >Login</div>
+                        </>}
                 </Btn>
                 <Btn onClick={handleClick} id={'My Page'}>
                     <FiUser id={'My Page'} className={'my_page'} />
@@ -99,6 +113,11 @@ const BtnContainer = styled(Link)`
   justify-content: space-between;
   align-items: center;
   .login {
+    color: white;
+    font-size: 2rem;
+  }
+
+  .logout {
     color: white;
     font-size: 2rem;
   }

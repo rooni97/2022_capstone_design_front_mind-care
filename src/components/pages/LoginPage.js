@@ -17,6 +17,7 @@ import {
 } from "@mui/material";
 
 import { FaHeartbeat } from "react-icons/fa";
+import {useNavigate} from "react-router-dom";
 
 const style = {
     position: 'absolute',
@@ -24,7 +25,7 @@ const style = {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: '50%',
-    height: '75%',
+    height: '80%',
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
@@ -61,6 +62,8 @@ const AlignWeatherAndSignup = { // 700px 이하에서 날씨랑 시간 없애기
 }
 
 function LoginPage(props) {
+    const navigate = useNavigate();
+
     const [userId, setUserId] = useState('');
     const [userPwd, setUserPwd] = useState('');
 
@@ -81,9 +84,23 @@ function LoginPage(props) {
         setUserPwd(e.target.value);
     }
 
+    const handleLogin = () => {
+      axios.post("http://3.34.8.240/login", { id: userId, password: userPwd })
+          .then((res) => {
+              console.log(res.data);
+              localStorage.setItem("jwt", JSON.stringify(res.data.jwt));
+              localStorage.setItem("usernum", JSON.stringify(res.data.userNum));
+              window.location.reload();
+          })
+          .catch((err) => {
+              alert("로그인 실패");
+              console.log(err);
+          })
+    }
+
     const handleLoginClick = (e) => {
         e.preventDefault();
-        console.log(userId, userPwd, 'Login Success');
+        handleLogin();
     }
 
     const handleRequest = (e) => {
@@ -110,11 +127,12 @@ function LoginPage(props) {
             .then((res) => {
                 console.log(signUpRequest);
                 console.log(res.data);
-                alert('로그인 성공');
+                alert('회원가입 성공');
+                setOpen(false);
             })
             .catch((err) => {
                 console.log(err);
-                alert('로그인 실패');
+                alert('회원가입 실패');
             })
     }
 
