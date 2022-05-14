@@ -21,11 +21,19 @@ export default CustomCalendar;
 
 const Wrapping = styled.div`
     display: flex;
-    margin-top: 100px;
+    margin-top: 50px;
+
+    @media screen and (max-width: 830px) {
+        flex-direction: column;
+    }
 `
 
 const CalendarValue = styled.div`
-    margin: 0px 0px 0px 15%;
     box-sizing: border-box;
     color: white;
+    margin-left: 5%;
+    
+    @media screen and (max-width: 830px) {
+        margin-left: 0%;
+    }
 `
