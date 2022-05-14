@@ -85,7 +85,7 @@ function LoginPage(props) {
     }
 
     const handleLogin = () => {
-      axios.post("http://3.34.8.240/login", { id: userId, password: userPwd })
+      axios.post("http://3.37.237.222/login", { id: userId, password: userPwd })
           .then((res) => {
               console.log(res.data);
               localStorage.setItem("jwt", JSON.stringify(res.data.jwt));
@@ -123,7 +123,7 @@ function LoginPage(props) {
     }
 
     const requestSignUp = () => {
-        axios.post("http://3.34.8.240/signup", signUpRequest)
+        axios.post("http://3.37.237.222/signup", signUpRequest)
             .then((res) => {
                 console.log(signUpRequest);
                 console.log(res.data);
