@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import smile1 from '../../media/smile1.png';
 import GetWeather from "../atoms/GetWeather";
 import axios from 'axios';
+import {NetworkAddress} from "../../Network/NetworkAddress";
 import Jthank from '../../media/Jthank.png';
 import Jsad from '../../media/Jsad.png';
 import Jboring from '../../media/Jboring.png';
@@ -12,7 +13,7 @@ import Jdelight from '../../media/Jdelight.png';
 import Jexcited from '../../media/Jexcited.png';
 import Jfatigue from '../../media/Jfatigue.png';
 import Jfury from '../../media/Jfury.png';
-import Jstress from '../../media/Jstress.png';
+import Jstress from '../../media/Jstress.png'
 
 function DiaryPage(props) {
     const [text, setText] = useState(''); // 일기
@@ -40,13 +41,26 @@ function DiaryPage(props) {
         setText(e.target.value)
     }
 
-    const requestDiary = (e) => {
-        axios.post('http://3.34.8.240/diary', {
-            content: text,
-            emoticon: emoji,
-            weather: CurrentWeatherMain,
-            credat: DateStr,
-            cretim: Today.getHours(),
+    const requestData = {
+        content: text,
+        emoticon: "dd",
+        keywords: [{keyword: "연필"}],
+        weather: CurrentWeatherMain,
+        foods: [{name: "떡볶이"}],
+        credat: 1,
+        cretim: 1,
+        musicId: 1,
+        userNum: localStorage.getItem("usernum"),
+        behaviors: [{contents: "산책하기"}],
+        emoticons: [{content: "웃음"}]
+    };
+
+    const requestDiary = () => {
+        axios.post(`http://${NetworkAddress}/diary`, requestData, {
+            headers: {
+                ['x-user-num']: localStorage.getItem("usernum"),
+                ['Authorization']: JSON.parse(localStorage.getItem("jwt"))
+            }
         })
             .then((res) => {
                 console.log(res.data);

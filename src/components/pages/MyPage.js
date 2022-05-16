@@ -45,7 +45,8 @@ function MyPage() {
                 date: RefineClickVal
             },
             headers: {
-                'Authorization': `Bearer ${myToken}`
+                ['x-user-num']: localStorage.getItem("usernum"),
+                ['Authorization']: JSON.parse(localStorage.getItem("jwt"))
             }
         })
             .then((res) => {

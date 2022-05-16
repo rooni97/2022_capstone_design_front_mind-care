@@ -11,24 +11,29 @@ import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { loginInformation, loginState } from "./store/LoginInfo";
 import axios from "axios";
+import {NetworkAddress} from "./Network/NetworkAddress";
 
 function App() {
     const [loginInfo, setLoginInfo] = useRecoilState(loginInformation);
     const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
 
     const requestLoginInfo = async () => {
-        await axios.get(`http://3.37.237.222/user/${localStorage.getItem("usernum")}`,
-            {
-                headers: {
+        await axios.get(`http://${NetworkAddress}/user/${localStorage.getItem("usernum")}`,
+            {headers: {
                     ['x-user-num']: localStorage.getItem("usernum"),
-                    ['authorization']: JSON.parse(localStorage.getItem("jwt"))
+                    ['Authorization']: JSON.parse(localStorage.getItem("jwt"))
                 }
             })
             .then((res) => {
                 setLoginInfo(res.data);
+                setLoginInfo((prev) => {
+                    console.log(prev)
+                    return prev;
+                })
                 setIsLoggedIn(true);
             })
             .catch((err) => {
+                console.log(err)
                 setLoginInfo({});
                 setIsLoggedIn(false);
                 localStorage.clear();
@@ -37,7 +42,10 @@ function App() {
 
     useEffect(() => {
         requestLoginInfo();
-        console.log(loginInfo);
+        setLoginInfo((prev) => {
+            console.log(prev)
+            return prev;
+        })
     }, []);
 
 
