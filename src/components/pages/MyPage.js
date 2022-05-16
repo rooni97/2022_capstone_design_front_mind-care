@@ -21,7 +21,7 @@ const style = {
     p: 4,
     overflowY: true,
     '@media screen and (max-width: 700px)': {
-        width: '80%', // 700px 이하에서 회원가입 모달 창 크기 증가
+        width: '80%', // 700px 이하에서 회원가입 모달 창 크기 증가.
         height: '50%'
     }
 };
