@@ -6,6 +6,14 @@ import smile1 from '../../media/smile1.png';
 import GetWeather from "../atoms/GetWeather";
 import axios from 'axios';
 import {NetworkAddress} from "../../Network/NetworkAddress";
+import Jthank from '../../media/Jthank.png';
+import Jsad from '../../media/Jsad.png';
+import Jboring from '../../media/Jboring.png';
+import Jdelight from '../../media/Jdelight.png';
+import Jexcited from '../../media/Jexcited.png';
+import Jfatigue from '../../media/Jfatigue.png';
+import Jfury from '../../media/Jfury.png';
+import Jstress from '../../media/Jstress.png'
 
 function DiaryPage(props) {
     const [text, setText] = useState(''); // 일기
@@ -87,35 +95,35 @@ function DiaryPage(props) {
 
                     <EmojiContainer>
                         <div>
-                            <img style={{ cursor: 'pointer' }} onClick={ImageClick} src={smile1} id='기쁨' />
+                            <img style={{ cursor: 'pointer' }} onClick={ImageClick} src={Jdelight} id='기쁨' />
                             <h3>기쁨</h3>
                         </div>
                         <div>
-                            <img src={smile1} />
+                            <img src={Jsad} />
                             <h3>슬픔</h3>
                         </div>
                         <div>
-                            <img src={smile1} />
+                            <img src={Jfury} />
                             <h3>분노</h3>
                         </div>
                         <div>
-                            <img src={smile1} />
+                            <img src={Jboring} />
                             <h3>지루</h3>
                         </div>
                         <div>
-                            <img src={smile1} />
+                            <img src={Jthank} />
                             <h3>감사</h3>
                         </div>
                         <div>
-                            <img src={smile1} />
+                            <img src={Jfatigue} />
                             <h3>피로</h3>
                         </div>
                         <div>
-                            <img src={smile1} />
+                            <img src={Jstress} />
                             <h3>스트레스</h3>
                         </div>
                         <div>
-                            <img src={smile1} />
+                            <img src={Jexcited} />
                             <h3>신남</h3>
                         </div>
                     </EmojiContainer>
@@ -188,8 +196,9 @@ const DiarySave = styled.button`
 
 const EmojiContainer = styled.div`
     display: flex;
-    justify-content: center;
-    
+    justify-content: space-evenly;
+    margin-top: 3%;
+
     div {
         text-align: center;
     }
@@ -204,7 +213,7 @@ const EmojiContainer = styled.div`
         margin-top: 5%;
 
         h3 {
-            font-size: 12px;
+            font-size: 11px;
         }
 
         img {

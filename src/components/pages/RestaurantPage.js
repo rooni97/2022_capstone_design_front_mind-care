@@ -93,9 +93,13 @@ export default RestaurantPage;
 
 const PageContainer = styled.div`
   width: 100%;
-  height: 2500px;
+  height: 3000px;
   padding-top: 120px;
   background-color: black;
+
+  @media screen and (max-width: 700px) {
+    height: 1500px;
+}
 `
 
 const FoodIcons = styled.a`
