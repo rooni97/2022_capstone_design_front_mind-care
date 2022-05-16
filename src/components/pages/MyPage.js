@@ -7,6 +7,7 @@ import { FaCalendarAlt } from 'react-icons/fa';
 import Calendar from 'react-calendar'
 import '../atoms/CustomCalendar.css';
 import moment from 'moment';
+import { NetworkAddress } from "../../Network/NetworkAddress";
 
 const style = {
     position: 'absolute',
@@ -40,7 +41,7 @@ function MyPage() {
     }
 
     const handleMypage = () => {
-        axios.get('http://3.37.237.222/mypage', {
+        axios.get(`http://${NetworkAddress}/mypage`, {
             params: {
                 date: RefineClickVal
             },
