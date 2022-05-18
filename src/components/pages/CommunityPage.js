@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import Navigation from "../organisms/Navigation";
 import styled from "styled-components";
 import GetWeather from "../atoms/GetWeather";
@@ -54,6 +54,22 @@ function CommunityPage(props) {
     e.preventDefault();
     requestCommunitySearch();
   }
+  
+  const getCommunityList = () => {
+    axios.get(`http://${NetworkAddress}/communities/1`, {
+      headers: {
+        ['x-user-num']: localStorage.getItem("usernum"),
+        ['Authorization']: JSON.parse(localStorage.getItem("jwt"))
+      }
+    })
+        .then((res) => {
+          console.log(res.data)
+        })
+  }
+
+  useEffect(() => {
+    getCommunityList();
+  }, [])
 
   // 게시글 작성하기
   const requestCommunity = () => {
