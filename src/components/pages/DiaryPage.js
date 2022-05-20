@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import smile1 from '../../media/smile1.png';
 import GetWeather from "../atoms/GetWeather";
 import axios from 'axios';
-import {NetworkAddress} from "../../Network/NetworkAddress";
+import { NetworkAddress } from "../../Network/NetworkAddress";
 import Jthank from '../../media/Jthank.png';
 import Jsad from '../../media/Jsad.png';
 import Jboring from '../../media/Jboring.png';
@@ -18,6 +18,7 @@ import Jstress from '../../media/Jstress.png'
 function DiaryPage(props) {
     const [text, setText] = useState(''); // 일기
     const [emoji, setEmoji] = useState(''); // 이모티콘
+    const [isChecked, setIsChecked] = useState(false);
     const [loading, setLoading] = useState(true);
 
     let Today = new Date();
@@ -34,7 +35,9 @@ function DiaryPage(props) {
     let navigate = useNavigate();
 
     const ImageClick = (e) => {
-        setEmoji(e.target.id);
+        setIsChecked(!isChecked);
+        isChecked ? setEmoji(e.target.id) : setEmoji('');
+        console.log(emoji);
     }
 
     const handleText = (e) => {
@@ -43,16 +46,16 @@ function DiaryPage(props) {
 
     const requestData = {
         content: text,
-        emoticon: "dd",
-        keywords: [{keyword: "연필"}],
+        emoticon: emoji,
+        keywords: [{ keyword: "연필" }],
         weather: CurrentWeatherMain,
-        foods: [{name: "떡볶이"}],
+        foods: [{ name: "떡볶이" }],
         credat: 1,
         cretim: 1,
         musicId: 1,
         userNum: localStorage.getItem("usernum"),
-        behaviors: [{contents: "산책하기"}],
-        emoticons: [{content: "웃음"}]
+        behaviors: [{ contents: "산책하기" }],
+        emoticons: [{ content: "웃음" }]
     };
 
     const requestDiary = () => {
@@ -72,6 +75,23 @@ function DiaryPage(props) {
             })
     }
 
+    // // DiaryPage에서 일기 post하고 MusicBehaviorPage에서 음악 get하는게 맞지 않나
+    // const requestDiaryMusic = () => {
+    //     axios.post('http://15.165.199.129:5001/music/diary', {
+    //         params: {
+    //             content: text
+    //         }
+    //     })
+    //         .then((res) => {
+    //             console.log(res.data);
+    //             alert('Success');
+    //         })
+    //         .catch((err) => {
+    //             console.log(err);
+    //             alert('fail');
+    //         })
+    // }
+
     const handleDiary = (e) => {
         e.preventDefault();
         if (text.length === 0 && emoji.length === 0) {
@@ -80,6 +100,7 @@ function DiaryPage(props) {
         }
         else {
             requestDiary();
+            // requestDiaryMusic();
             navigate('/music');
         }
     }
@@ -96,7 +117,7 @@ function DiaryPage(props) {
                     <EmojiContainer>
                         <div>
                             <img style={{ cursor: 'pointer' }} onClick={ImageClick} src={Jdelight} id='기쁨' />
-                            <h3>기쁨</h3>
+                            {isChecked ? <h3 style={{ color: '#00ff43' }}>기쁨</h3> : <h3>기쁨</h3>}
                         </div>
                         <div>
                             <img src={Jsad} />
