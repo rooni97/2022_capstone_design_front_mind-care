@@ -31,7 +31,7 @@ function MyPage() {
     const [clickVal, setClickVal] = useState(new Date());
     let RefineClickVal = moment(clickVal).format("YYYY-MM-DD"); // 1234-56-78
     const [userData, setUserData] = useState();
-    const myToken = JSON.parse(localStorage.getItem('jwt'));
+    const [musicInfo, setMusicInfo] = useState([]);
 
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
@@ -61,8 +61,24 @@ function MyPage() {
             })
     }
 
+    const requestMusicInfo = () => {
+        axios.get('http://15.165.199.129:5001/mypage/music', {
+            params: {
+                musicId: 1
+            }
+        })
+        .then((res) => {
+            setMusicInfo(res.data);
+            console.log(res.data);
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+    }
+
     useEffect(() => {
         handleMypage();
+        requestMusicInfo();
     }, [RefineClickVal]);
 
     if (!userData) return null;
