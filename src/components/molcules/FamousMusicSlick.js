@@ -17,10 +17,10 @@ function FamousMusicSlick(props) {
                     <CustomButton>Play Now</CustomButton>
                 </Link>
             </div>
-            <Image1 src={music1}/>
-            <Image2 src={music2}/>
-            <Image3 src={music3}/>
-            <Image4 src={music4}/>
+            {props.srcList[0] && <Image1 src={props.srcList[0].thumbnails.high.url}/>}
+            {props.srcList[1] && <Image2 src={props.srcList[1].thumbnails.high.url}/>}
+            {props.srcList[2] && <Image3 src={props.srcList[2].thumbnails.high.url}/>}
+            {props.srcList[3] && <Image4 src={props.srcList[3].thumbnails.high.url}/>}
         </SlickContainer>
     );
 }
@@ -45,7 +45,8 @@ const Image1 = styled.img`
   position: absolute;
   @media screen and (max-width: 700px) {
     height: 30%;
-    bottom: 60%;
+    bottom: 65%;
+    right: 12%;
   }
 `;
 
@@ -56,7 +57,8 @@ const Image2 = styled.img`
   position: absolute;
   @media screen and (max-width: 700px) {
     height: 30%;
-    bottom: 55%;
+    bottom: 50%;
+    right: 16%;
   }
 `;
 
@@ -68,6 +70,7 @@ const Image3 = styled.img`
   @media screen and (max-width: 700px) {
     height: 30%;
     bottom: 35%;
+    right: 20%;
   }
 `;
 
@@ -78,7 +81,8 @@ const Image4 = styled.img`
   position: absolute;
   @media screen and (max-width: 700px) {
     height: 30%;
-    bottom: 30%;
+    bottom: 20%;
+    right: 24%;
   }
 `;
 

@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import smile1 from '../../media/smile1.png';
 import GetWeather from "../atoms/GetWeather";
 import axios from 'axios';
-import {NetworkAddress} from "../../Network/NetworkAddress";
 import Jthank from '../../media/Jthank.png';
 import Jsad from '../../media/Jsad.png';
 import Jboring from '../../media/Jboring.png';
@@ -56,7 +55,7 @@ function DiaryPage(props) {
     };
 
     const requestDiary = () => {
-        axios.post(`http://${NetworkAddress}/diary`, requestData, {
+        axios.post(`http://${process.env.REACT_APP_REQUEST_URL}:8080/diary`, requestData, {
             headers: {
                 ['x-user-num']: localStorage.getItem("usernum"),
                 ['Authorization']: JSON.parse(localStorage.getItem("jwt"))
