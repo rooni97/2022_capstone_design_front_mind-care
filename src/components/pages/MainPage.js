@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Slick from "../molcules/Slick";
 import axios from "axios";
 import MusicThumbnail from "../atoms/MusicThumbnail";
-import GetUserTime from '../atoms/GetUserTime';
+import moment from 'moment';
 
 function MainPage(props) {
     const [musicArr, setMusicArr] = useState([]);
@@ -14,7 +14,7 @@ function MainPage(props) {
     const [isPlay, setIsPlay] = useState(false);
     const [isPlayThis, setIsPlayThis] = useState(false);
     const [flaskMusicList, setFlaskMusicList] = useState([]);
-    const userTime = GetUserTime();
+    const nowTime = moment().format('hh:mm');
 
     const handleClick = (e) => {
         setIsPlay(false);
@@ -51,7 +51,7 @@ function MainPage(props) {
     useEffect(() => {
         axios.get('http://3.39.150.64:5001/music/weather', { 
             params: {
-                weather: '맑음', time: '14:11' 
+                weather: '맑음', time: nowTime 
             }
         })
             .then((res) => {
