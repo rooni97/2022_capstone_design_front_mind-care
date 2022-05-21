@@ -49,13 +49,7 @@ function MainPage(props) {
     }
 
     useEffect(() => {
-        axios.get('http://15.165.199.129:5001/music/weather', { 
-            params: {
-                weather: "맑음", 
-                time: userTime 
-                // 21:30
-            } 
-        })
+        axios.post('http://3.39.150.64:5001/music/weather', { weather: "맑음", time: userTime })
             .then((res) => {
                 setFlaskMusicList(res.data);
             })

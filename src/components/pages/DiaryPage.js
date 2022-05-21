@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import smile1 from '../../media/smile1.png';
 import GetWeather from "../atoms/GetWeather";
-import axios from 'axios';=
+import axios from 'axios';
 import Jthank from '../../media/Jthank.png';
 import Jsad from '../../media/Jsad.png';
 import Jboring from '../../media/Jboring.png';
@@ -17,7 +17,6 @@ import Jstress from '../../media/Jstress.png'
 function DiaryPage(props) {
     const [text, setText] = useState(''); // 일기
     const [emoji, setEmoji] = useState(''); // 이모티콘
-    const [isChecked, setIsChecked] = useState(false);
     const [loading, setLoading] = useState(true);
 
     let Today = new Date();
@@ -34,9 +33,7 @@ function DiaryPage(props) {
     let navigate = useNavigate();
 
     const ImageClick = (e) => {
-        setIsChecked(!isChecked);
-        isChecked ? setEmoji(e.target.id) : setEmoji('');
-        console.log(emoji);
+        setEmoji((prev) => prev === e.target.id ? "" : e.target.id);
     }
 
     const handleText = (e) => {
@@ -76,7 +73,7 @@ function DiaryPage(props) {
 
     // // DiaryPage에서 일기 post하고 MusicBehaviorPage에서 음악 get하는게 맞지 않나
     // const requestDiaryMusic = () => {
-    //     axios.post('http://15.165.199.129:5001/music/diary', {
+    //     axios.post('http://3.39.150.64:5001/music/diary', {
     //         params: {
     //             content: text
     //         }
@@ -114,38 +111,47 @@ function DiaryPage(props) {
                     </DiaryInput>
 
                     <EmojiContainer>
-                        <div>
-                            <img style={{ cursor: 'pointer' }} onClick={ImageClick} src={Jdelight} id='기쁨' />
-                            {isChecked ? <h3 style={{ color: '#00ff43' }}>기쁨</h3> : <h3>기쁨</h3>}
-                        </div>
-                        <div>
-                            <img src={Jsad} />
-                            <h3>슬픔</h3>
-                        </div>
-                        <div>
-                            <img src={Jfury} />
-                            <h3>분노</h3>
-                        </div>
-                        <div>
-                            <img src={Jboring} />
-                            <h3>지루</h3>
-                        </div>
-                        <div>
-                            <img src={Jthank} />
-                            <h3>감사</h3>
-                        </div>
-                        <div>
-                            <img src={Jfatigue} />
-                            <h3>피로</h3>
-                        </div>
-                        <div>
-                            <img src={Jstress} />
-                            <h3>스트레스</h3>
-                        </div>
-                        <div>
-                            <img src={Jexcited} />
-                            <h3>신남</h3>
-                        </div>
+                        {
+                            [
+                                {
+                                    text: "기쁨",
+                                    imgUrl: Jdelight,
+                                },
+                                {
+                                    text: "슬픔",
+                                    imgUrl: Jsad,
+                                },
+                                {
+                                    text: "분노",
+                                    imgUrl: Jfury,
+                                },
+                                {
+                                    text: "지루",
+                                    imgUrl: Jboring,
+                                },
+                                {
+                                    text: "감사",
+                                    imgUrl: Jthank,
+                                },
+                                {
+                                    text: "피로",
+                                    imgUrl: Jfatigue,
+                                },
+                                {
+                                    text: "스트레스",
+                                    imgUrl: Jstress,
+                                },
+                                {
+                                    text: "신남",
+                                    imgUrl: Jexcited,
+                                },
+                            ].map((data) => (
+                                <div key={data.text}>
+                                    <img style={{ cursor: 'pointer' }} onClick={ImageClick} src={data.imgUrl} id={data.text} />
+                                    <h3 style={{ color: emoji === data.text ? '#00ff43' : '#ffffff' }}>{data.text}</h3>
+                                </div>
+                            ))
+                        }
                     </EmojiContainer>
 
                     <DiarySave type={'submit'}>

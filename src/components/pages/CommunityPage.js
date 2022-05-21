@@ -72,7 +72,7 @@ function CommunityPage(props) {
 
   // 게시글 작성하기
   const requestCommunity = () => {
-    axios.post(`http://${process.env.REACT_APP_REQUEST_URL}:8080/community`, { title: userTitle, content: userText }, {
+    axios.post(`http://${process.env.REACT_APP_REQUEST_URL}:8080/community`, { title: userTitle, content: userText, userNum: localStorage.getItem("usernum") }, {
       headers: {
         ['x-user-num']: localStorage.getItem("usernum"),
         ['Authorization']: JSON.parse(localStorage.getItem("jwt"))
