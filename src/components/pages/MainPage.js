@@ -49,9 +49,15 @@ function MainPage(props) {
     }
 
     useEffect(() => {
-        axios.post('http://3.39.150.64:5001/music/weather', { weather: "맑음", time: userTime })
+        axios.get('http://3.39.150.64:5001/music/weather', { 
+            params: {
+                weather: '맑음', time: '14:11' 
+            }
+        })
             .then((res) => {
                 setFlaskMusicList(res.data);
+                console.log(res.data);
+                alert('success');
             })
         axios.get('https://www.googleapis.com/youtube/v3/playlistItems', {params: params})
             .then(res => {
