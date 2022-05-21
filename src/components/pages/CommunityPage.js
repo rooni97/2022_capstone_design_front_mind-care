@@ -189,7 +189,7 @@ const PageContainer = styled.div`
     font-size: 5vw;
     width: 50%;
     @media screen and (max-width: 700px) {
-      font-size: 6vh;
+      font-size: 5vh;
       width: 100%;
     }
   }
@@ -200,8 +200,9 @@ const PageContainer = styled.div`
     height: 55%;
     width: 9%;
     border-bottom: 4px solid red;
+
     @media screen and (max-width: 700px) {
-      font-size: 5vh;
+      font-size: 4vh;
       height: 40%;
       width: 24%;
       border-bottom: 3px solid red;
@@ -230,8 +231,9 @@ const CustomButton = styled.button`
   //margin-right: 5%;
   cursor: pointer;
   display: block;
+  
   @media screen and (max-width: 700px) {
-    width: 60%;
+    width: 50%;
   }
 `;
 

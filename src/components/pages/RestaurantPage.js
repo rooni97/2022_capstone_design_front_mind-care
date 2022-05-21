@@ -98,7 +98,7 @@ const PageContainer = styled.div`
   background-color: black;
 
   @media screen and (max-width: 700px) {
-    //height: 1500px;
+    height: 2000px;
 }
 `
 
@@ -116,6 +116,7 @@ const RecomContainer = styled.div`
   h1 {
     color: white;
     margin-left: 5%;
+    margin-right: 5%;
     font-size: 5vw;
     
     @media screen and (max-width: 700px) {

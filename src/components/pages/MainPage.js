@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Slick from "../molcules/Slick";
 import axios from "axios";
 import MusicThumbnail from "../atoms/MusicThumbnail";
+import GetUserTime from '../atoms/GetUserTime';
 
 function MainPage(props) {
     const [musicArr, setMusicArr] = useState([]);
@@ -12,6 +13,8 @@ function MainPage(props) {
     const [selectedThis, setSelectedThis] = useState({});
     const [isPlay, setIsPlay] = useState(false);
     const [isPlayThis, setIsPlayThis] = useState(false);
+    const [flaskMusicList, setFlaskMusicList] = useState([]);
+    const userTime = GetUserTime();
 
     const handleClick = (e) => {
         setIsPlay(false);
@@ -46,6 +49,16 @@ function MainPage(props) {
     }
 
     useEffect(() => {
+        axios.get('http://15.165.199.129:5001/music/weather', { 
+            params: {
+                weather: "맑음", 
+                time: userTime 
+                // 21:30
+            } 
+        })
+            .then((res) => {
+                setFlaskMusicList(res.data);
+            })
         axios.get('https://www.googleapis.com/youtube/v3/playlistItems', {params: params})
             .then(res => {
                 const arr = []

@@ -239,7 +239,8 @@ export default function Post() {
                         <CardContent>
                             <Typography>안녕하세요.</Typography>
                         </CardContent>
-                    </Typography><Typography paragraph>
+                    </Typography>
+                    <Typography paragraph>
                         <CardHeader
                             avatar={
                                 <FiUser />
