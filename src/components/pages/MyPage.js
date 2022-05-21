@@ -31,6 +31,7 @@ function MyPage() {
     let RefineClickVal = moment(clickVal).format("YYYY-MM-DD"); // 1234-56-78
     const [userData, setUserData] = useState();
     const [musicInfo, setMusicInfo] = useState([]);
+    const userNum = localStorage.getItem("usernum")
 
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
@@ -40,7 +41,7 @@ function MyPage() {
     }
 
     const handleMypage = () => {
-        axios.get(`http://${process.env.REACT_APP_REQUEST_URL}:8080/mypage`, {
+        axios.get(`http://${process.env.REACT_APP_REQUEST_URL}:8080/mypage/${userNum}`, {
             params: {
                 date: RefineClickVal
             },
@@ -52,7 +53,6 @@ function MyPage() {
             .then((res) => {
                 setUserData(null);
                 setUserData(res.data);
-                console.log(RefineClickVal);
                 console.log(res.data);
             })
             .catch((err) => {
@@ -60,10 +60,11 @@ function MyPage() {
             })
     }
 
+    // Flask에서 불러온 음악
     const requestMusicInfo = () => {
         axios.get('http://3.39.150.64:5001/mypage/music', {
             params: {
-                musicId: 1
+                musicId: 174749
             }
         })
         .then((res) => {
@@ -102,13 +103,16 @@ function MyPage() {
                                         <p style={{ marginTop: '0%', marginBottom: '0%' }} >일기</p> <br />
                                         <p style={{ marginTop: '0%', fontSize: '20px' }}>{user.content}</p> <br />
                                         <p style={{ marginTop: '0%', marginBottom: '0%' }} >기분</p> <br />
-                                        <p style={{ marginTop: '0%', fontSize: '20px' }}>{user.feeling}</p> <br />
+                                        <p style={{ marginTop: '0%', fontSize: '20px' }}>{user.emotion}</p> <br />
                                         <p style={{ marginTop: '2%', marginBottom: '0%' }} >음악</p> <br />
                                         <p style={{ marginTop: '0%', fontSize: '20px' }}>{user.songs}</p> <br />
                                         <p style={{ marginTop: '2%', marginBottom: '0%' }} >한 일</p> <br />
                                         <p style={{ marginTop: '0%', fontSize: '20px' }}>{user.whatTodo}</p>
                                     </div>
                                 ))}
+                                {/* <p>음악</p>
+                                <p>{musicInfo[0]}</p>
+                                <p>{musicInfo[1]}</p> */}
                             </div>
                         </CalendarValue>
                     </ContentWebCont>
