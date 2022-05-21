@@ -61,7 +61,7 @@ function MyPage() {
     }
 
     const requestMusicInfo = () => {
-        axios.get('http://15.165.199.129:5001/mypage/music', {
+        axios.get('http://3.39.150.64:5001/mypage/music', {
             params: {
                 musicId: 1
             }
