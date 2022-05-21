@@ -18,7 +18,6 @@ import {
 
 import { FaHeartbeat } from "react-icons/fa";
 import {useNavigate} from "react-router-dom";
-import {NetworkAddress} from "../../Network/NetworkAddress";
 
 const style = {
     position: 'absolute',
@@ -86,7 +85,7 @@ function LoginPage(props) {
     }
 
     const handleLogin = () => {
-      axios.post(`http://${NetworkAddress}/login`, { id: userId, password: userPwd })
+      axios.post(`http://${process.env.REACT_APP_REQUEST_URL}:8080/login`, { id: userId, password: userPwd })
           .then((res) => {
               console.log(res.data);
               localStorage.setItem("jwt", JSON.stringify(res.data.jwt));
@@ -124,7 +123,7 @@ function LoginPage(props) {
     }
 
     const requestSignUp = () => {
-        axios.post(`http://${NetworkAddress}/signup`, signUpRequest)
+        axios.post(`http://${process.env.REACT_APP_REQUEST_URL}:8080/signup`, signUpRequest)
             .then((res) => {
                 console.log(signUpRequest);
                 console.log(res.data);

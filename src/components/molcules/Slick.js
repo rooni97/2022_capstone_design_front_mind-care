@@ -32,8 +32,8 @@ export default class Slick extends Component {
             <div>
                 <StyledSlider {...settings}>
                     <CustomSlide index={1} content={<DiarySlick />} />
-                    <CustomSlide index={2} content={<ThisMusicSlick src={this.props.src} />} />
-                    <CustomSlide index={3} content={<FamousMusicSlick />} />
+                    <CustomSlide index={2} content={<ThisMusicSlick srcList={this.props.thisMusic} />} />
+                    <CustomSlide index={3} content={<FamousMusicSlick srcList={this.props.famous} />} />
                 </StyledSlider>
             </div>
         );

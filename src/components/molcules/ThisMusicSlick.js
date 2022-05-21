@@ -16,8 +16,8 @@ function ThisMusicSlick(props) {
                     <CustomButton>Play Now</CustomButton>
                 </Link>
             </div>
-            <ImageLeft src={this1}/>
-            <ImageRight src={this2}/>
+            {props.srcList[0] && <ImageLeft src={props.srcList[0].thumbnails.high.url}/>}
+            {props.srcList[2] && <ImageRight src={props.srcList[2].thumbnails.high.url}/>}
         </SlickContainer>
     );
 }
@@ -43,8 +43,8 @@ const ImageLeft = styled.img`
   bottom: 20%;
   position: absolute;
   @media screen and (max-width: 700px) {
-    height: 45%;
-    bottom: 30%;
+    height: 30%;
+    bottom: 50%;
   }
 `;
 
@@ -52,11 +52,11 @@ const ImageRight = styled.img`
   transform: rotate(10deg);
   height: 50%;
   right: 10%;
-  bottom: 15%;
+  bottom: 10%;
   position: absolute;
   @media screen and (max-width: 700px) {
-    height: 45%;
-    bottom: 20%;
+    height: 30%;
+    bottom: 35%;
   }
 `;
 

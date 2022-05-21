@@ -19,7 +19,6 @@ import { FiUser } from "react-icons/fi";
 import { TextField } from "@mui/material";
 import { Modal, Box } from '@mui/material';
 import axios from 'axios';
-import { NetworkAddress } from '../../Network/NetworkAddress';
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -86,7 +85,7 @@ export default function Post() {
 
     // 게시글 수정하기
     const requestCommunityModify = () => {
-        axios.put(`http://${NetworkAddress}/community`, { title: userTitle, content: userText }, {
+        axios.put(`http://${process.env.REACT_APP_REQUEST_URL}/community`, { title: userTitle, content: userText }, {
             headers: {
                 ['x-user-num']: localStorage.getItem("usernum"),
                 ['Authorization']: JSON.parse(localStorage.getItem("jwt"))
@@ -104,7 +103,7 @@ export default function Post() {
 
     // 게시글 삭제하기
     const requestCommunityDelete = () => {
-        axios.delete(`http://${NetworkAddress}/community`, {
+        axios.delete(`http://${process.env.REACT_APP_REQUEST_URL}/community`, {
             headers: {
                 ['x-user-num']: localStorage.getItem("usernum"),
                 ['Authorization']: JSON.parse(localStorage.getItem("jwt"))

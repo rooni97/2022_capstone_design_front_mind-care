@@ -35,14 +35,14 @@ function MainPage(props) {
     }
 
     const params = {
-        key: 'AIzaSyBa4owF0B7A0QCZu2dRXO4iv2bs3wLhFrk',
+        key: process.env.REACT_APP_YOUTUBE_API_KEY,
         part:'snippet',
         playlistId: 'PL4fGSI1pDJn6jXS_Tv_N9B8Z0HTRVJE0m',
         maxResults : 10,
     }
 
     const params_this = {
-        key: 'AIzaSyBa4owF0B7A0QCZu2dRXO4iv2bs3wLhFrk',
+        key: process.env.REACT_APP_YOUTUBE_API_KEY,
         part:'snippet',
         playlistId: 'PLg1XJ5kHmpzGkE1XpdcPUW0eb0PmKEfa0',
         maxResults : 10,
@@ -82,7 +82,7 @@ function MainPage(props) {
             <Navigation />
             <PageContainer>
                 <div className={'slick'}>
-                    <Slick src={thisMusic} />
+                    <Slick src={thisMusic} thisMusic={thisMusic} famous={musicArr} />
                 </div>
                 <Div id="1" className={'main'}>
                     <h1 style={{color: 'white', marginLeft: '3rem'}}>오늘 이 노래 어떠세요?</h1>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import Navigation from "../organisms/Navigation";
 import styled from "styled-components";
 import GetWeather from "../atoms/GetWeather";
@@ -7,7 +7,6 @@ import GetLocation from "../atoms/GetLocation";
 import Post from "../atoms/Post";
 import { Modal, Box, Typography, TextField } from '@mui/material';
 import axios from 'axios';
-import { NetworkAddress } from "../../Network/NetworkAddress";
 
 const style = {
   position: 'absolute',
@@ -54,10 +53,26 @@ function CommunityPage(props) {
     e.preventDefault();
     requestCommunitySearch();
   }
+  
+  const getCommunityList = () => {
+    axios.get(`http://${process.env.REACT_APP_REQUEST_URL}:8080/communities/1`, {
+      headers: {
+        ['x-user-num']: localStorage.getItem("usernum"),
+        ['Authorization']: JSON.parse(localStorage.getItem("jwt"))
+      }
+    })
+        .then((res) => {
+          console.log(res.data)
+        })
+  }
+
+  useEffect(() => {
+    getCommunityList();
+  }, [])
 
   // 게시글 작성하기
   const requestCommunity = () => {
-    axios.post(`http://${NetworkAddress}/community`, { title: userTitle, content: userText }, {
+    axios.post(`http://${process.env.REACT_APP_REQUEST_URL}:8080/community`, { title: userTitle, content: userText }, {
       headers: {
         ['x-user-num']: localStorage.getItem("usernum"),
         ['Authorization']: JSON.parse(localStorage.getItem("jwt"))
@@ -75,7 +90,7 @@ function CommunityPage(props) {
 
   // 게시글 조회하기
   const requestCommunitySearch = () => {
-    axios.get(`http://${NetworkAddress}/community`, {
+    axios.get(`http://${process.env.REACT_APP_REQUEST_URL}:8080/community`, {
       headers: {
         ['x-user-num']: localStorage.getItem("usernum"),
         ['Authorization']: JSON.parse(localStorage.getItem("jwt"))

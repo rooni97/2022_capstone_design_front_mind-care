@@ -93,7 +93,7 @@ export default RestaurantPage;
 
 const PageContainer = styled.div`
   width: 100%;
-  height: 3000px;
+  //height: 3000px;
   padding-top: 120px;
   background-color: black;
 
@@ -129,11 +129,11 @@ const RecomContainer = styled.div`
 const MapCont = styled.div`
   margin-left: 4vw;
   width: 60vw;
-  height: 60vh; 
+  //height: 60vh;
   background-color: white;
 
   @media screen and (max-width: 700px) {
     width: 70vw;
-    height: 40vh;
+    height: 30vh;
   }
 `
