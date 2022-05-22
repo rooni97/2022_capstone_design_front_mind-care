@@ -14,7 +14,7 @@ function MainPage(props) {
     const [isPlay, setIsPlay] = useState(false);
     const [isPlayThis, setIsPlayThis] = useState(false);
     const [flaskMusicList, setFlaskMusicList] = useState([]);
-    const nowTime = moment().format('hh:mm');
+    let nowTime = moment().format('HH:mm');
 
     const handleClick = (e) => {
         setIsPlay(false);
