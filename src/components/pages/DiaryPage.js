@@ -55,7 +55,7 @@ function DiaryPage(props) {
     };
 
     const requestDiary = () => {
-        axios.post('http://localhost:4000/foods', requestData, {
+        axios.post(`http://${process.env.REACT_APP_REQUEST_URL}:8080/diary`, requestData, {
             headers: {
                 ['x-user-num']: localStorage.getItem("usernum"),
                 ['Authorization']: JSON.parse(localStorage.getItem("jwt"))
