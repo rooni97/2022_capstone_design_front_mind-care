@@ -11,7 +11,7 @@ function DiaryPage(props) {
     const [emoji, setEmoji] = useState(''); // 이모티콘
     const [loading, setLoading] = useState(true);
     let nowTime = moment().format('HH:mm');
-    let nowDate = moment().format('YYYY-MM-DD'); 
+    let nowDate = moment().format('YYYYMMDD'); 
 
     let CurrentWeather = GetWeather(setLoading);
     const CurrentWeatherMain = CurrentWeather[1]; // 날씨 ex) Rain, Clouds, ...

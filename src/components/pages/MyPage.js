@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Navigation from "../organisms/Navigation";
 import styled from "styled-components";
 import axios from 'axios';
@@ -28,11 +28,8 @@ const style = {
 
 function MyPage() {
     const [clickVal, setClickVal] = useState(new Date());
-    let RefineClickVal = moment(clickVal).format("YYYY-MM-DD"); // 1234-56-78
-    const [userData, setUserData] = useState();
     const [musicInfo, setMusicInfo] = useState([]);
     const userNum = localStorage.getItem("usernum")
-
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = (e) => {
@@ -40,10 +37,15 @@ function MyPage() {
         setOpen(false);
     }
 
-    const handleMypage = () => {
+    const [postsData, setPostsData] = useState(null);
+    const refineClickVal = useMemo(() => moment(clickVal).format("YYYYMMDD"), [clickVal]);
+    useEffect(() => {
+        if (!refineClickVal)
+            return;
+    
         axios.get(`http://${process.env.REACT_APP_REQUEST_URL}:8080/mypage/${userNum}`, {
-            params: {
-                date: RefineClickVal
+            params:{
+                credat: refineClickVal
             },
             headers: {
                 ['x-user-num']: localStorage.getItem("usernum"),
@@ -51,39 +53,32 @@ function MyPage() {
             }
         })
             .then((res) => {
-                setUserData(null);
-                setUserData(res.data);
+                setPostsData(res.data);
                 console.log(res.data);
             })
             .catch((err) => {
                 console.log(err);
             })
-    }
-
+    }, [refineClickVal]);
     // Flask에서 불러온 음악
-    const requestMusicInfo = () => {
-        axios.get('http://3.39.150.64:5001/mypage/music', {
-            params: {
-                musicId: 174749
-            }
-        })
-        .then((res) => {
-            setMusicInfo(res.data);
-            console.log(res.data);
-        })
-        .catch((err) => {
-            console.log(err);
-        })
-    }
+    // const requestMusicInfo = () => {
+    //     axios.get('http://3.39.150.64:5001/mypage/music', {
+    //         params: {
+    //             musicId: 174749
+    //         }
+    //     })
+    //     .then((res) => {
+    //         setMusicInfo(res.data);
+    //         console.log(res.data);
+    //     })
+    //     .catch((err) => {
+    //         console.log(err);
+    //     })
+    // }
 
-    useEffect(() => {
-        handleMypage();
-        requestMusicInfo();
-    }, [RefineClickVal]);
+    if (!postsData) return null;
 
-    if (!userData) return null;
-
-    if (userData.length !== 0) {
+    if (postsData.length !== 0) {
         return (
             <div id="0">
                 <Navigation />
@@ -98,16 +93,16 @@ function MyPage() {
                         <CalendarValue>
                             <p style={{ marginTop: '0%', marginBottom: '2%' }}>{moment(clickVal).format("YYYY년 MM월 DD일")} </p>
                             <div style={{ color: 'white' }}>
-                                {userData.map(user => (
-                                    <div key={user.date}>
+                                {postsData.map(postData => (
+                                    <div key={postData.date}>
                                         <p style={{ marginTop: '0%', marginBottom: '0%' }} >일기</p> <br />
-                                        <p style={{ marginTop: '0%', fontSize: '20px' }}>{user.content}</p> <br />
+                                        <p style={{ marginTop: '0%', fontSize: '20px' }}>{postData.content}</p> <br />
                                         <p style={{ marginTop: '0%', marginBottom: '0%' }} >기분</p> <br />
-                                        <p style={{ marginTop: '0%', fontSize: '20px' }}>{user.emotion}</p> <br />
+                                        <p style={{ marginTop: '0%', fontSize: '20px' }}>{postData.emotion}</p> <br />
                                         <p style={{ marginTop: '2%', marginBottom: '0%' }} >음악</p> <br />
-                                        <p style={{ marginTop: '0%', fontSize: '20px' }}>{user.songs}</p> <br />
+                                        <p style={{ marginTop: '0%', fontSize: '20px' }}>{postData.songs}</p> <br />
                                         <p style={{ marginTop: '2%', marginBottom: '0%' }} >한 일</p> <br />
-                                        <p style={{ marginTop: '0%', fontSize: '20px' }}>{user.whatTodo}</p>
+                                        <p style={{ marginTop: '0%', fontSize: '20px' }}>{postData.whatTodo}</p>
                                     </div>
                                 ))}
                                 {/* <p>음악</p>
@@ -133,7 +128,7 @@ function MyPage() {
                         <CalendarValue>
                             <p style={{ marginTop: '5%', marginBottom: '2%' }}>{moment(clickVal).format("YYYY년 MM월 DD일")} </p>
                             <div style={{ marginTop: '5%', color: 'white' }}>
-                                {userData.map(user => (
+                                {postsData.map(user => (
                                     <div key={user.date}>
                                         <p style={{ marginTop: '0%', marginBottom: '0%' }} >일기</p> <br />
                                         <p style={{ marginTop: '0%', fontSize: '20px' }}>{user.content}</p> <br />
