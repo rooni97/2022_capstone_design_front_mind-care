@@ -1,13 +1,6 @@
 import React from 'react';
 import Navigation from "../organisms/Navigation";
 import styled from "styled-components";
-import music1 from "../../media/music1.png"
-import music2 from "../../media/music2.png"
-import music3 from "../../media/music3.png"
-import music4 from "../../media/music4.png"
-import music5 from "../../media/this1.png"
-import smile1 from "../../media/smile1.png"
-import sad from "../../media/sad.png"
 import { Fade } from "react-awesome-reveal";
 
 function MusicBehaviorPage(props) {
@@ -20,9 +13,9 @@ function MusicBehaviorPage(props) {
                         <Fade direction={"up"} cascade>
                             <h1>기분 좋을 때,</h1>
                             <div style={{display: 'flex', justifyContent: 'center'}}>
-                                <img style={{width: '30%'}} src={smile1}/>
-                                <img style={{width: '30%'}} src={smile1}/>
-                                <img style={{width: '30%'}} src={smile1}/>
+                                <img style={{width: '30%'}} src={process.env.PUBLIC_URL + '/smile1.png'}/>
+                                <img style={{width: '30%'}} src={process.env.PUBLIC_URL + '/smile1.png'}/>
+                                <img style={{width: '30%'}} src={process.env.PUBLIC_URL + '/smile1.png'}/>
                             </div>
                             <h1>산책과 함께</h1>
                             <h1>이런 노래 어떠세요?</h1>
@@ -33,11 +26,11 @@ function MusicBehaviorPage(props) {
                     <div style={{ marginLeft: '5%', marginTop: '2%', marginBottom: '10%', color: 'white', backgroundColor: 'black', width: '50%'}}>
                         <Fade direction={"up"} cascade={true}>
                             <div style={{display: 'flex'}}>
-                                <img style={{width: '36%'}} src={music1}/>
-                                <img style={{width: '36%'}} src={music2}/>
-                                <img style={{width: '36%'}} src={music3}/>
-                                <img style={{width: '36%'}} src={music4}/>
-                                <img style={{width: '36%'}} src={music5}/>
+                                <img style={{width: '36%'}} src={process.env.PUBLIC_URL + '/music1.png'}/>
+                                <img style={{width: '36%'}} src={process.env.PUBLIC_URL + '/music2.png'}/>
+                                <img style={{width: '36%'}} src={process.env.PUBLIC_URL + '/music3.png'}/>
+                                <img style={{width: '36%'}} src={process.env.PUBLIC_URL + '/music4.png'}/>
+                                <img style={{width: '36%'}} src={process.env.PUBLIC_URL + '/this1.png'}/>
                             </div>
                         </Fade>
                     </div>

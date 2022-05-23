@@ -1,9 +1,5 @@
 import React from 'react';
 import styled from "styled-components";
-import music1 from "../../media/music1.png"
-import music2 from "../../media/music2.png"
-import music3 from "../../media/music3.png"
-import music4 from "../../media/music4.png"
 import {Link} from "react-scroll";
 
 function FamousMusicSlick(props) {

@@ -5,11 +5,6 @@ import Map from "../atoms/Map";
 import CreateMap from "../atoms/CreateMap";
 import { CircularProgress } from "@mui/material";
 import { Fade } from "react-awesome-reveal";
-import smile1 from "../../media/smile1.png";
-import sad from "../../media/sad.png";
-import hamburger from "../../media/hamburger.png";
-import coffee from '../../media/coffee.png';
-import sushi from '../../media/sushi.png';
 import {
     GiSushis,
     GiCoffeeCup,
@@ -48,12 +43,12 @@ function RestaurantPage(props) {
 
                             <div style={{ display: 'flex', alignItems: 'center' }}>
                                 <h1>기분 <br />좋을 때도,</h1>
-                                <img style={{ width: '20%' }} src={smile1} alt='smile' />
+                                <img style={{ width: '20%' }} src={process.env.PUBLIC_URL + 'smile1.png'} alt='smile' />
                             </div>
 
                             <div style={{ display: 'flex', alignItems: 'center' }}>
                                 <h1>기분 <br />나쁠 때도,</h1>
-                                <img style={{ width: '20%' }} src={sad} alt='sad' />
+                                <img style={{ width: '20%' }} src={process.env.PUBLIC_URL + 'sad.png'} alt='sad' />
                             </div>
 
                             <h1 style={{ marginBottom: '5%' }}>우리, <br />먹고는 살아야죠.</h1>

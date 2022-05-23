@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Navigation from "../organisms/Navigation";
 import styled from "styled-components";
-import LoginImg from "../../media/LoginPageImg.png"
 import DisplayWeatherTime from "../molcules/DisplayWeatherTime";
 import axios from "axios";
 import {
@@ -38,7 +37,7 @@ const style = {
 };
 
 const BackImgStyle = {
-    backgroundImage: `url(${LoginImg})`,
+    backgroundImage: `url(${process.env.PUBLIC_URL + 'LoginPageImg.png'})`,
     backgroundSize: 'cover',
     '@media screen and (max-width: 700px)': {
         display: "none",

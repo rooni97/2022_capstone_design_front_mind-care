@@ -2,17 +2,8 @@ import React, { useState } from 'react';
 import Navigation from "../organisms/Navigation";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import smile1 from '../../media/smile1.png';
 import GetWeather from "../atoms/GetWeather";
 import axios from 'axios';
-import Jthank from '../../media/Jthank.png';
-import Jsad from '../../media/Jsad.png';
-import Jboring from '../../media/Jboring.png';
-import Jdelight from '../../media/Jdelight.png';
-import Jexcited from '../../media/Jexcited.png';
-import Jfatigue from '../../media/Jfatigue.png';
-import Jfury from '../../media/Jfury.png';
-import Jstress from '../../media/Jstress.png'
 import moment from 'moment';
 
 function DiaryPage(props) {
@@ -110,35 +101,35 @@ function DiaryPage(props) {
                             [
                                 {
                                     text: "기쁨",
-                                    imgUrl: Jdelight,
+                                    imgUrl: process.env.PUBLIC_URL + '/Jdelight.png',
                                 },
                                 {
                                     text: "슬픔",
-                                    imgUrl: Jsad,
+                                    imgUrl: process.env.PUBLIC_URL + '/Jsad.png',
                                 },
                                 {
                                     text: "분노",
-                                    imgUrl: Jfury,
+                                    imgUrl: process.env.PUBLIC_URL + '/Jfury.png',
                                 },
                                 {
                                     text: "지루",
-                                    imgUrl: Jboring,
+                                    imgUrl: process.env.PUBLIC_URL + '/Jboring.png',
                                 },
                                 {
                                     text: "감사",
-                                    imgUrl: Jthank,
+                                    imgUrl: process.env.PUBLIC_URL + '/Jthank.png',
                                 },
                                 {
                                     text: "피로",
-                                    imgUrl: Jfatigue,
+                                    imgUrl: process.env.PUBLIC_URL + '/Jfatigue.png',
                                 },
                                 {
                                     text: "스트레스",
-                                    imgUrl: Jstress,
+                                    imgUrl: process.env.PUBLIC_URL + '/Jstress.png',
                                 },
                                 {
                                     text: "신남",
-                                    imgUrl: Jexcited,
+                                    imgUrl: process.env.PUBLIC_URL + '/Jexcited.png',
                                 },
                             ].map((data) => (
                                 <div key={data.text}>

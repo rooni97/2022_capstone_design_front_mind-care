@@ -1,7 +1,5 @@
 import React from 'react';
 import styled from "styled-components";
-import this1 from "../../media/this1.png"
-import this2 from "../../media/this2.png"
 import { Link } from "react-scroll";
 
 function ThisMusicSlick(props) {

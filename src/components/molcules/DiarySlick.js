@@ -1,7 +1,5 @@
 import React from 'react';
 import styled from "styled-components";
-import smile1 from "../../media/smile1.png";
-import sad from "../../media/sad.png";
 import {useNavigate} from "react-router-dom";
 
 function DiarySlick(props) {
@@ -17,8 +15,8 @@ function DiarySlick(props) {
             <h4 style={{width: '40%', color: '#AE946A'}}>WRITE YOUR DIARY OF TODAY</h4>
             <h5 style={{width: '26%'}}>여러분의 오늘 하루는 어떠셨나요? 하루 동안 기쁘거나 우울했던 이야기를 적어주세요.</h5>
             <CustomButton onClick={handleClick}>Text Now</CustomButton>
-            <ImageLeft src={smile1} />
-            <ImageRight src={sad} />
+            <ImageLeft src={process.env.PUBLIC_URL + '/smile1.png'} />
+            <ImageRight src={process.env.PUBLIC_URL + '/sad.png'} />
         </SlickContainer>
     );
 }
