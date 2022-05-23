@@ -13,19 +13,14 @@ import Jexcited from '../../media/Jexcited.png';
 import Jfatigue from '../../media/Jfatigue.png';
 import Jfury from '../../media/Jfury.png';
 import Jstress from '../../media/Jstress.png'
+import moment from 'moment';
 
 function DiaryPage(props) {
     const [text, setText] = useState(''); // 일기
     const [emoji, setEmoji] = useState(''); // 이모티콘
     const [loading, setLoading] = useState(true);
-
-    let Today = new Date();
-    let CurrentUserDate = {
-        year: Today.getFullYear(),
-        month: Today.getMonth() + 1,
-        date: Today.getDate()
-    };
-    let DateStr = `${CurrentUserDate.year}/${CurrentUserDate.month}/${CurrentUserDate.date}`;
+    let nowTime = moment().format('HH:mm');
+    let nowDate = moment().format('YYYY-MM-DD'); 
 
     let CurrentWeather = GetWeather(setLoading);
     const CurrentWeatherMain = CurrentWeather[1]; // 날씨 ex) Rain, Clouds, ...
@@ -46,8 +41,8 @@ function DiaryPage(props) {
         keywords: [{ keyword: "연필" }],
         weather: CurrentWeatherMain,
         foods: [{ name: "떡볶이" }],
-        credat: 1,
-        cretim: 1,
+        credat: nowDate,
+        cretim: nowTime,
         musicId: 1,
         userNum: localStorage.getItem("usernum"),
         behaviors: [{ contents: "산책하기" }],
