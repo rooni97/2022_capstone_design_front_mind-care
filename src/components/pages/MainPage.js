@@ -1,10 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import Navigation from "../organisms/Navigation";
 import styled from "styled-components";
 import Slick from "../molcules/Slick";
 import axios from "axios";
 import MusicThumbnail from "../atoms/MusicThumbnail";
 import moment from 'moment';
+import GetWeather from "../atoms/GetWeather";
 
 function MainPage(props) {
     const [musicArr, setMusicArr] = useState([]);
@@ -15,15 +16,36 @@ function MainPage(props) {
     const [isPlayThis, setIsPlayThis] = useState(false);
     const [flaskMusicList, setFlaskMusicList] = useState([]);
     let nowTime = moment().format('HH:mm');
+    const [loading, setLoading] = useState(true);
+    let CurrentWeather = GetWeather(setLoading);
+    const CurrentWeatherMain = CurrentWeather[1]; // 날씨 ex) Rain, Clouds, ...
+    let nowWeather = '';
+
+    switch (CurrentWeatherMain) {
+        case 'Clear':
+            nowWeather = '맑음';
+        case 'Thunderstorm':
+            nowWeather = '뇌우';
+        case 'Drizzle':
+            nowWeather = '소나기';
+        case 'Rain':
+            nowWeather = '비';
+        case 'Snow':
+            nowWeather = '눈';
+        case 'Atmosphere':
+            nowWeather = '안개';
+        case 'Clouds':
+            nowWeather = '흐림';
+    }
 
     const handleClick = (e) => {
         setIsPlay(false);
-        setSelected({...selected, id: e.target.id, alt: e.target.alt, src: e.target.src});
+        setSelected({ ...selected, id: e.target.id, alt: e.target.alt, src: e.target.src });
     }
 
     const handleClickThis = (e) => {
         setIsPlayThis(false);
-        setSelectedThis({...selectedThis, id: e.target.id, alt: e.target.alt, src: e.target.src});
+        setSelectedThis({ ...selectedThis, id: e.target.id, alt: e.target.alt, src: e.target.src });
     }
 
     const handlePlayClick = () => {
@@ -36,30 +58,29 @@ function MainPage(props) {
 
     const params = {
         key: process.env.REACT_APP_YOUTUBE_API_KEY,
-        part:'snippet',
+        part: 'snippet',
         playlistId: 'PL4fGSI1pDJn6jXS_Tv_N9B8Z0HTRVJE0m',
-        maxResults : 10,
+        maxResults: 10,
     }
 
     const params_this = {
         key: process.env.REACT_APP_YOUTUBE_API_KEY,
-        part:'snippet',
+        part: 'snippet',
         playlistId: 'PLg1XJ5kHmpzGkE1XpdcPUW0eb0PmKEfa0',
-        maxResults : 10,
+        maxResults: 10,
     }
 
     useEffect(() => {
-        axios.get('http://3.39.150.64:5001/music/weather', { 
-            params: {
-                weather: '맑음', time: nowTime 
-            }
-        })
-            .then((res) => {
-                setFlaskMusicList(res.data);
-                console.log(res.data);
-                alert('success');
+            axios.get('http://3.39.150.64:5001/music/weather', {
+                params: {
+                    weather: nowWeather, time: nowTime
+                }
             })
-        axios.get('https://www.googleapis.com/youtube/v3/playlistItems', {params: params})
+                .then((res) => {
+                    setFlaskMusicList(res.data);
+                    console.log(res.data);
+                })
+        axios.get('https://www.googleapis.com/youtube/v3/playlistItems', { params: params })
             .then(res => {
                 const arr = []
                 res.data.items.map(item => {
@@ -67,7 +88,7 @@ function MainPage(props) {
                 })
                 setMusicArr(arr);
             })
-        axios.get('https://www.googleapis.com/youtube/v3/playlistItems', {params: params_this})
+        axios.get('https://www.googleapis.com/youtube/v3/playlistItems', { params: params_this })
             .then(res => {
                 const arr = []
                 res.data.items.map(item => {
@@ -75,7 +96,7 @@ function MainPage(props) {
                 })
                 setThisMusic(arr);
             })
-    }, [])
+    }, [nowWeather])
 
     return (
         <div id="0">
@@ -85,44 +106,44 @@ function MainPage(props) {
                     <Slick src={thisMusic} thisMusic={thisMusic} famous={musicArr} />
                 </div>
                 <Div id="1" className={'main'}>
-                    <h1 style={{color: 'white', marginLeft: '3rem'}}>오늘 이 노래 어떠세요?</h1>
-                    <MusicThumbnail src={thisMusic} handleClick={handleClickThis}/>
-                    <div style={{ height: '55%', display: 'flex', justifyContent: 'center'}}>
-                        <div style={{width: "30%", height: '100%'}}>
-                            <div style={{width: '100%'}}>
-                                <img style={{width: '80%'}} src={selectedThis.src}/>
+                    <h1 style={{ color: 'white', marginLeft: '3rem' }}>오늘 이 노래 어떠세요?</h1>
+                    <MusicThumbnail src={thisMusic} handleClick={handleClickThis} />
+                    <div style={{ height: '55%', display: 'flex', justifyContent: 'center' }}>
+                        <div style={{ width: "30%", height: '100%' }}>
+                            <div style={{ width: '100%' }}>
+                                <img style={{ width: '80%' }} src={selectedThis.src} />
                             </div>
-                            <p style={{color: 'white', width: '80%', marginTop: 0}}>{selectedThis.alt}</p>
+                            <p style={{ color: 'white', width: '80%', marginTop: 0 }}>{selectedThis.alt}</p>
                             {Object.keys(selectedThis).length !== 0 && <CustomButton onClick={handlePlayClickThis}>Play Now</CustomButton>}
                         </div>
                         {(Object.keys(selectedThis).length !== 0 && isPlayThis === true) ?
                             <iframe width="60%" height="100%" src={`https://www.youtube.com/embed/${selectedThis.id}?autoplay=1`}
-                                    title="YouTube video player" frameBorder="0" id={'play'}
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                    allowFullScreen></iframe>
+                                title="YouTube video player" frameBorder="0" id={'play'}
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen></iframe>
                             :
-                            <h1 style={{width:"60%", height: '100%', color: 'white', textAlign: 'center'}}>재생 버튼을 눌러주세요.</h1>
+                            <h1 style={{ width: "60%", height: '100%', color: 'white', textAlign: 'center' }}>재생 버튼을 눌러주세요.</h1>
                         }
                     </div>
                 </Div>
                 <Div id="2" className={'main'}>
-                    <h1 style={{color: 'white', marginLeft: '3rem'}}>이번 주 인기 음악</h1>
-                    <MusicThumbnail src={musicArr} handleClick={handleClick}/>
-                    <div style={{ height: '55%', display: 'flex', justifyContent: 'center'}}>
-                        <div style={{width: "30%", height: '100%'}}>
-                            <div style={{width: '100%'}}>
-                                <img style={{width: '80%'}} src={selected.src}/>
+                    <h1 style={{ color: 'white', marginLeft: '3rem' }}>이번 주 인기 음악</h1>
+                    <MusicThumbnail src={musicArr} handleClick={handleClick} />
+                    <div style={{ height: '55%', display: 'flex', justifyContent: 'center' }}>
+                        <div style={{ width: "30%", height: '100%' }}>
+                            <div style={{ width: '100%' }}>
+                                <img style={{ width: '80%' }} src={selected.src} />
                             </div>
-                            <p style={{color: 'white', width: '80%', marginTop: 0}}>{selected.alt}</p>
+                            <p style={{ color: 'white', width: '80%', marginTop: 0 }}>{selected.alt}</p>
                             {Object.keys(selected).length !== 0 && <CustomButton onClick={handlePlayClick}>Play Now</CustomButton>}
                         </div>
                         {(Object.keys(selected).length !== 0 && isPlay === true) ?
                             <iframe width="60%" height="100%" src={`https://www.youtube.com/embed/${selected.id}?autoplay=1`}
-                                    title="YouTube video player" frameBorder="0" id={'play'}
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                    allowFullScreen></iframe>
+                                title="YouTube video player" frameBorder="0" id={'play'}
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen></iframe>
                             :
-                            <h1 style={{width:"60%", color: 'white', textAlign: 'center'}}>재생 버튼을 눌러주세요.</h1>
+                            <h1 style={{ width: "60%", color: 'white', textAlign: 'center' }}>재생 버튼을 눌러주세요.</h1>
                         }
                     </div>
 

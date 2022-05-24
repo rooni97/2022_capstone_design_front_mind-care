@@ -6,6 +6,7 @@ function GetWeather(setLoading) {
 
     useEffect(() => {
         let lat, lon;
+        let isComponentMounted = true;
         setLoading(true);
         getLocation().then(res => {
             lat = res.coords.latitude;
@@ -23,6 +24,9 @@ function GetWeather(setLoading) {
                 setLoading(false);
             });
         })
+        return () => {
+            isComponentMounted = false;
+        }
     }, []);
     
     const WeatherData = [weatherStatus.id, weatherStatus.main];
