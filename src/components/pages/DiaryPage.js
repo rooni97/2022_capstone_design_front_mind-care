@@ -11,10 +11,28 @@ function DiaryPage(props) {
     const [emoji, setEmoji] = useState(''); // 이모티콘
     const [loading, setLoading] = useState(true);
     let nowTime = moment().format('HH:mm');
-    let nowDate = moment().format('YYYYMMDD'); 
+    let nowDate = moment().format('YYYYMMDD');
 
     let CurrentWeather = GetWeather(setLoading);
     const CurrentWeatherMain = CurrentWeather[1]; // 날씨 ex) Rain, Clouds, ...
+    let nowWeather = '';
+
+    switch (CurrentWeatherMain) {
+        case 'Clear':
+            nowWeather = '맑음';
+        case 'Thunderstorm':
+            nowWeather = '뇌우';
+        case 'Drizzle':
+            nowWeather = '소나기';
+        case 'Rain':
+            nowWeather = '비';
+        case 'Snow':
+            nowWeather = '눈';
+        case 'Atmosphere':
+            nowWeather = '안개';
+        case 'Clouds':
+            nowWeather = '흐림';
+    }
 
     let navigate = useNavigate();
 
@@ -30,7 +48,7 @@ function DiaryPage(props) {
         content: text,
         emoticon: emoji,
         keywords: [{ keyword: "연필" }],
-        weather: CurrentWeatherMain,
+        weather: nowWeather,
         foods: [{ name: "떡볶이" }],
         credat: nowDate,
         cretim: nowTime,
