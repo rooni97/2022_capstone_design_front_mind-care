@@ -71,6 +71,7 @@ function MainPage(props) {
     }
 
     useEffect(() => {
+        if (!loading) {
             axios.get('http://3.39.150.64:5001/music/weather', {
                 params: {
                     weather: nowWeather, time: nowTime
@@ -80,6 +81,10 @@ function MainPage(props) {
                     setFlaskMusicList(res.data);
                     console.log(res.data);
                 })
+        }
+    }, [loading])
+
+    useEffect(() => {
         axios.get('https://www.googleapis.com/youtube/v3/playlistItems', { params: params })
             .then(res => {
                 const arr = []
@@ -96,7 +101,7 @@ function MainPage(props) {
                 })
                 setThisMusic(arr);
             })
-    }, [nowWeather])
+    }, [])
 
     return (
         <div id="0">
