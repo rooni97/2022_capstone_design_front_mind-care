@@ -13,9 +13,9 @@ function MusicBehaviorPage(props) {
                         <Fade direction={"up"} cascade>
                             <h1>기분 좋을 때,</h1>
                             <div style={{display: 'flex', justifyContent: 'center'}}>
-                                <img style={{width: '30%'}} src={process.env.PUBLIC_URL + '/smile1.png'}/>
-                                <img style={{width: '30%'}} src={process.env.PUBLIC_URL + '/smile1.png'}/>
-                                <img style={{width: '30%'}} src={process.env.PUBLIC_URL + '/smile1.png'}/>
+                                <img style={{width: '30%'}} src={'media/smile1.png'}/>
+                                <img style={{width: '30%'}} src={'media/smile1.png'}/>
+                                <img style={{width: '30%'}} src={'media/smile1.png'}/>
                             </div>
                             <h1>산책과 함께</h1>
                             <h1>이런 노래 어떠세요?</h1>
@@ -26,11 +26,11 @@ function MusicBehaviorPage(props) {
                     <div style={{ marginLeft: '5%', marginTop: '2%', marginBottom: '10%', color: 'white', backgroundColor: 'black', width: '50%'}}>
                         <Fade direction={"up"} cascade={true}>
                             <div style={{display: 'flex'}}>
-                                <img style={{width: '36%'}} src={process.env.PUBLIC_URL + '/music1.png'}/>
-                                <img style={{width: '36%'}} src={process.env.PUBLIC_URL + '/music2.png'}/>
-                                <img style={{width: '36%'}} src={process.env.PUBLIC_URL + '/music3.png'}/>
-                                <img style={{width: '36%'}} src={process.env.PUBLIC_URL + '/music4.png'}/>
-                                <img style={{width: '36%'}} src={process.env.PUBLIC_URL + '/this1.png'}/>
+                                <img style={{width: '36%'}} src={'media/music1.png'}/>
+                                <img style={{width: '36%'}} src={'media/music2.png'}/>
+                                <img style={{width: '36%'}} src={'media/music3.png'}/>
+                                <img style={{width: '36%'}} src={'media/music4.png'}/>
+                                <img style={{width: '36%'}} src={'media/this1.png'}/>
                             </div>
                         </Fade>
                     </div>
