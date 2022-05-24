@@ -43,7 +43,7 @@ function MyPage() {
         if (!refineClickVal)
             return;
     
-        axios.get(`http://${process.env.REACT_APP_REQUEST_URL}:8080/mypage/${userNum}`, {
+        axios.get(`http://${process.env.REACT_APP_REQUEST_URL}:8080/api/mypage/${userNum}`, {
             params:{
                 credat: refineClickVal
             },

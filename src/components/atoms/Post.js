@@ -49,7 +49,7 @@ const style = {
     }
 };
 
-export default function Post() {
+export default function Post({ list }) {
     const [expanded, setExpanded] = React.useState(false);
 
     const handleExpandClick = () => {
@@ -109,14 +109,14 @@ export default function Post() {
                 ['Authorization']: JSON.parse(localStorage.getItem("jwt"))
             }
         })
-        .then((res) => {
-            console.log(res.data);
-            alert('Delete success');
-        })
-        .catch((err) => {
-            console.log(err);
-            alert('Delete Fail');
-        })
+            .then((res) => {
+                console.log(res.data);
+                alert('Delete success');
+            })
+            .catch((err) => {
+                console.log(err);
+                alert('Delete Fail');
+            })
     }
 
     return (
@@ -132,8 +132,8 @@ export default function Post() {
                         <MoreVertIcon />
                     </IconButton>
                 }
-                title="게시글 제목입니다."
-                subheader="2022-04-07"
+                title={list.title}
+                subheader={list.credat}
             />
             {/*<CardMedia*/}
             {/*    component="img"*/}
@@ -143,9 +143,7 @@ export default function Post() {
             {/*/>*/}
             <CardContent>
                 <Typography variant="h5" color="text.secondary">
-                    안녕하세요. 게시글 샘플입니다.안녕하세요. 게시글 샘플입니다.안녕하세요. 게시글 샘플입니다.안녕하세요. 게시글 샘플입니다.
-                    안녕하세요. 게시글 샘플입니다.안녕하세요. 게시글 샘플입니다.안녕하세요. 게시글 샘플입니다.안녕하세요. 게시글 샘플입니다.
-                    안녕하세요. 게시글 샘플입니다.안녕하세요. 게시글 샘플입니다.안녕하세요. 게시글 샘플입니다.안녕하세요. 게시글 샘플입니다.
+                    {list.content}
                 </Typography>
             </CardContent>
             <CardActions disableSpacing>
