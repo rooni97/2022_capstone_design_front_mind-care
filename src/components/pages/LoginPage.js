@@ -84,7 +84,7 @@ function LoginPage(props) {
     }
 
     const handleLogin = () => {
-      axios.post(`http://${process.env.REACT_APP_REQUEST_URL}:8080/login`, { id: userId, password: userPwd })
+      axios.post(`http://${process.env.REACT_APP_REQUEST_URL}:8080/api/login`, { id: userId, password: userPwd })
           .then((res) => {
               console.log(res.data);
               localStorage.setItem("jwt", JSON.stringify(res.data.jwt));
@@ -122,7 +122,7 @@ function LoginPage(props) {
     }
 
     const requestSignUp = () => {
-        axios.post(`http://${process.env.REACT_APP_REQUEST_URL}:8080/signup`, signUpRequest)
+        axios.post(`http://${process.env.REACT_APP_REQUEST_URL}:8080/api/signup`, signUpRequest)
             .then((res) => {
                 console.log(signUpRequest);
                 console.log(res.data);

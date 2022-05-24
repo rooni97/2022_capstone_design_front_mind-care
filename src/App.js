@@ -17,7 +17,7 @@ function App() {
     const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
 
     const requestLoginInfo = async () => {
-        await axios.get(`http://${process.env.REACT_APP_REQUEST_URL}:8080/user/${localStorage.getItem("usernum")}`,
+        await axios.get(`http://${process.env.REACT_APP_REQUEST_URL}:8080/api/user/${localStorage.getItem("usernum")}`,
             {headers: {
                     ['x-user-num']: localStorage.getItem("usernum"),
                     ['Authorization']: JSON.parse(localStorage.getItem("jwt"))
