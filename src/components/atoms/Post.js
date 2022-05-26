@@ -58,6 +58,7 @@ export default function Post({ list }) {
 
     const [userTitle, setUserTitle] = useState('');
     const [userText, setUserText] = useState('');
+    const [modifiedDate, setModifiedDate] = useState('');
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = (e) => {
@@ -85,7 +86,7 @@ export default function Post({ list }) {
 
     // 게시글 수정하기
     const requestCommunityModify = () => {
-        axios.put(`http://${process.env.REACT_APP_REQUEST_URL}/community`, { title: userTitle, content: userText }, {
+        axios.put(`http://${process.env.REACT_APP_REQUEST_URL}:8080/api/community/${list.communityNum}`, { title: userTitle, content: userText }, {
             headers: {
                 ['x-user-num']: localStorage.getItem("usernum"),
                 ['Authorization']: JSON.parse(localStorage.getItem("jwt"))
@@ -93,6 +94,7 @@ export default function Post({ list }) {
         })
             .then((res) => {
                 console.log(res.data);
+                setModifiedDate(res.data);
                 alert('Modify success');
             })
             .catch((err) => {
@@ -103,7 +105,7 @@ export default function Post({ list }) {
 
     // 게시글 삭제하기
     const requestCommunityDelete = () => {
-        axios.delete(`http://${process.env.REACT_APP_REQUEST_URL}/community`, {
+        axios.delete(`http://${process.env.REACT_APP_REQUEST_URL}:8080/api/community/${list.communityNum}`, {
             headers: {
                 ['x-user-num']: localStorage.getItem("usernum"),
                 ['Authorization']: JSON.parse(localStorage.getItem("jwt"))
@@ -111,6 +113,7 @@ export default function Post({ list }) {
         })
             .then((res) => {
                 console.log(res.data);
+                console.log(list.communityNum);
                 alert('Delete success');
             })
             .catch((err) => {

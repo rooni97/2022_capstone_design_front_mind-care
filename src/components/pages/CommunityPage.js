@@ -7,13 +7,14 @@ import GetLocation from "../atoms/GetLocation";
 import Post from "../atoms/Post";
 import { Modal, Box, Typography, TextField } from '@mui/material';
 import axios from 'axios';
+import Pagination from '../atoms/Pagination';
 
 const style = {
   position: 'absolute',
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: '50%',
+  width: '40%',
   height: '45%',
   bgcolor: 'background.paper',
   border: '2px solid #000',
@@ -30,6 +31,9 @@ function CommunityPage(props) {
   const [userTitle, setUserTitle] = useState('');
   const [userText, setUserText] = useState('');
   const [communityInfo, setCommunityInfo] = useState({});
+  const [pageSize, setPageSize] = useState(10);
+  const [nowPage, setNowPage] = useState(1);
+
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = (e) => {
@@ -46,13 +50,25 @@ function CommunityPage(props) {
   }
 
   const handleWriteClick = (e) => {
-    e.preventDefault();
     requestCommunity();
   }
 
   const handleSearchClick = (e) => {
     e.preventDefault();
     requestCommunitySearch();
+  }
+
+  const getCommunityListByPage = (e) => {
+    let whatPage = Number(e.target.innerText);
+    axios.get(`http://${process.env.REACT_APP_REQUEST_URL}:8080/api/communities/${whatPage}`, {
+      headers: {
+        ['x-user-num']: localStorage.getItem("usernum"),
+        ['Authorization']: JSON.parse(localStorage.getItem("jwt"))
+      }
+    })
+      .then((res) => {
+        setCommunityInfo(res.data);
+      })
   }
 
   const getCommunityList = () => {
@@ -64,7 +80,6 @@ function CommunityPage(props) {
     })
       .then((res) => {
         setCommunityInfo(res.data);
-        console.log(res.data)
       })
   }
 
@@ -162,14 +177,26 @@ function CommunityPage(props) {
             </Modal>
           </div>
         </div>
-        <div style={{ height: '100%', width: '100%' }}>
-          {/* {communityInfo.list !== null ?
-            communityInfo && communityInfo.list.map(list => <Post list={list} />)
+
+        <div >
+          {communityInfo.list !== undefined ?
+            communityInfo.list.map((list) => (<Post key={list.cretim} list={list} />))
             : <div></div>
-          } */}
+          }
+          {communityInfo.list !== undefined ?
+            <div onClick={getCommunityListByPage}>
+              <Pagination
+                total={communityInfo.total}
+                pageSize={pageSize}
+                nowPage={nowPage}
+                setNowPage={setNowPage}
+              />
+            </div>
+            : <div></div>
+          }
         </div>
-      </PageContainer>
-    </div>
+      </PageContainer >
+    </div >
   );
 }
 
