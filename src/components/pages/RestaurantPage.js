@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import Navigation from "../organisms/Navigation";
 import styled from "styled-components";
 import Map from "../atoms/Map";
@@ -10,12 +10,31 @@ import {
     GiCoffeeCup,
     GiHamburger
 } from "react-icons/gi";
+import {useRecoilState} from "recoil";
+import {RecommendInfo} from "../../store/RecommendInfo";
+import axios from "axios";
+import moment from "moment";
+import RequestFromDiaryToFlask from "../atoms/RequestFromDiaryToFlask";
+import {useNavigate} from "react-router-dom";
 
 function RestaurantPage(props) {
     const [InputText, setInputText] = useState('')
     const [food, setFood] = useState('');
     const [loading, setLoading] = useState(true);
+    const [clickVal, setClickVal] = useState(new Date());
+    const refineClickVal = useMemo(() => moment(clickVal).format("YYYYMMDD"), [clickVal]);
+    const userNum = localStorage.getItem("usernum")
+    const [recommendInfo, setRecommendInfo] = useRecoilState(RecommendInfo);
+    let navigate = useNavigate();
 
+    useEffect(() => {
+        if (recommendInfo.behaviorList.length === 0) {
+            let isExist = RequestFromDiaryToFlask(userNum, refineClickVal, setRecommendInfo);
+            if (!isExist) {
+                navigate('/diary')
+            }
+        }
+    }, [])
 
     const onChange = (e) => {
         setInputText(e.target.value)
@@ -30,6 +49,7 @@ function RestaurantPage(props) {
     const handleClick = (e) => {
         //setFood(e.target.id); icons에 onClick event를 걸었을 때 DOM의 형태가 다르기 때문에 아래와 같은 e.currentTarget.id를 사용하였음
         setFood(e.currentTarget.id);
+        console.log(e.currentTarget.id)
     }
 
     return (
@@ -58,18 +78,21 @@ function RestaurantPage(props) {
                     </div>
                 </RecomContainer>
 
-                <div style={{ display: 'flex', marginLeft: '5%' }}>
+                <RecomContainer style={{ display: 'flex', marginLeft: '5%', paddingBottom: '10%'}}>
                     <Fade direction={"up"} cascade={false}>
                         <div style={{ display: 'flex', flexDirection: 'column' }}>
-                            <FoodIcons onClick={handleClick} id='햄버거'>
-                                <GiHamburger size='8vw' />
-                            </FoodIcons>
-                            <FoodIcons onClick={handleClick} id='카페'>
-                                <GiCoffeeCup size='8vw' />
-                            </FoodIcons>
-                            <FoodIcons onClick={handleClick} id='스시'>
-                                <GiSushis size='8vw' />
-                            </FoodIcons>
+                            {/*<FoodIcons onClick={handleClick} id='햄버거'>*/}
+                            {/*    <GiHamburger size='8vw' />*/}
+                            {/*</FoodIcons>*/}
+                            {/*<FoodIcons onClick={handleClick} id='카페'>*/}
+                            {/*    <GiCoffeeCup size='8vw' />*/}
+                            {/*</FoodIcons>*/}
+                            {/*<FoodIcons onClick={handleClick} id='스시'>*/}
+                            {/*    <GiSushis size='8vw' />*/}
+                            {/*</FoodIcons>*/}
+                            {recommendInfo && <FoodButton onClick={handleClick} id={recommendInfo.foodList[0]}>{recommendInfo.foodList[0]}</FoodButton>}
+                            {recommendInfo && <FoodButton onClick={handleClick} id={recommendInfo.foodList[1]}>{recommendInfo.foodList[1]}</FoodButton>}
+                            {recommendInfo && <FoodButton onClick={handleClick} id={recommendInfo.foodList[2]}>{recommendInfo.foodList[2]}</FoodButton>}
                             {/* <button style={{ width: '70px', height: '70px', marginBottom: '20px' }} onClick={handleClick} id={'햄버거'}>햄버거</button>
                                 <button style={{ width: '70px', height: '70px' }} onClick={handleClick} id={'카페'}>카페</button>
                                 <button style={{ width: '70px', height: '70px' }} onClick={handleClick} id={'스시'}>스시</button> */}
@@ -78,7 +101,7 @@ function RestaurantPage(props) {
                             <CreateMap food={food} />
                         </MapCont>
                     </Fade>
-                </div>
+                </RecomContainer>
             </PageContainer>
         </div>
     );
@@ -108,12 +131,13 @@ const FoodIcons = styled.a`
 `
 
 const RecomContainer = styled.div`
+  //padding-bottom: 10%;
   h1 {
     color: white;
-    margin-left: 5%;
     margin-right: 5%;
-    font-size: 5vw;
-    
+    font-size: 4vw;
+    width: 120%;
+
     @media screen and (max-width: 700px) {
       font-size: 5vh;
       margin-bottom: 20%;
@@ -132,3 +156,13 @@ const MapCont = styled.div`
     height: 30vh;
   }
 `
+
+const FoodButton = styled.h1`
+  cursor: pointer;
+  :hover {
+    color: #8a8a8a;
+  }
+  :active {
+    transform: scale(0.95);
+  }
+`;

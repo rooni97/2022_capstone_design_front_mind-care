@@ -69,8 +69,8 @@ function CreateMap(props) {
         <div
             id="myMap"
             style={{
-                width: '100%',
-                height: '100%',
+                width: '70vw',
+                height: '70vh',
             }}>
             <div style={{height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                 <CircularProgress />

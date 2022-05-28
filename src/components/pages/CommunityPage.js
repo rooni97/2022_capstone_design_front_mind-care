@@ -55,7 +55,7 @@ function CommunityPage(props) {
   }
   
   const getCommunityList = () => {
-    axios.get(`http://${process.env.REACT_APP_REQUEST_URL}:8080/communities/1`, {
+    axios.get(`http://${process.env.REACT_APP_REQUEST_URL}:8080/api/communities/1`, {
       headers: {
         ['x-user-num']: localStorage.getItem("usernum"),
         ['Authorization']: JSON.parse(localStorage.getItem("jwt"))
@@ -72,7 +72,7 @@ function CommunityPage(props) {
 
   // 게시글 작성하기
   const requestCommunity = () => {
-    axios.post(`http://${process.env.REACT_APP_REQUEST_URL}:8080/community`, { title: userTitle, content: userText, userNum: localStorage.getItem("usernum") }, {
+    axios.post(`http://${process.env.REACT_APP_REQUEST_URL}:8080/api/community`, { title: userTitle, content: userText, userNum: localStorage.getItem("usernum") }, {
       headers: {
         ['x-user-num']: localStorage.getItem("usernum"),
         ['Authorization']: JSON.parse(localStorage.getItem("jwt"))
@@ -90,7 +90,7 @@ function CommunityPage(props) {
 
   // 게시글 조회하기
   const requestCommunitySearch = () => {
-    axios.get(`http://${process.env.REACT_APP_REQUEST_URL}:8080/community`, {
+    axios.get(`http://${process.env.REACT_APP_REQUEST_URL}:8080/api/community`, {
       headers: {
         ['x-user-num']: localStorage.getItem("usernum"),
         ['Authorization']: JSON.parse(localStorage.getItem("jwt"))

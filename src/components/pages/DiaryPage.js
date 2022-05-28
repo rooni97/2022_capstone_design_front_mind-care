@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useMemo, useState} from 'react';
 import Navigation from "../organisms/Navigation";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
@@ -7,6 +7,10 @@ import axios from 'axios';
 import moment from 'moment';
 
 function DiaryPage(props) {
+    const [clickVal, setClickVal] = useState(new Date());
+    const userNum = localStorage.getItem("usernum")
+    const refineClickVal = useMemo(() => moment(clickVal).format("YYYYMMDD"), [clickVal]);
+
     const [text, setText] = useState(''); // 일기
     const [emoji, setEmoji] = useState(''); // 이모티콘
     const [loading, setLoading] = useState(true);
@@ -47,19 +51,23 @@ function DiaryPage(props) {
     const requestData = {
         content: text,
         emoticon: emoji,
-        keywords: [{ keyword: "연필" }],
         weather: nowWeather,
-        foods: [{ name: "떡볶이" }],
         credat: nowDate,
         cretim: nowTime,
         musicId: 1,
         userNum: localStorage.getItem("usernum"),
+        keywords: [{ keyword: "연필" }],
+        foods: [{ name: "떡볶이" }],
         behaviors: [{ contents: "산책하기" }],
         emoticons: [{ content: "웃음" }]
     };
 
     const requestDiary = () => {
-        axios.post(`http://${process.env.REACT_APP_REQUEST_URL}:8080/diary`, requestData, {
+        console.log(refineClickVal);
+        axios.get(`http://${process.env.REACT_APP_REQUEST_URL}:8080/api/mypage/${userNum}`, {
+            params:{
+                credat: refineClickVal
+            },
             headers: {
                 ['x-user-num']: localStorage.getItem("usernum"),
                 ['Authorization']: JSON.parse(localStorage.getItem("jwt"))
@@ -67,12 +75,44 @@ function DiaryPage(props) {
         })
             .then((res) => {
                 console.log(res.data);
-                alert('Success');
+                if (res.data[0] === undefined) {
+                    axios.post(`http://${process.env.REACT_APP_REQUEST_URL}:8080/api/diary`, requestData, {
+                        headers: {
+                            ['x-user-num']: localStorage.getItem("usernum"),
+                            ['Authorization']: JSON.parse(localStorage.getItem("jwt"))
+                        }
+                    })
+                        .then((res) => {
+                            console.log(res.data);
+                            alert('일기가 저장되었습니다.');
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                            alert('fail');
+                        })
+                } else {
+                    requestData['diaryNum'] = res.data[0].diaryNum;
+                    axios.put(`http://${process.env.REACT_APP_REQUEST_URL}:8080/api/diary/${res.data[0].diaryNum}`, requestData, {
+                        headers: {
+                            ['x-user-num']: localStorage.getItem("usernum"),
+                            ['Authorization']: JSON.parse(localStorage.getItem("jwt"))
+                        }
+                    })
+                        .then((res) => {
+                            console.log(res.data);
+                            alert('일기가 수정되었습니다.');
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                            alert('fail');
+                        })
+                }
             })
             .catch((err) => {
                 console.log(err);
-                alert('fail');
             })
+
+
     }
 
     // // DiaryPage에서 일기 post하고 MusicBehaviorPage에서 음악 get하는게 맞지 않나
@@ -101,7 +141,6 @@ function DiaryPage(props) {
         else {
             requestDiary();
             // requestDiaryMusic();
-            navigate('/music');
         }
     }
 

@@ -105,6 +105,9 @@ const Container = styled.nav`
   width: 100%;
   height: 100px;
   z-index: 2;
+  @media screen and (max-width: 700px) {
+    display: flex;
+  }
 `;
 
 const BtnContainer = styled(Link)`
@@ -175,7 +178,7 @@ const Logo = styled.div`
     margin-right: 0.3rem;
   }
   @media screen and (max-width: 700px) {
-    margin-left: 15%;
+    margin-left: 5%;
   }
 `;
 
@@ -206,6 +209,6 @@ const Menu = styled.div`
   @media screen and (max-width: 700px) {
     display: flex;
     justify-content: right;
-    width: 50vw;
+    margin-right: 5%;
   }
 `;
