@@ -19,6 +19,7 @@ import { FiUser } from "react-icons/fi";
 import { TextField } from "@mui/material";
 import { Modal, Box } from '@mui/material';
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -62,6 +63,7 @@ export default function Post({ list }) {
     const [modifiedDate, setModifiedDate] = useState('');
     const [userComment, setUserComment] = useState([]);
     const [commentInfo, setCommentInfo] = useState([]); // communityNum
+    let navigate = useNavigate();
 
     const commentByCommunityNum = commentInfo.filter((obj) => {
         if (obj.communityNum === list.communityNum) {
@@ -90,12 +92,10 @@ export default function Post({ list }) {
     }
 
     const handleModifyClick = (e) => {
-        e.preventDefault();
         requestCommunityModify();
     }
 
     const handleDeleteClick = (e) => {
-        e.preventDefault();
         requestCommunityDelete();
     }
 
@@ -109,7 +109,7 @@ export default function Post({ list }) {
 
     // 댓글 작성하기
     const requestComment = () => {
-        axios.post(`http://${process.env.REACT_APP_REQUEST_URL}:8080/api/comment/${list.communityNum}`, { content: userComment, userNum: userNum, communityNum: list.communityNum, name: userNickname }, {
+        axios.post(`http://${process.env.REACT_APP_REQUEST_URL}:8080/api/comment`, { content: userComment, userNum: userNum, communityNum: list.communityNum, name: userNickname }, {
             headers: {
                 ['x-user-num']: localStorage.getItem("usernum"),
                 ['Authorization']: JSON.parse(localStorage.getItem("jwt"))
@@ -127,7 +127,7 @@ export default function Post({ list }) {
 
     // 댓글 삭제하기
     const requestCommentDelete = (e) => {
-        axios.delete(`http://${process.env.REACT_APP_REQUEST_URL}:8080/api/community/comments/${e}`, {
+        axios.delete(`http://${process.env.REACT_APP_REQUEST_URL}:8080/api/community`, {
             headers: {
                 ['x-user-num']: localStorage.getItem("usernum"),
                 ['Authorization']: JSON.parse(localStorage.getItem("jwt"))
@@ -135,6 +135,7 @@ export default function Post({ list }) {
         })
             .then((res) => {
                 alert('Comment delete success');
+                navigate('/community');
             })
             .catch((err) => {
                 alert('comment delete fail')
@@ -166,7 +167,6 @@ export default function Post({ list }) {
             }
         })
             .then((res) => {
-                console.log(res.data);
                 setModifiedDate(res.data);
                 alert('Modify success');
             })
@@ -185,8 +185,6 @@ export default function Post({ list }) {
             }
         })
             .then((res) => {
-                console.log(res.data);
-                console.log(list.communityNum);
                 alert('Delete success');
             })
             .catch((err) => {
