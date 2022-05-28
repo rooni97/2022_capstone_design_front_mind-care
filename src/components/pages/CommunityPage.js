@@ -8,6 +8,7 @@ import Post from "../atoms/Post";
 import { Modal, Box, Typography, TextField } from '@mui/material';
 import axios from 'axios';
 import Pagination from '../atoms/Pagination';
+import { useNavigate } from "react-router-dom";
 
 const style = {
   position: 'absolute',
@@ -35,6 +36,7 @@ function CommunityPage(props) {
   const [pageSize, setPageSize] = useState(10);
   const [nowPage, setNowPage] = useState(1);
   const userNum = Number(localStorage.getItem("usernum"));
+  let navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = (e) => {
@@ -56,6 +58,8 @@ function CommunityPage(props) {
 
   const handleWriteClick = (e) => {
     requestCommunity();
+    window.location.reload();
+    navigate('/community');
   }
 
   const getCommunityListByPage = (e) => {
