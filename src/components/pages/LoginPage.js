@@ -92,7 +92,7 @@ function LoginPage(props) {
               window.location.reload();
           })
           .catch((err) => {
-              alert("로그인 실패");
+              alert("아이디와 패스워드를 확인해주세요.");
               console.log(err);
           })
     }

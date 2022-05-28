@@ -15,6 +15,7 @@ function MainPage(props) {
     const [isPlay, setIsPlay] = useState(false);
     const [isPlayThis, setIsPlayThis] = useState(false);
     const [flaskMusicList, setFlaskMusicList] = useState([]);
+    const [page, setPage] = useState(0);
     let nowTime = moment().format('HH:mm');
     const [loading, setLoading] = useState(true);
     let CurrentWeather = GetWeather(setLoading);
@@ -70,6 +71,21 @@ function MainPage(props) {
         maxResults: 10,
     }
 
+    const flaskToYoutube = (keyword) => {
+        console.log(keyword);
+        axios.get('https://www.googleapis.com/youtube/v3/search', {
+            params : {
+                key: process.env.REACT_APP_YOUTUBE_API_KEY,
+                part: 'snippet',
+                q: keyword,
+                maxResults: 1,
+            }
+        })
+            .then(res => {
+                console.log(res.data)
+            })
+    }
+
     useEffect(() => {
         if (!loading) {
             axios.get('http://3.39.150.64:5001/music/weather', {
@@ -79,7 +95,12 @@ function MainPage(props) {
             })
                 .then((res) => {
                     setFlaskMusicList(res.data);
-                    console.log(res.data);
+                    const musicList = res.data.musicList;
+                    for (let i = 0; i < 10; i++) {
+                        let keyword = musicList[i][0] + " " + musicList[i][1];
+                        // flaskToYoutube(keyword);
+                        console.log(keyword);
+                    }
                 })
         }
     }, [loading])

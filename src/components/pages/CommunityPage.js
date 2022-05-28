@@ -108,6 +108,24 @@ function CommunityPage(props) {
       })
   }
 
+  // 게시글 조회하기
+  const requestCommunitySearch = () => {
+    axios.get(`http://${process.env.REACT_APP_REQUEST_URL}:8080/api/community`, {
+      headers: {
+        ['x-user-num']: localStorage.getItem("usernum"),
+        ['Authorization']: JSON.parse(localStorage.getItem("jwt"))
+      }
+    })
+    .then((res) => {
+      console.log(res.data);
+      alert('Search Success');
+    })
+    .catch((err) => {
+      console.log(err);
+      alert('Search fail');
+    })
+  }
+
   return (
     <div id="0">
       <Navigation />
