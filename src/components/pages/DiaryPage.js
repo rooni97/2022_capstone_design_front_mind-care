@@ -63,7 +63,6 @@ function DiaryPage(props) {
     };
 
     const requestDiary = () => {
-        console.log(refineClickVal);
         axios.get(`http://${process.env.REACT_APP_REQUEST_URL}:8080/api/mypage/${userNum}`, {
             params:{
                 credat: refineClickVal
@@ -158,35 +157,35 @@ function DiaryPage(props) {
                             [
                                 {
                                     text: "기쁨",
-                                    imgUrl: process.env.PUBLIC_URL + '/Jdelight.png',
+                                    imgUrl: 'media/Jdelight.png',
                                 },
                                 {
                                     text: "슬픔",
-                                    imgUrl: process.env.PUBLIC_URL + '/Jsad.png',
+                                    imgUrl: 'media/Jsad.png',
                                 },
                                 {
                                     text: "분노",
-                                    imgUrl: process.env.PUBLIC_URL + '/Jfury.png',
+                                    imgUrl: 'media/Jfury.png',
                                 },
                                 {
                                     text: "지루",
-                                    imgUrl: process.env.PUBLIC_URL + '/Jboring.png',
+                                    imgUrl: 'media/Jboring.png',
                                 },
                                 {
                                     text: "감사",
-                                    imgUrl: process.env.PUBLIC_URL + '/Jthank.png',
+                                    imgUrl: 'media/Jthank.png',
                                 },
                                 {
                                     text: "피로",
-                                    imgUrl: process.env.PUBLIC_URL + '/Jfatigue.png',
+                                    imgUrl: 'media/Jfatigue.png',
                                 },
                                 {
                                     text: "스트레스",
-                                    imgUrl: process.env.PUBLIC_URL + '/Jstress.png',
+                                    imgUrl: 'media/Jstress.png',
                                 },
                                 {
                                     text: "신남",
-                                    imgUrl: process.env.PUBLIC_URL + '/Jexcited.png',
+                                    imgUrl: 'media/Jexcited.png',
                                 },
                             ].map((data) => (
                                 <div key={data.text}>

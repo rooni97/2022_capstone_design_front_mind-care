@@ -67,9 +67,9 @@ function MusicBehaviorPage(props) {
                         <Fade direction={"up"} cascade>
                             <h1>감정에 맞는 행동을 추천해드릴게요.</h1>
                             <div style={{display: 'flex', justifyContent: 'center'}}>
-                                <img style={{width: '30%'}} src={process.env.PUBLIC_URL + '/smile1.png'}/>
-                                <img style={{width: '30%'}} src={process.env.PUBLIC_URL + '/smile1.png'}/>
-                                <img style={{width: '30%'}} src={process.env.PUBLIC_URL + '/smile1.png'}/>
+                                <img style={{width: '30%'}} src={'media/smile1.png'}/>
+                                <img style={{width: '30%'}} src={'media/smile1.png'}/>
+                                <img style={{width: '30%'}} src={'media/smile1.png'}/>
                             </div>
                             {recommendInfo && <h1>{recommendInfo.behaviorList[1]}</h1>}
                         </Fade>

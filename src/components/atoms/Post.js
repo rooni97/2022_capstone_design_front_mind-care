@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
@@ -49,7 +49,7 @@ const style = {
     }
 };
 
-export default function Post() {
+export default function Post({ list }) {
     const [expanded, setExpanded] = React.useState(false);
 
     const handleExpandClick = () => {
@@ -58,6 +58,18 @@ export default function Post() {
 
     const [userTitle, setUserTitle] = useState('');
     const [userText, setUserText] = useState('');
+    const [userNickname, setUserNickname] = useState('');
+    const [modifiedDate, setModifiedDate] = useState('');
+    const [userComment, setUserComment] = useState([]);
+    const [commentInfo, setCommentInfo] = useState([]); // communityNum
+
+    const commentByCommunityNum = commentInfo.filter((obj) => {
+        if (obj.communityNum === list.communityNum) {
+            return obj
+        }
+    })
+
+    const userNum = Number(localStorage.getItem("usernum"));
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = (e) => {
@@ -73,6 +85,10 @@ export default function Post() {
         setUserText(e.target.value);
     }
 
+    const handleNickname = (e) => {
+        setUserNickname(e.target.value);
+    }
+
     const handleModifyClick = (e) => {
         e.preventDefault();
         requestCommunityModify();
@@ -83,9 +99,67 @@ export default function Post() {
         requestCommunityDelete();
     }
 
+    const handleUserComments = (e) => {
+        setUserComment(e.target.value);
+    }
+
+    const handleCommentClick = (e) => {
+        requestComment();
+    }
+
+    // 댓글 작성하기
+    const requestComment = () => {
+        axios.post(`http://${process.env.REACT_APP_REQUEST_URL}:8080/api/comment/${list.communityNum}`, { content: userComment, userNum: userNum, communityNum: list.communityNum, name: userNickname }, {
+            headers: {
+                ['x-user-num']: localStorage.getItem("usernum"),
+                ['Authorization']: JSON.parse(localStorage.getItem("jwt"))
+            }
+        })
+            .then((res) => {
+                alert('comment post success');
+                setUserComment('');
+                setUserNickname('');
+            })
+            .catch((err) => {
+                alert('comment post fail');
+            })
+    }
+
+    // 댓글 삭제하기
+    const requestCommentDelete = (e) => {
+        axios.delete(`http://${process.env.REACT_APP_REQUEST_URL}:8080/api/community/comments/${e}`, {
+            headers: {
+                ['x-user-num']: localStorage.getItem("usernum"),
+                ['Authorization']: JSON.parse(localStorage.getItem("jwt"))
+            }
+        })
+            .then((res) => {
+                alert('Comment delete success');
+            })
+            .catch((err) => {
+                alert('comment delete fail')
+            })
+    }
+
+    const GetComment = () => {
+        axios.get(`http://${process.env.REACT_APP_REQUEST_URL}:8080/api/comment`, {
+            headers: {
+                ['x-user-num']: localStorage.getItem("usernum"),
+                ['Authorization']: JSON.parse(localStorage.getItem("jwt"))
+            }
+        })
+            .then((res) => {
+                setCommentInfo(res.data);
+            })
+    }
+
+    useEffect(() => {
+        GetComment();
+    }, [])
+
     // 게시글 수정하기
     const requestCommunityModify = () => {
-        axios.put(`http://${process.env.REACT_APP_REQUEST_URL}/community`, { title: userTitle, content: userText }, {
+        axios.put(`http://${process.env.REACT_APP_REQUEST_URL}:8080/api/community/${list.communityNum}`, { title: userTitle, content: userText }, {
             headers: {
                 ['x-user-num']: localStorage.getItem("usernum"),
                 ['Authorization']: JSON.parse(localStorage.getItem("jwt"))
@@ -93,6 +167,7 @@ export default function Post() {
         })
             .then((res) => {
                 console.log(res.data);
+                setModifiedDate(res.data);
                 alert('Modify success');
             })
             .catch((err) => {
@@ -103,20 +178,21 @@ export default function Post() {
 
     // 게시글 삭제하기
     const requestCommunityDelete = () => {
-        axios.delete(`http://${process.env.REACT_APP_REQUEST_URL}/community`, {
+        axios.delete(`http://${process.env.REACT_APP_REQUEST_URL}:8080/api/community/${list.communityNum}`, {
             headers: {
                 ['x-user-num']: localStorage.getItem("usernum"),
                 ['Authorization']: JSON.parse(localStorage.getItem("jwt"))
             }
         })
-        .then((res) => {
-            console.log(res.data);
-            alert('Delete success');
-        })
-        .catch((err) => {
-            console.log(err);
-            alert('Delete Fail');
-        })
+            .then((res) => {
+                console.log(res.data);
+                console.log(list.communityNum);
+                alert('Delete success');
+            })
+            .catch((err) => {
+                console.log(err);
+                alert('Delete Fail');
+            })
     }
 
     return (
@@ -124,7 +200,7 @@ export default function Post() {
             <CardHeader
                 avatar={
                     <Avatar sx={{ bgcolor: '#AE946A', width: '100%', padding: '5%' }} aria-label="recipe" variant={'rounded'}>
-                        작성자이름
+                        {list.name}
                     </Avatar>
                 }
                 action={
@@ -132,8 +208,8 @@ export default function Post() {
                         <MoreVertIcon />
                     </IconButton>
                 }
-                title="게시글 제목입니다."
-                subheader="2022-04-07"
+                title={list.title}
+                subheader={list.credat}
             />
             {/*<CardMedia*/}
             {/*    component="img"*/}
@@ -143,9 +219,7 @@ export default function Post() {
             {/*/>*/}
             <CardContent>
                 <Typography variant="h5" color="text.secondary">
-                    안녕하세요. 게시글 샘플입니다.안녕하세요. 게시글 샘플입니다.안녕하세요. 게시글 샘플입니다.안녕하세요. 게시글 샘플입니다.
-                    안녕하세요. 게시글 샘플입니다.안녕하세요. 게시글 샘플입니다.안녕하세요. 게시글 샘플입니다.안녕하세요. 게시글 샘플입니다.
-                    안녕하세요. 게시글 샘플입니다.안녕하세요. 게시글 샘플입니다.안녕하세요. 게시글 샘플입니다.안녕하세요. 게시글 샘플입니다.
+                    {list.content}
                 </Typography>
             </CardContent>
             <CardActions disableSpacing>
@@ -205,60 +279,32 @@ export default function Post() {
             </CardActions>
             <Collapse in={expanded} timeout="auto" unmountOnExit>
                 <CardContent>
-                    <Typography paragraph>댓글 3개</Typography>
-                    <Typography paragraph variant={'h6'}>
-                        <CardHeader
-                            avatar={
-                                <FiUser />
-                            }
-                            action={
-                                <IconButton aria-label="settings">
-                                    <MoreVertIcon />
-                                </IconButton>
-                            }
-                            title="이창윤"
-                            subheader="2022-04-07"
-                        />
-                        <CardContent>
-                            <Typography>안녕하세요.</Typography>
-                        </CardContent>
-                    </Typography>
-                    <Typography paragraph>
-                        <CardHeader
-                            avatar={
-                                <FiUser />
-                            }
-                            action={
-                                <IconButton aria-label="settings">
-                                    <MoreVertIcon />
-                                </IconButton>
-                            }
-                            title="이창윤"
-                            subheader="2022-04-07"
-                        />
-                        <CardContent>
-                            <Typography>안녕하세요.</Typography>
-                        </CardContent>
-                    </Typography>
-                    <Typography paragraph>
-                        <CardHeader
-                            avatar={
-                                <FiUser />
-                            }
-                            action={
-                                <IconButton aria-label="settings">
-                                    <MoreVertIcon />
-                                </IconButton>
-                            }
-                            title="이창윤"
-                            subheader="2022-04-07"
-                        />
-                        <CardContent>
-                            <Typography>안녕하세요.</Typography>
-                        </CardContent>
-                    </Typography>
-                    <form>
-                        <TextField size={'small'} sx={{ width: '30%' }} id="outlined-basic" label="댓글을 입력해주세요." variant="outlined" />
+                    <Typography paragraph>댓글 {list.commentCnt}개</Typography>
+                    {commentByCommunityNum !== null ?
+                        commentByCommunityNum.map((obj) =>
+                            <Typography key={obj.cretim} paragraph variant={'h6'}>
+                                <CardHeader
+                                    avatar={
+                                        <FiUser />
+                                    }
+                                    action={
+                                        <button onClick={() => { requestCommentDelete(obj.commentNum) }}>
+                                            댓글 삭제
+                                        </button>
+                                    }
+                                    title={obj.name}
+                                    subheader={obj.credat}
+                                />
+                                <CardContent>
+                                    <Typography>{obj.content}</Typography>
+                                </CardContent>
+                            </Typography>
+                        )
+                        : <div></div>
+                    }
+                    <form onSubmit={handleCommentClick}>
+                        <TextField size={'small'} sx={{ width: '10%', marginRight: '2%' }} onChange={handleNickname} id="outlined-basic" label="닉네임" variant="outlined" />
+                        <TextField size={'small'} sx={{ width: '30%' }} onChange={handleUserComments} id="outlined-basic" label="댓글을 입력해주세요." variant="outlined" />
                         <input style={{ height: '2.5rem', width: '5%' }} type={'submit'} />
                     </form>
                 </CardContent>

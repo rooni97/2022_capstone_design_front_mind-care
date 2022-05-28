@@ -63,12 +63,12 @@ function RestaurantPage(props) {
 
                             <div style={{ display: 'flex', alignItems: 'center' }}>
                                 <h1>기분 <br />좋을 때도,</h1>
-                                <img style={{ width: '20%' }} src={process.env.PUBLIC_URL + 'smile1.png'} alt='smile' />
+                                <img style={{ width: '20%' }} src={'media/smile1.png'} alt='smile' />
                             </div>
 
                             <div style={{ display: 'flex', alignItems: 'center' }}>
                                 <h1>기분 <br />나쁠 때도,</h1>
-                                <img style={{ width: '20%' }} src={process.env.PUBLIC_URL + 'sad.png'} alt='sad' />
+                                <img style={{ width: '20%' }} src={'media/sad.png'} alt='sad' />
                             </div>
 
                             <h1 style={{ marginBottom: '5%' }}>우리, <br />먹고는 살아야죠.</h1>

@@ -37,7 +37,7 @@ const style = {
 };
 
 const BackImgStyle = {
-    backgroundImage: `url(${process.env.PUBLIC_URL + 'LoginPageImg.png'})`,
+    backgroundImage: `url(${'media/LoginPageImg.png'})`,
     backgroundSize: 'cover',
     '@media screen and (max-width: 700px)': {
         display: "none",

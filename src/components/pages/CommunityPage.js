@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import Navigation from "../organisms/Navigation";
 import styled from "styled-components";
 import GetWeather from "../atoms/GetWeather";
@@ -7,14 +7,15 @@ import GetLocation from "../atoms/GetLocation";
 import Post from "../atoms/Post";
 import { Modal, Box, Typography, TextField } from '@mui/material';
 import axios from 'axios';
+import Pagination from '../atoms/Pagination';
 
 const style = {
   position: 'absolute',
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: '50%',
-  height: '45%',
+  width: '40%',
+  height: '55%',
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
@@ -29,6 +30,11 @@ const style = {
 function CommunityPage(props) {
   const [userTitle, setUserTitle] = useState('');
   const [userText, setUserText] = useState('');
+  const [userNickname, setUserNickname] = useState('');
+  const [communityInfo, setCommunityInfo] = useState({});
+  const [pageSize, setPageSize] = useState(10);
+  const [nowPage, setNowPage] = useState(1);
+  const userNum = Number(localStorage.getItem("usernum"));
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = (e) => {
@@ -40,20 +46,31 @@ function CommunityPage(props) {
     setUserTitle(e.target.value);
   }
 
+  const handleNickname = (e) => {
+    setUserNickname(e.target.value);
+  }
+  
   const handleText = (e) => {
     setUserText(e.target.value);
   }
 
   const handleWriteClick = (e) => {
-    e.preventDefault();
     requestCommunity();
   }
 
-  const handleSearchClick = (e) => {
-    e.preventDefault();
-    requestCommunitySearch();
+  const getCommunityListByPage = (e) => {
+    let whatPage = Number(e.target.innerText);
+    axios.get(`http://${process.env.REACT_APP_REQUEST_URL}:8080/api/communities/${whatPage}`, {
+      headers: {
+        ['x-user-num']: localStorage.getItem("usernum"),
+        ['Authorization']: JSON.parse(localStorage.getItem("jwt"))
+      }
+    })
+      .then((res) => {
+        setCommunityInfo(res.data);
+      })
   }
-  
+
   const getCommunityList = () => {
     axios.get(`http://${process.env.REACT_APP_REQUEST_URL}:8080/api/communities/1`, {
       headers: {
@@ -61,9 +78,10 @@ function CommunityPage(props) {
         ['Authorization']: JSON.parse(localStorage.getItem("jwt"))
       }
     })
-        .then((res) => {
-          console.log(res.data)
-        })
+      .then((res) => {
+        setCommunityInfo(res.data);
+        console.log(res.data);
+      })
   }
 
   useEffect(() => {
@@ -72,15 +90,17 @@ function CommunityPage(props) {
 
   // 게시글 작성하기
   const requestCommunity = () => {
-    axios.post(`http://${process.env.REACT_APP_REQUEST_URL}:8080/api/community`, { title: userTitle, content: userText, userNum: localStorage.getItem("usernum") }, {
+    axios.post(`http://${process.env.REACT_APP_REQUEST_URL}:8080/api/community`, { title: userTitle, content: userText, userNum: userNum, name: userNickname }, {
       headers: {
         ['x-user-num']: localStorage.getItem("usernum"),
         ['Authorization']: JSON.parse(localStorage.getItem("jwt"))
       }
     })
       .then((res) => {
-        console.log(res.data);
         alert('Post success');
+        setUserText('');
+        setUserTitle('');
+        setUserNickname('');
       })
       .catch((err) => {
         console.log(err);
@@ -105,21 +125,20 @@ function CommunityPage(props) {
       alert('Search fail');
     })
   }
+
   return (
     <div id="0">
       <Navigation />
       <PageContainer>
-        <div style={{ height: '10%' }}>
+        <div style={{ height: '10%', marginBottom: '5%' }}>
           <h1>사용자 커뮤니티</h1>
           <h2 style={{ color: '#AE946A' }}>SHARE YOUR OPINION WITH OTHERS</h2>
           <h2 style={{ color: '#E5E5E5' }}>여러분의 감정 관리법을 다른 사람들과 공유하고 의견을 나눠보세요.</h2>
         </div>
         <div style={{ width: '100%', height: '5%', display: 'flex', fontSize: '2rem' }}>
-          <h1 className={'recent'}>최신</h1>
           {/*<h1 style={{color: 'white', marginLeft: 80}}>인기</h1>*/}
-          <div style={{ width: '81%', display: "flex", justifyContent: 'right', alignItems: 'center', marginRight: '5%' }}>
+          <div style={{ width: '100%', display: "flex", justifyContent: 'right', alignItems: 'center', marginRight: '5%' }}>
             <CustomButton style={{ marginRight: '2%' }} onClick={handleOpen} >게시글 작성</CustomButton>
-            <CustomButton onClick={handleSearchClick}>게시글 조회</CustomButton>
             <Modal
               open={open}
               aria-labelledby="modal-modal-title"
@@ -128,6 +147,17 @@ function CommunityPage(props) {
               <Box sx={style}>
                 <p>게시글 작성</p>
                 <form onSubmit={handleWriteClick}>
+                  <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    name="title"
+                    value={userNickname}
+                    label="별명"
+                    size="small"
+                    onChange={handleNickname}
+                  />
                   <TextField
                     variant="outlined"
                     margin="normal"
@@ -159,20 +189,26 @@ function CommunityPage(props) {
             </Modal>
           </div>
         </div>
-        <div style={{ height: '100%', width: '100%' }}>
-          <Post />
-          <Post />
-          <Post />
-          <Post />
-          <Post />
-          <Post />
-          <Post />
-          <Post />
-          <Post />
-          <Post />
+
+        <div >
+          {communityInfo.list !== undefined ?
+            communityInfo.list.map((list) => (<Post key={list.cretim} list={list} />))
+            : <div></div>
+          }
+          {communityInfo.list !== undefined ?
+            <div onClick={getCommunityListByPage}>
+              <Pagination
+                total={communityInfo.total}
+                pageSize={pageSize}
+                nowPage={nowPage}
+                setNowPage={setNowPage}
+              />
+            </div>
+            : <div></div>
+          }
         </div>
-      </PageContainer>
-    </div>
+      </PageContainer >
+    </div >
   );
 }
 
