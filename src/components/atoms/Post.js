@@ -19,7 +19,6 @@ import { FiUser } from "react-icons/fi";
 import { TextField } from "@mui/material";
 import { Modal, Box } from '@mui/material';
 import axios from 'axios';
-import { useNavigate } from "react-router-dom";
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -50,7 +49,7 @@ const style = {
     }
 };
 
-export default function Post({ list }) {
+export default function Post({ list, commentInfoProp, parentFunction }) {
     const [expanded, setExpanded] = React.useState(false);
 
     const handleExpandClick = () => {
@@ -62,10 +61,9 @@ export default function Post({ list }) {
     const [userNickname, setUserNickname] = useState('');
     const [modifiedDate, setModifiedDate] = useState('');
     const [userComment, setUserComment] = useState([]);
-    const [commentInfo, setCommentInfo] = useState([]); // communityNum
-    let navigate = useNavigate();
-
-    const commentByCommunityNum = commentInfo.filter((obj) => {
+    const fromParent = commentInfoProp;
+    const [loading, setLoading] = useState(true);
+    const commentByCommunityNum = fromParent.filter((obj) => {
         if (obj.communityNum === list.communityNum) {
             return obj
         }
@@ -92,10 +90,12 @@ export default function Post({ list }) {
     }
 
     const handleModifyClick = (e) => {
+        e.preventDefault();
         requestCommunityModify();
     }
 
     const handleDeleteClick = (e) => {
+        e.preventDefault();
         requestCommunityDelete();
     }
 
@@ -104,11 +104,13 @@ export default function Post({ list }) {
     }
 
     const handleCommentClick = (e) => {
+        e.preventDefault();
         requestComment();
     }
 
     // 댓글 작성하기
     const requestComment = () => {
+        setLoading(true);
         axios.post(`http://${process.env.REACT_APP_REQUEST_URL}:8080/api/comment`, { content: userComment, userNum: userNum, communityNum: list.communityNum, name: userNickname }, {
             headers: {
                 ['x-user-num']: localStorage.getItem("usernum"),
@@ -117,8 +119,7 @@ export default function Post({ list }) {
         })
             .then((res) => {
                 alert('comment post success');
-                setUserComment('');
-                setUserNickname('');
+                setLoading(false);
             })
             .catch((err) => {
                 alert('comment post fail');
@@ -127,7 +128,7 @@ export default function Post({ list }) {
 
     // 댓글 삭제하기
     const requestCommentDelete = (e) => {
-        axios.delete(`http://${process.env.REACT_APP_REQUEST_URL}:8080/api/community`, {
+        axios.delete(`http://${process.env.REACT_APP_REQUEST_URL}:8080/api/community/${e}`, {
             headers: {
                 ['x-user-num']: localStorage.getItem("usernum"),
                 ['Authorization']: JSON.parse(localStorage.getItem("jwt"))
@@ -135,31 +136,15 @@ export default function Post({ list }) {
         })
             .then((res) => {
                 alert('Comment delete success');
-                navigate('/community');
             })
             .catch((err) => {
                 alert('comment delete fail')
             })
     }
 
-    const GetComment = () => {
-        axios.get(`http://${process.env.REACT_APP_REQUEST_URL}:8080/api/comment`, {
-            headers: {
-                ['x-user-num']: localStorage.getItem("usernum"),
-                ['Authorization']: JSON.parse(localStorage.getItem("jwt"))
-            }
-        })
-            .then((res) => {
-                setCommentInfo(res.data);
-            })
-    }
-
-    useEffect(() => {
-        GetComment();
-    }, [])
-
     // 게시글 수정하기
     const requestCommunityModify = () => {
+        setLoading(true);
         axios.put(`http://${process.env.REACT_APP_REQUEST_URL}:8080/api/community/${list.communityNum}`, { title: userTitle, content: userText }, {
             headers: {
                 ['x-user-num']: localStorage.getItem("usernum"),
@@ -169,6 +154,7 @@ export default function Post({ list }) {
             .then((res) => {
                 setModifiedDate(res.data);
                 alert('Modify success');
+                setLoading(false);
             })
             .catch((err) => {
                 console.log(err);
@@ -178,6 +164,7 @@ export default function Post({ list }) {
 
     // 게시글 삭제하기
     const requestCommunityDelete = () => {
+        setLoading(true);
         axios.delete(`http://${process.env.REACT_APP_REQUEST_URL}:8080/api/community/${list.communityNum}`, {
             headers: {
                 ['x-user-num']: localStorage.getItem("usernum"),
@@ -186,12 +173,16 @@ export default function Post({ list }) {
         })
             .then((res) => {
                 alert('Delete success');
+                setLoading(false);
             })
             .catch((err) => {
-                console.log(err);
                 alert('Delete Fail');
             })
     }
+
+    useEffect(() => {
+        parentFunction(loading);
+    }, [loading])
 
     return (
         <Card sx={{ width: '90%', margin: 'auto', marginBottom: '2rem' }}>
