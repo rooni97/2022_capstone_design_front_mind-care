@@ -37,7 +37,7 @@ function MyPage() {
         setOpen(false);
     }
 
-    const [postsData, setPostsData] = useState(null);
+    const [postsData, setPostsData] = useState('');
     const refineClickVal = useMemo(() => moment(clickVal).format("YYYYMMDD"), [clickVal]);
     useEffect(() => {
         if (!refineClickVal)
@@ -76,9 +76,8 @@ function MyPage() {
     //     })
     // }
 
-    if (!postsData) return null;
 
-    if (postsData.length !== 0) {
+    if (postsData !== '') {
         return (
             <div id="0">
                 <Navigation />
