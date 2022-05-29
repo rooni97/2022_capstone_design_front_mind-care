@@ -5,4 +5,9 @@ const RecommendInfo = atom({
     default: {behaviorList: [], foodList: [], keywordList: [], musicList: [], musicList2: []},
 });
 
-export {RecommendInfo};
+const MusicArr = atom({
+    key: "MusicArr",
+    default: [],
+});
+
+export {RecommendInfo, MusicArr};

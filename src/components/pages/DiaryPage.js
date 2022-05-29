@@ -1,4 +1,4 @@
-import React, {useMemo, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import Navigation from "../organisms/Navigation";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
@@ -50,16 +50,15 @@ function DiaryPage(props) {
 
     const requestData = {
         content: text,
-        emoticon: emoji,
         weather: nowWeather,
         credat: nowDate,
         cretim: nowTime,
         musicId: 1,
         userNum: localStorage.getItem("usernum"),
-        keywords: [{ keyword: "연필" }],
-        foods: [{ name: "떡볶이" }],
+        keywords: [{ keyword: "사랑" }],
+        foods: [{ name: "떡볶이" }, { name: "떡볶이" }, { name: "떡볶이" }],
         behaviors: [{ contents: "산책하기" }],
-        emoticons: [{ content: "웃음" }]
+        emoticons: [{ content: emoji }]
     };
 
     const requestDiary = () => {
@@ -73,8 +72,7 @@ function DiaryPage(props) {
             }
         })
             .then((res) => {
-                console.log(res.data);
-                if (res.data[0] === undefined) {
+                if (res.data === '') {
                     axios.post(`http://${process.env.REACT_APP_REQUEST_URL}:8080/api/diary`, requestData, {
                         headers: {
                             ['x-user-num']: localStorage.getItem("usernum"),
@@ -90,8 +88,8 @@ function DiaryPage(props) {
                             alert('fail');
                         })
                 } else {
-                    requestData['diaryNum'] = res.data[0].diaryNum;
-                    axios.put(`http://${process.env.REACT_APP_REQUEST_URL}:8080/api/diary/${res.data[0].diaryNum}`, requestData, {
+                    requestData['diaryNum'] = res.data.diaryNum;
+                    axios.put(`http://${process.env.REACT_APP_REQUEST_URL}:8080/api/diary/${res.data.diaryNum}`, requestData, {
                         headers: {
                             ['x-user-num']: localStorage.getItem("usernum"),
                             ['Authorization']: JSON.parse(localStorage.getItem("jwt"))
@@ -130,6 +128,17 @@ function DiaryPage(props) {
     //             alert('fail');
     //         })
     // }
+    useEffect(() => {
+        axios.get(`http://${process.env.REACT_APP_REQUEST_URL}:8080/api/mypage/${userNum}`, {
+            params:{
+                credat: refineClickVal
+            },
+            headers: {
+                ['x-user-num']: localStorage.getItem("usernum"),
+                ['Authorization']: JSON.parse(localStorage.getItem("jwt"))
+            }
+        }).then(res => console.log(res.data))
+    }, [])
 
     const handleDiary = (e) => {
         e.preventDefault();
