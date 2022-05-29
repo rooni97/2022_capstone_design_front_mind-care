@@ -117,7 +117,7 @@ function CommunityPage(props) {
       }
     })
       .then((res) => {
-        alert('Post success');
+        alert('게시글 작성 성공');
         setUserText('');
         setUserTitle('');
         setUserNickname('');
@@ -125,7 +125,7 @@ function CommunityPage(props) {
       })
       .catch((err) => {
         console.log(err);
-        alert('Post fail');
+        alert('게시글 작성 실패');
       })
   }
 

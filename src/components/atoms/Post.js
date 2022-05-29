@@ -118,27 +118,31 @@ export default function Post({ list, commentInfoProp, parentFunction }) {
             }
         })
             .then((res) => {
-                alert('comment post success');
+                alert('댓글 작성 성공');
+                setUserNickname('');
+                setUserComment('');
                 setLoading(false);
             })
             .catch((err) => {
-                alert('comment post fail');
+                alert('댓글 작성 실패');
             })
     }
 
     // 댓글 삭제하기
     const requestCommentDelete = (e) => {
-        axios.delete(`http://${process.env.REACT_APP_REQUEST_URL}:8080/api/community/${e}`, {
+        setLoading(true);
+        axios.delete(`http://${process.env.REACT_APP_REQUEST_URL}:8080/api/comment/${e}`, {
             headers: {
                 ['x-user-num']: localStorage.getItem("usernum"),
                 ['Authorization']: JSON.parse(localStorage.getItem("jwt"))
             }
         })
             .then((res) => {
-                alert('Comment delete success');
+                alert('댓글 삭제 성공');
+                setLoading(false);
             })
             .catch((err) => {
-                alert('comment delete fail')
+                alert('댓글 삭제 실패')
             })
     }
 
@@ -153,12 +157,12 @@ export default function Post({ list, commentInfoProp, parentFunction }) {
         })
             .then((res) => {
                 setModifiedDate(res.data);
-                alert('Modify success');
+                alert('게시글 수정 성공');
                 setLoading(false);
             })
             .catch((err) => {
                 console.log(err);
-                alert('Modify fail');
+                alert('게시글 수정 실패');
             })
     }
 
@@ -172,11 +176,11 @@ export default function Post({ list, commentInfoProp, parentFunction }) {
             }
         })
             .then((res) => {
-                alert('Delete success');
+                alert('게시글 삭제 성공');
                 setLoading(false);
             })
             .catch((err) => {
-                alert('Delete Fail');
+                alert('게시글 삭제 실패');
             })
     }
 
