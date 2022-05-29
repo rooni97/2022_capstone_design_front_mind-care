@@ -33,8 +33,11 @@ function CommunityPage(props) {
   const [userText, setUserText] = useState('');
   const [userNickname, setUserNickname] = useState('');
   const [communityInfo, setCommunityInfo] = useState({});
+  const [commentInfoProp, setCommentInfo] = useState([]);
+  const [communityLength, setCommunityLength] = useState(0);
   const [pageSize, setPageSize] = useState(10);
   const [nowPage, setNowPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
   const userNum = Number(localStorage.getItem("usernum"));
   let navigate = useNavigate();
   const [open, setOpen] = useState(false);
@@ -51,15 +54,14 @@ function CommunityPage(props) {
   const handleNickname = (e) => {
     setUserNickname(e.target.value);
   }
-  
+
   const handleText = (e) => {
     setUserText(e.target.value);
   }
 
   const handleWriteClick = (e) => {
+    e.preventDefault();
     requestCommunity();
-    window.location.reload();
-    navigate('/community');
   }
 
   const getCommunityListByPage = (e) => {
@@ -88,9 +90,23 @@ function CommunityPage(props) {
       })
   }
 
+  const GetComment = () => {
+    axios.get(`http://${process.env.REACT_APP_REQUEST_URL}:8080/api/comment`, {
+      headers: {
+        ['x-user-num']: localStorage.getItem("usernum"),
+        ['Authorization']: JSON.parse(localStorage.getItem("jwt"))
+      }
+    })
+      .then((res) => {
+        setCommentInfo(res.data);
+        console.log(res.data);
+      })
+  }
+
   useEffect(() => {
     getCommunityList();
-  }, [])
+    GetComment();
+  }, [communityLength, isLoading])
 
   // 게시글 작성하기
   const requestCommunity = () => {
@@ -105,6 +121,7 @@ function CommunityPage(props) {
         setUserText('');
         setUserTitle('');
         setUserNickname('');
+        setCommunityLength(res.data.total);
       })
       .catch((err) => {
         console.log(err);
@@ -112,22 +129,8 @@ function CommunityPage(props) {
       })
   }
 
-  // 게시글 조회하기
-  const requestCommunitySearch = () => {
-    axios.get(`http://${process.env.REACT_APP_REQUEST_URL}:8080/api/community`, {
-      headers: {
-        ['x-user-num']: localStorage.getItem("usernum"),
-        ['Authorization']: JSON.parse(localStorage.getItem("jwt"))
-      }
-    })
-    .then((res) => {
-      console.log(res.data);
-      alert('Search Success');
-    })
-    .catch((err) => {
-      console.log(err);
-      alert('Search fail');
-    })
+  const parentFunction = (x) => {
+    setIsLoading(x);
   }
 
   return (
@@ -196,7 +199,7 @@ function CommunityPage(props) {
 
         <div >
           {communityInfo.list !== undefined ?
-            communityInfo.list.map((list) => (<Post key={list.cretim} list={list} />))
+            communityInfo.list.map((list) => (<Post key={list.cretim} list={list} commentInfoProp={commentInfoProp} parentFunction={parentFunction} />))
             : <div></div>
           }
           {communityInfo.list !== undefined ?
