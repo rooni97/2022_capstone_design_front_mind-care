@@ -29,7 +29,7 @@ function RestaurantPage(props) {
 
     useEffect(() => {
         if (recommendInfo.behaviorList.length === 0) {
-            let isExist = RequestFromDiaryToFlask(userNum, refineClickVal, setRecommendInfo);
+            let isExist = RequestFromDiaryToFlask(userNum, refineClickVal, setRecommendInfo, setLoading);
             if (!isExist) {
                 navigate('/diary')
             }

@@ -93,18 +93,18 @@ function MyPage() {
                         <CalendarValue>
                             <p style={{ marginTop: '0%', marginBottom: '2%' }}>{moment(clickVal).format("YYYY년 MM월 DD일")} </p>
                             <div style={{ color: 'white' }}>
-                                {postsData.map(postData => (
-                                    <div key={postData.date}>
+                                {/*{postsData.map(postData => (*/}
+                                    <div key={postsData.date}>
                                         <p style={{ marginTop: '0%', marginBottom: '0%' }} >일기</p> <br />
-                                        <p style={{ marginTop: '0%', fontSize: '20px' }}>{postData.content}</p> <br />
+                                        <p style={{ marginTop: '0%', fontSize: '20px' }}>{postsData.content}</p> <br />
                                         <p style={{ marginTop: '0%', marginBottom: '0%' }} >기분</p> <br />
-                                        <p style={{ marginTop: '0%', fontSize: '20px' }}>{postData.emotion}</p> <br />
+                                        <p style={{ marginTop: '0%', fontSize: '20px' }}>{postsData.emotion}</p> <br />
                                         <p style={{ marginTop: '2%', marginBottom: '0%' }} >음악</p> <br />
-                                        <p style={{ marginTop: '0%', fontSize: '20px' }}>{postData.songs}</p> <br />
+                                        <p style={{ marginTop: '0%', fontSize: '20px' }}>{postsData.songs}</p> <br />
                                         <p style={{ marginTop: '2%', marginBottom: '0%' }} >한 일</p> <br />
-                                        <p style={{ marginTop: '0%', fontSize: '20px' }}>{postData.whatTodo}</p>
+                                        <p style={{ marginTop: '0%', fontSize: '20px' }}>{postsData.whatTodo}</p>
                                     </div>
-                                ))}
+                                {/*))}*/}
                                 {/* <p>음악</p>
                                 <p>{musicInfo[0]}</p>
                                 <p>{musicInfo[1]}</p> */}
@@ -128,18 +128,18 @@ function MyPage() {
                         <CalendarValue>
                             <p style={{ marginTop: '5%', marginBottom: '2%' }}>{moment(clickVal).format("YYYY년 MM월 DD일")} </p>
                             <div style={{ marginTop: '5%', color: 'white' }}>
-                                {postsData.map(user => (
-                                    <div key={user.date}>
+                                {/*{postsData.map(user => (*/}
+                                    <div key={postsData.date}>
                                         <p style={{ marginTop: '0%', marginBottom: '0%' }} >일기</p> <br />
-                                        <p style={{ marginTop: '0%', fontSize: '20px' }}>{user.content}</p> <br />
+                                        <p style={{ marginTop: '0%', fontSize: '20px' }}>{postsData.content}</p> <br />
                                         <p style={{ marginTop: '0%', marginBottom: '0%' }} >기분</p> <br />
-                                        <p style={{ marginTop: '0%', fontSize: '20px' }}>{user.feeling}</p> <br />
+                                        <p style={{ marginTop: '0%', fontSize: '20px' }}>{postsData.feeling}</p> <br />
                                         <p style={{ marginTop: '2%', marginBottom: '0%' }} >음악</p> <br />
-                                        <p style={{ marginTop: '0%', fontSize: '20px' }}>{user.songs}</p> <br />
+                                        <p style={{ marginTop: '0%', fontSize: '20px' }}>{postsData.songs}</p> <br />
                                         <p style={{ marginTop: '2%', marginBottom: '0%' }} >한 일</p> <br />
-                                        <p style={{ marginTop: '0%', fontSize: '20px' }}>{user.whatTodo}</p>
+                                        <p style={{ marginTop: '0%', fontSize: '20px' }}>{postsData.whatTodo}</p>
                                     </div>
-                                ))}
+                                {/*))}*/}
                             </div>
                         </CalendarValue>
                     </ContentMobileCont>

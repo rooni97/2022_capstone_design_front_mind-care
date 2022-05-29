@@ -34,8 +34,8 @@ function PlayMusicModal(props) {
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen></iframe>
                 <Like>
-                    <FiHeart style={{marginRight: '1%'}} />
-                        </Like>
+                    <FiHeart onClick={props.sendHeart} style={{marginRight: '1%'}} />
+                </Like>
                 <Button onClick={props.handleClose}>닫기</Button>
             </Box>
         </Modal>
