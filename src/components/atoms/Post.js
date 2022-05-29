@@ -17,7 +17,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { FiUser } from "react-icons/fi";
 import { TextField } from "@mui/material";
-import { Modal, Box } from '@mui/material';
+import { Modal, Box, Button } from '@mui/material';
 import axios from 'axios';
 
 const ExpandMore = styled((props) => {
@@ -48,6 +48,34 @@ const style = {
         height: '50%'
     }
 };
+
+const buttonStyle = {
+    border: '1px solid #000',
+    marginRight: '2px',
+    color: '#000000',
+    bgcolor: '#ffffff',
+    '&:hover': {
+        bgcolor: '#1976d2',
+        color: '#ffffff'
+    }
+}
+
+const buttonConfirm = {
+    fontSize: '18px',
+    fontWeight: '700',
+    lineHeight: '49px',
+    display: 'block',
+    width: '20%',
+    height: '49px',
+    margin: '16px 0 7px',
+    cursor: 'pointer',
+    textAlign: 'center',
+    color: '#fff',
+    border: 'none',
+    background: '#1e1f21',
+    marginRight: '5px'
+}
+
 
 export default function Post({ list, commentInfoProp, parentFunction }) {
     const [expanded, setExpanded] = React.useState(false);
@@ -222,7 +250,7 @@ export default function Post({ list, commentInfoProp, parentFunction }) {
                 {/*<IconButton aria-label="share">*/}
                 {/*    <ShareIcon />*/}
                 {/*</IconButton>*/}
-                <button onClick={handleOpen}>수정</button>
+                <Button onClick={handleOpen} sx={buttonStyle} size='small' variant="contained">수정</Button>
                 <Modal
                     open={open}
                     aria-labelledby="modal-modal-title"
@@ -254,13 +282,13 @@ export default function Post({ list, commentInfoProp, parentFunction }) {
                                 onChange={handleText}
                             />
                             <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                                <button style={{ marginRight: '2%' }} type={'submit'}>확인</button>
-                                <button onClick={handleClose}>취소</button>
+                                <button style={buttonConfirm} type={'submit'}>확인</button>
+                                <button style={buttonConfirm} onClick={handleClose}>취소</button>
                             </div>
                         </form>
                     </Box>
                 </Modal>
-                <button onClick={handleDeleteClick}>삭제</button>
+                <Button onClick={handleDeleteClick} sx={buttonStyle} size='small' variant="contained">삭제</Button>
                 <ExpandMore
                     expand={expanded}
                     onClick={handleExpandClick}
@@ -281,9 +309,7 @@ export default function Post({ list, commentInfoProp, parentFunction }) {
                                         <FiUser />
                                     }
                                     action={
-                                        <button onClick={() => { requestCommentDelete(obj.commentNum) }}>
-                                            댓글 삭제
-                                        </button>
+                                        <Button onClick={() => { requestCommentDelete(obj.commentNum) }} sx={buttonStyle} size='small' variant="contained">댓글 삭제</Button>
                                     }
                                     title={obj.name}
                                     subheader={obj.credat}
