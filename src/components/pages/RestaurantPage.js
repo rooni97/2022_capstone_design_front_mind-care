@@ -78,7 +78,7 @@ function RestaurantPage(props) {
                     </div>
                 </RecomContainer>
 
-                <RecomContainer style={{ display: 'flex', marginLeft: '5%', paddingBottom: '10%'}}>
+                <RecomContainer style={{ display: 'flex', marginLeft: '2%', paddingBottom: '10%'}}>
                     <Fade direction={"up"} cascade={false}>
                         <div style={{ display: 'flex', flexDirection: 'column' }}>
                             {/*<FoodIcons onClick={handleClick} id='햄버거'>*/}
@@ -132,7 +132,7 @@ const FoodIcons = styled.a`
 
 const RecomContainer = styled.div`
   //padding-bottom: 10%;
-  h1 {
+  h2 {
     color: white;
     margin-right: 5%;
     font-size: 4vw;
@@ -157,7 +157,7 @@ const MapCont = styled.div`
   }
 `
 
-const FoodButton = styled.h1`
+const FoodButton = styled.h2`
   cursor: pointer;
   :hover {
     color: #8a8a8a;
