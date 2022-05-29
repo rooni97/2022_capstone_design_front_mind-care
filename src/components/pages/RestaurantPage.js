@@ -132,16 +132,20 @@ const FoodIcons = styled.a`
 
 const RecomContainer = styled.div`
   //padding-bottom: 10%;
-  h2 {
+  h1 {
     color: white;
     margin-right: 5%;
     font-size: 4vw;
-    width: 120%;
+    width: 100%;
 
     @media screen and (max-width: 700px) {
       font-size: 5vh;
       margin-bottom: 20%;
     }
+  }
+  h2 {
+      color: white;
+      font-size: 4vw;
   }
 `
 
