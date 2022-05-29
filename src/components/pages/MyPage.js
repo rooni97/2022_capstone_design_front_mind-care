@@ -99,10 +99,13 @@ function MyPage() {
                                         <p style={{ marginTop: '0%', fontSize: '20px' }}>{postsData.content}</p> <br />
                                         <p style={{ marginTop: '0%', marginBottom: '0%' }} >기분</p> <br />
                                         <p style={{ marginTop: '0%', fontSize: '20px' }}>{postsData.emotion}</p> <br />
-                                        <p style={{ marginTop: '2%', marginBottom: '0%' }} >음악</p> <br />
-                                        <p style={{ marginTop: '0%', fontSize: '20px' }}>{postsData.songs}</p> <br />
+                                        <p style={{ marginTop: '2%', marginBottom: '0%' }} >좋아요한 음악</p> <br />
+                                        <iframe width="100%" height="300vh" src={`https://www.youtube.com/embed/${postsData.musicId}?autoplay=1`}
+                                                title="YouTube video player" frameBorder="0" id={'play'}
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                allowFullScreen></iframe>
                                         <p style={{ marginTop: '2%', marginBottom: '0%' }} >한 일</p> <br />
-                                        <p style={{ marginTop: '0%', fontSize: '20px' }}>{postsData.whatTodo}</p>
+                                        <p style={{ marginTop: '0%', fontSize: '20px' }}>{postsData.behaviors[0].contents}</p>
                                     </div>
                                 {/*))}*/}
                                 {/* <p>음악</p>
