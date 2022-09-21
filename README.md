@@ -3,9 +3,9 @@
 
 <h1>마인드케어 FrontEnd</h1>
 
-~~ 🏫 [마인드케어 바로가기][iluvit-link]~~
+~~🏫 [마인드케어 바로가기(배포중단)][iluvit-link]~~
 
-[iluvit-link]: https://iluvit.app/
+[iluvit-link]: https://mindcare.p-e.kr
 
 </div>
 
