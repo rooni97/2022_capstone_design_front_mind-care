@@ -15,21 +15,18 @@ https://user-images.githubusercontent.com/65563854/189073416-688c3aac-d7a9-49af-
 
 ## 📱 주요기능
 
-1️⃣ aaa
-- aaa
-- aaa
+1️⃣ 일기 작성 기능
 
-2️⃣ aaa
-- aaa
+2️⃣ 음악 추천 기능
+- 머신러닝 서버(Flask)와 통신
 
-3️⃣ aaa
-- aaa
+3️⃣ 행동, 음식 메뉴 추천 기능
+- 머신러닝 서버(Flask)와 통신
 
-4️⃣ aaa
-- aaa
+4️⃣ 마이페이지 과거 일기, 추천 정보 이력
 
 ## 🔍 Architecture
-사진 넣어야됨
+![스크린샷 2022-09-21 오후 1 56 02](https://user-images.githubusercontent.com/65563854/191417549-e3cdfd65-baa7-4bd1-b998-53a4db4b7a2a.png)
 
 ## 🖥 기술 스택
 <img src="https://img.shields.io/badge/SpringBoot-6DB33F?style=flat&logo=SpringBoot&logoColor=white"/> <img src="https://img.shields.io/badge/SpringSecurity-6DB33F?style=flat&logo=SpringSecurity&logoColor=white"/> <img src="https://img.shields.io/badge/AmazonEC2-FF9900?style=flat&logo=AmazonEC2&logoColor=white"/> <img src="https://img.shields.io/badge/Jenkins-D24939?style=flat&logo=Jenkins&logoColor=white"/> <img src="https://img.shields.io/badge/NGINX-009639?style=flat&logo=NGINX&logoColor=white"/> <img src="https://img.shields.io/badge/JSON Web Tokens-000000?style=flat&logo=JSONWebTokens"/>
@@ -46,5 +43,5 @@ https://user-images.githubusercontent.com/65563854/189073416-688c3aac-d7a9-49af-
 | 정제헌  | FrontEnd | https://github.com/jeheonee |
 
 ## ⚙️ Release Note
-### 2022-09-08
-> Readme 파일 생성
+### 2022-07-30
+> 배포 중단
