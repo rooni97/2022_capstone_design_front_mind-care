@@ -114,7 +114,7 @@ function DiaryPage(props) {
 
     // // DiaryPage에서 일기 post하고 MusicBehaviorPage에서 음악 get하는게 맞지 않나
     // const requestDiaryMusic = () => {
-    //     axios.post('http://3.39.150.64:5001/music/diary', {
+    //     axios.post('http://${process.env.REACT_APP_FLASK_REQUEST_URL}:5001/music/diary', {
     //         params: {
     //             content: text
     //         }

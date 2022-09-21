@@ -88,7 +88,7 @@ function MainPage(props) {
 
     useEffect(() => {
         if (!loading) {
-            axios.get('http://3.39.150.64:5001/music/weather', {
+            axios.get('http://${process.env.REACT_APP_FLASK_REQUEST_URL}:5001/music/weather', {
                 params: {
                     weather: nowWeather, time: nowTime
                 }

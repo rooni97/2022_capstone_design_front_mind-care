@@ -25,7 +25,7 @@ async function RequestFromDiaryToFlask(userNum, refineClickVal, setRecommendInfo
                 const keywords = requestData.keywords;
                 const behaviors = requestData.behaviors;
                 const weather = requestData.weather;
-                axios.post(`http://3.39.150.64:5001/music/diary`,
+                axios.post(`http://${process.env.REACT_APP_FLASK_REQUEST_URL}:5001/music/diary`,
                     {
                         content: content,
                         keywords: [],

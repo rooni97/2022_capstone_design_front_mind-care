@@ -62,7 +62,7 @@ function MyPage() {
     }, [refineClickVal]);
     // Flask에서 불러온 음악
     // const requestMusicInfo = () => {
-    //     axios.get('http://3.39.150.64:5001/mypage/music', {
+    //     axios.get('http://${process.env.REACT_APP_FLASK_REQUEST_URL}:5001/mypage/music', {
     //         params: {
     //             musicId: 174749
     //         }
