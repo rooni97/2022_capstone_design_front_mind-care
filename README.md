@@ -34,7 +34,7 @@ https://user-images.githubusercontent.com/65563854/189073416-688c3aac-d7a9-49af-
 
 
 ## ERD
-![](iluviterd.jpeg)
+![스크린샷 2022-09-21 오후 2 15 15](https://user-images.githubusercontent.com/65563854/191419854-86552e64-f6ba-4576-8d9a-637233676fce.png)
 
 ## 🧑🏻‍💻 Contributors
 | name | position   | github                    |
